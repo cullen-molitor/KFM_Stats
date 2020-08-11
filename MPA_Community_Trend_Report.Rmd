@@ -48,22 +48,27 @@ knitr::opts_chunk$set(echo = FALSE)
 source("global_markdown.R")
 
 { # SST Anomaly ONI and PDO  ----
-SST_Anomaly_Index <- readr::read_csv("Tidy_Data_Dont_Touch/SST_Anomaly_Index.csv") 
+SST_Anomaly_Index <- readr::read_csv("Tidy_Data_Dont_Touch/SST_Anomaly_Index.csv")
 
 annual_mean_oni <- SST_Anomaly_Index %>% 
-      # dplyr::filter(SurveyYear > 2004, Date < glue("{Year_to_Filter_Data_by}-2-1")) %>% 
   dplyr::select(SurveyYear, Mean_ONI_ANOM) %>% 
-  # dplyr::mutate(SurveyYear = factor(SurveyYear)) %>%
   dplyr::distinct(SurveyYear, .keep_all = TRUE)
 
 annual_mean_pdo <- SST_Anomaly_Index %>% 
-      # dplyr::filter(SurveyYear > 2004, Date < glue("{Year_to_Filter_Data_by}-2-1")) %>% 
   dplyr::select(SurveyYear, Mean_PDO_ANOM) %>% 
   dplyr::distinct(SurveyYear, .keep_all = TRUE)
 }
 
 { # Benthic Site level Counts   ----
   Benthic_Counts_Wide <- readr::read_csv("Tidy_Data_Dont_Touch/Benthic_Counts.csv")
+}
+
+{ # Benthic Densities   ----
+  # used for plotting species which don't have biomass estimates eg lobster
+  Benthic_Densities_Wide <- readr::read_csv("Tidy_Data_Dont_Touch/Benthic_Densities.csv") %>%
+     mutate(IslandName = gsub(" Island", "", IslandName),
+           IslandName = factor(IslandName, levels = MPA_Levels),
+           Date = base::as.Date(base::ISOdate(SurveyYear, 1, 1)))
 }
 
 { # Fish Site level Counts ----
@@ -105,8 +110,8 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
 }
 
 { # RPCs Percent Cover Wide  ----
-  RPC_Cover_Wide <- readr::read_csv("Tidy_Data_Dont_Touch/rpcs_Percent_Cover_Wide.csv") 
-  
+  RPC_Cover_Wide <- readr::read_csv("Tidy_Data_Dont_Touch/rpcs_Percent_Cover_Wide.csv") %>%
+    dplyr::mutate(IslandName = gsub(" Island", "", IslandName))
   names(RPC_Cover_Wide) <- str_replace_all(names(RPC_Cover_Wide), c(" " = "_" , "," = "" )) 
 }
 
@@ -150,10 +155,12 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
     dplyr::left_join(dplyr::select(
       Simp_Diversity, SurveyYear, SiteCode, SimpsonIndex))
 }
+
 ```
 
 ```{r Model Construction and Analyses, include=FALSE}
-{ # Diversity Analysis 
+{ # Diversity Models  ----
+  
   div <- car::Anova(
     test = "F",
     lme4::lmer(
@@ -165,6 +172,7 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
     lme4::lmer(
       data = Simp_Diversity,
       (1-SimpsonIndex) ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+  
 }
 
 { # Benthic Biomass Analyses   ---- 
@@ -174,7 +182,8 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
     test = "F", 
     lme4::lmer(
       data = Benthic_Biomass_Wide,
-      Macrocystis_pyrifera ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+      Macrocystis_pyrifera ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear), 
+    ))
   
   strpur <- car::Anova(
     test = "F",
@@ -265,6 +274,36 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
 
 }
 
+{ # Benthic Biomass Analyses   ---- 
+  # comparing density by MPA status, Island, ONI, and MPA-Island - same as above but for species without biomass estimates (eg lobster, gorgonians, etc)
+   
+  palint <- car::Anova(
+    test = "F",
+    lme4::lmer(
+      data = Benthic_Densities_Wide,
+      Panulirus_interruptus ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+  
+  cencor <- car::Anova(
+    test = "F",
+    lme4::lmer(
+      data = Benthic_Densities_Wide,
+      Centrostephanus_coronatus ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+
+  lopchi <- car::Anova(
+    test = "F",
+    lme4::lmer(
+      data = Benthic_Densities_Wide,
+      Lophogorgia_chilensis ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+  
+  parpar <- car::Anova(
+    test = "F",
+    lme4::lmer(
+      data = Benthic_Densities_Wide,
+      Parastichopus_parvimensis ~ ReserveStatus * IslandCode + Mean_ONI_ANOM + (1 | SurveyYear)))
+
+}
+
+
 { # P values for text  ----
   div_MPA_p_val <- round(div$`Pr(>F)`[[1]], 3)
   div_Isl_p_val <- round(div$`Pr(>F)`[[2]], 3)
@@ -326,187 +365,19 @@ annual_mean_pdo <- SST_Anomaly_Index %>%
   sempul_ONI_p_val <- round(sempul$`Pr(>F)`[[3]], 3)
   sempul_MPA_Isl_p_val <- round(sempul$`Pr(>F)`[[4]], 3)
   
+  palint_MPA_p_val <- round(palint$`Pr(>F)`[[1]], 3)
+  palint_Isl_p_val <- round(palint$`Pr(>F)`[[2]], 3)
+  palint_ONI_p_val <- round(palint$`Pr(>F)`[[3]], 3)
+  palint_MPA_Isl_p_val <- round(palint$`Pr(>F)`[[4]], 3)
+  
+  
+  # palint_MPA_p_val <- round(palint$`Pr(>F)`[[1]], 3)
+  # palint_Isl_p_val <- round(palint$`Pr(>F)`[[2]], 3)
+  # palint_ONI_p_val <- round(palint$`Pr(>F)`[[3]], 3)
+  # palint_MPA_Isl_p_val <- round(palint$`Pr(>F)`[[4]], 3)
+  
 }
 
-```
-
-```{r Random Forest, fig.height=8.5, fig.width=11}
-Random_Kelp_Forest <- All_Mixed_Data_Wide %>%
-  dplyr::rename("KGBC_YOY" = `Sebastes_atrovirens/carnatus/caurinus/chrysomelas`,
-                "OY_YOY" = `Sebastes_serranoides/flavidus`,
-                "BG_YOY" = `Sebastes_chrysomelas/carnatus`,
-                "Misc_Invert" = `Miscellaneous_Invertebrates_excluding_Ophiothrix_spiculata`) %>%
-  dplyr::mutate(SiteCode = factor(SiteCode, levels = siteInfo1$SiteCode),
-                IslandCode = factor(IslandCode),
-                ReserveStatus = factor(ReserveStatus)) %>% 
-  dplyr::select(-SiteName, 
-                # -IslandName,
-                -IslandCode,
-                -SiteCode) 
-
-set.seed(100)
-train <- sample(nrow(Random_Kelp_Forest), 
-                0.7 * nrow(Random_Kelp_Forest), replace = FALSE)
-
-TrainSet <- Random_Kelp_Forest[train,]
-ValidSet <- Random_Kelp_Forest[-train,]
-
-RF_Reserve_Model <- randomForest::randomForest(
-  data = Random_Kelp_Forest,
-  ReserveStatus ~ ., ntree = 2500, mtry = 8,
-  importance = TRUE, proximity = TRUE, keep.forest = TRUE)
-
-# Predicting on train set
-predTrain <- predict(RF_Reserve_Model, TrainSet, type = "class")
-# Checking classification accuracy
-table(predTrain, TrainSet$ReserveStatus) 
-# Predicting on Validation set
-predValid <- predict(RF_Reserve_Model, ValidSet, type = "class")
-# Checking classification accuracy
-mean(predValid == ValidSet$ReserveStatus)                    
-table(predValid, ValidSet$ReserveStatus)
-
-RF_Reserve_Model
-# 
-# RF_Importance <- importance(RF_Reserve_Model) %>%
-#   as.data.frame() %>% 
-#   tibble::rownames_to_column("ScientificName") %>%
-#   dplyr::arrange(desc(MeanDecreaseAccuracy))
-# Important_Variables <- RF_Importance$ScientificName[1:11] # <== Choose the top number of variables
-# 
-# for (i in seq_along(Important_Variables)) {
-#   a <- partial(RF_Reserve_Model, pred.var = Important_Variables[i], train = Random_Kelp_Forest)
-#   p <- plotPartial(a)
-#   print(p)
-# }
-```
-
-```{r RF Error and Importance, fig.height=8.5, fig.width=11}
-# plot(RF_Reserve_Model, log="y")
-randomForest::varImpPlot(RF_Reserve_Model, n.var = 30)
-```
-
-```{r RF Partial Importance, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
-RF_Importance <- importance(RF_Reserve_Model) %>%
-  as.data.frame() %>%
-  tibble::rownames_to_column("ScientificName") %>%
-  dplyr::arrange(desc(MeanDecreaseAccuracy)) 
-
-Important_Variables <- RF_Importance$ScientificName[1:30] # <== Choose the top number of variables
-
-Mixed_Data_xRef <- readr::read_csv("Meta_Data/Mixed_Data_xref.csv") %>% 
-  dplyr::filter(ScientificName %in% Important_Variables)
-q <- 1
-for (i in seq_along(Important_Variables)) {
-  a <- partial(RF_Reserve_Model, 
-               pred.var = Important_Variables[i], 
-               train = Random_Kelp_Forest,
-               plot = TRUE, rug = TRUE, 
-               plot.engine = "ggplot2") +
-    labs(title = gsub("_", " ", Important_Variables[i]), 
-         x = Mixed_Data_xRef[i, 2], y = NULL) +
-    theme_classic() +
-    theme(plot.title = element_text(hjust = .5, size = 10),
-          axis.title = element_text(size = 9))
-  unique_plotname <- paste("PDP_", q, sep = "")
-  assign(unique_plotname, a)
-  q <- q + 1
-}
-
-PDP_Grid_1 <- ggpubr::ggarrange(
-  PDP_1, PDP_2, PDP_3,
-  PDP_4, PDP_5, PDP_6,
-  PDP_7, PDP_8, PDP_9,
-  PDP_10, PDP_11, PDP_12,
-  PDP_13, PDP_14, PDP_15,
-  ncol = 3, nrow = 5, align = "v")
-
-PDP_Grid_2 <- ggpubr::ggarrange(
-  PDP_16, PDP_17, PDP_18,
-  PDP_19, PDP_20, PDP_21,
-  PDP_22, PDP_23, PDP_24,
-  PDP_25, PDP_26, PDP_27,
-  PDP_28, PDP_29, PDP_30,
-  ncol = 3, nrow = 5, align = "v")
-
-PDP_annotated1 <- ggpubr::annotate_figure(
-  PDP_Grid_1,
-  bottom = ggpubr::text_grob(
-    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
-    color = "black", size = 11, hjust = 0, x = 0))
-
-PDP_annotated2 <- ggpubr::annotate_figure(
-  PDP_Grid_2,
-  bottom = ggpubr::text_grob(
-    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
-    color = "black", size = 11, hjust = 0, x = 0))
-
-print(PDP_annotated1)
-print(PDP_annotated2)
-
-```
-
-```{r RF 3D MDS, include=FALSE}
-# library(plotly)
-# 
-# x <- randomForest::MDSplot(
-#   RF_Reserve_Model, fac = Random_Kelp_Forest$ReserveStatus,
-#   k=3, palette = rep(1, 2),
-#   pch = as.numeric(Random_Kelp_Forest$ReserveStatus))
-# 
-# x <- unlist(x$points) %>%
-#   as.data.frame() %>%
-#   cbind(dplyr::select(
-#     All_Mixed_Data_Wide, SiteCode, SiteName, IslandName, ReserveStatus, SurveyYear))
-# 
-# fig <-
-#   plotly::plot_ly(x, x = ~`Dim 1`, y = ~`Dim 2`, z = ~`Dim 3`,
-#                        frame = ~SurveyYear, text = ~SiteName, hoverinfo = "text",
-#                        color = ~IslandName, colors = Island_Colors) %>%
-#   plotly::add_markers(symbol = ~ReserveStatus,
-#                       symbols = c('Inside' = "cross-open", 'Outside' = "square")) %>%
-#   plotly::add_text(text = ~SiteCode) %>%
-#   plotly::layout(scene = list(xaxis = list(title = 'Dim 1'),
-#                               yaxis = list(title = 'Dim 2'),
-#                               zaxis = list(title = 'Dim 3'))) %>%
-#   plotly::animation_opts(1500, easing = "linear")
-# fig
-```
-
-```{r RF MDS animation, include=FALSE, fig.height=8.5, fig.width=11}
-# library(gganimate)
-# library(gifski)
-# 
-# rf.nMDS <- ggplot(data = x, aes(x = `Dim 1`, y = `Dim 2`)) +
-#   geom_point(size = 4, aes(shape = ReserveStatus, color = IslandName)) +
-#   scale_colour_manual(values = Island_Colors) +
-#   labs(color = 'Island') +
-#   ggnewscale::new_scale_color() +
-#   geom_text(size = 4, vjust = 2, aes(label = SiteCode)) +
-#   stat_stars(aes(color = ReserveStatus)) +
-#   stat_ellipse(aes(color = ReserveStatus), type = "t", level = .92 ) +
-#   scale_colour_manual(values = Island_Colors) +
-#   coord_fixed() +
-#   coord_flip() +
-#   transition_time(SurveyYear) +
-#   view_follow() +
-#   theme_bw() +
-#   labs(color = "Reserve Status",
-#        title = "Year: {frame_time}",
-#        shape = "Reserve Status") +
-#   theme(plot.title = element_text(size = 18, hjust = 0.5),
-#         axis.text = element_blank(),
-#         axis.ticks = element_blank(),
-#         axis.title = element_blank(),
-#         panel.background = element_blank(),
-#         panel.grid.major = element_blank(),
-#         panel.grid.minor = element_blank(),
-#         plot.background = element_blank(),
-#         legend.title = element_text(size=14, hjust = 0),
-#         legend.text = element_text(size=12, hjust = 0),
-#         aspect.ratio=1)
-# animate(rf.nMDS, width = 1000, height = 800, nframes = 600, fps = 10)
-# anim_save(filename = "Animations/rf_reserve_nMDS.gif", animation = last_animation())
 ```
 
 # Figures
@@ -520,11 +391,9 @@ Page
 
 # Executive Summary
 
-Channel Islands National Park (CINP) has conducted long-term ecological monitoring of the kelp forests around San Miguel, Santa Rosa, Santa Cruz, Anacapa and Santa Barbara Islands since 1982. The original permanent transects were established at 16 sites between 1981 and 1986 with the first sampling beginning in 1982. An additional site, Miracle Mile, was established at San Miguel Island in 2001 by a commercial fisherman with assistance from the park. Miracle Mile was partially monitored from 2002-2004, and then fully monitored (using all KFM protocols) since 2005. In 2005, 16 additional permanent sites were established to collect baseline data from inside and adjacent to four marine reserves that were established in 2003. Each reserve has 6 reference sites, three inside the reserve and 3 outside and adjacent to the reserve. This gives a total of 24 sampling locations at 4 of the 5 park islands that can be used to analyze the effects of marine reserves. Sampling results from these 24 sites mentioned above are included in this report. Funding for the Kelp Forest Monitoring Program (KFM) has been provided by the National Park Service (NPS). 
+Channel Islands National Park (CINP) has conducted long-term ecological monitoring of the kelp forests around San Miguel, Santa Rosa, Santa Cruz, Anacapa and Santa Barbara Islands since 1982. The original permanent transects were established at 16 sites between 1981 and 1986 with the first sampling beginning in 1982, this being the 37th year of monitoring. An additional site, Miracle Mile, was established at San Miguel Island in 2001 by a commercial fisherman with assistance from the park. Miracle Mile was partially monitored from 2002-2004, and then fully monitored (using all KFM protocols) since 2005. In 2005, 16 additional permanent sites were established to collect baseline data from inside and adjacent to four marine reserves that were established in 2003. Sampling results from 24 of the 33 sites mentioned above are included in this report. These 24 sites represent our efforts to monitor 4 selected MPAs at 4 of the 5 park islands. Funding for the Kelp Forest Monitoring Program (KFM) has been provided by the National Park Service (NPS).
 
-The 2005-2019 monitoring efforts utilized BLANK days of vessel time to conduct BLANK dives for a total of BLANK hours of bottom time. Population dynamics of a select list of 71 “indicator species” (consisting of taxa or categories of algae, fish, and invertebrates) were measured at the 33 permanent sites. In addition, population dynamics were measured for all additional species of fish observed at the sites during the roving diver fish count. Survey techniques follow the CINP Kelp Forest Monitoring Protocol Handbooks (Davis et al., 1997, and Kushner and Sprague, I/P). The techniques utilize SCUBA and surface-supplied-air to conduct the following monitoring protocols: 1 m² quadrats, 5 m² quadrats, band transects, random point contacts, fish transects, roving diver fish counts, video transects, size frequency measurements, and artificial recruitment modules. Hourly temperature data were collected using remote temperature loggers at 32 sites, the exception being Miracle Mile where there is no temperature logger installed. 
-
-This community trend report was compiled using a subset of the data collected from a subset of the monitoring protocols. This report contains a summary of the relevant survey methods, the analytical methods used, the results of analysis, and a discussion of the results.
+The 2005-2019 monitoring efforts utilized BLANK days of vessel time to conduct BLANK dives for a total of BLANK hours of bottom time. Population dynamics of a select list of 71 “indicator species” (consisting of taxa or categories of algae, fish, and invertebrates) were measured at the 33 permanent sites. In addition, population dynamics were measured for all additional species of fish observed at the sites during the roving diver fish count. Survey techniques follow the CINP Kelp Forest Monitoring Protocol Handbooks (Davis et al., 1997, and Kushner and Sprague, I/P). The techniques utilize SCUBA and surface-supplied-air to conduct the following monitoring protocols: 1 m² quadrats, 5 m² quadrats, band transects, random point contacts, fish transects, roving diver fish counts, video transects, size frequency measurements, and artificial recruitment modules. Hourly temperature data were collected using remote temperature loggers at 32 sites, the exception being Miracle Mile where there is no temperature logger installed. This community trend report contains a summary of survey methods used, statistical methods used for analysis, results of analysis, and a discussion of the results. 
 
 The status of kelp forests... inside trends vs outside trends... SSWD... Urchin disease
 
@@ -600,22 +469,21 @@ pdo <- read.table(
                     DateEnd = ceiling_date(DateStart, "month")) %>%
       dplyr::rename(PDO_ANOM = PDO,
                     SurveyYear = Year)
-ggplot(pdo, aes(x = Date, y = PDO_ANOM, fill = PDO_ANOM)) +
+ggplot(SST_Anomaly_Index, aes(x = Date, y = PDO_ANOM, fill = PDO_ANOM)) +
   geom_hline(size = 1, yintercept = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
              color = c("darkblue", "blue2", "dodgerblue2","deepskyblue2", "white", "black", 
                        "white", "gold2", "orange2", "red", "red4")) +
   geom_col() +
   geom_smooth(se = FALSE, span = 0.75, color = "deeppink") +
-  scale_x_date(date_labels = "%Y", date_breaks = "2 year",
+  scale_x_date(date_labels = "%Y", date_breaks = "1 year",
                expand = c(0.01,0)) +
   labs(title = "H300 based Pacific Decadal Oscillation (HPDO)",
        # subtitle = "Nino Region 3.4 (5°N-5°S,120°-170°W)",
-       fill = "Anomaly Intensity (°C)",
+       fill = "Monthly Mean H300 Anomalies",
        x = NULL, y = "Monthly Mean H300 Anomalies") +
   scale_y_continuous(
     breaks = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
-    labels = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
-    ) +
+    labels = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5)) +
   scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
   geom_vline(size = 1, xintercept = as.Date("1978-01-01", format = "%Y-%m-%d")) +
   geom_label(x = as.Date("1978-01-01", format = "%Y-%m-%d"),
@@ -801,17 +669,19 @@ Some species are counted on multiple sampling protocols. Typically these species
 
 ## Data Analyses and Calculations
 
-In these analyses, we began by analyzing the trends within benthic and fish communities at KFMP MPA reference sites since 2005, using community diversity and community similarity, then used indicator species analysis to identify the species which uniquely characterized each set of communities. We then analysed biomass or density trends over time for these important species, compared trends between related species (ie kelp and urchin biomass), and compared biomass or density ratios (inside/outside MPAs) for targeted and non-targeted species. 
+In these analyses, we began by analyzing the trends within benthic and fish communities at KFMP MPA reference sites since 2005, using community diversity and community similarity, then used a machine-learning Random Forest model, and Indicator Species Analysis to identify the variables most strongly associated with MPA protection, and which species uniquely characterized each set of communities. We then compared the species identified by each approach, and analysed biomass or density trends over time for these important species, and also compared biomass or density ratios (inside/outside MPAs) for targeted and non-targeted benthic and fish species. 
 
 For the benthic community, we compiled data from each benthic survey type described above - 1m quadrats, 5m quadrats, and band transects, and eliminated redundant species between survey types, using only the "best" survey for each species. We then corrected for sampling areas between survey types by calculating estimated total site abundances, with
 $\text{density (#/m²)} * \text{2000 m²} = \text{estimated site count}$
 Roving Diver Fish Counts, however, occur over the entirety of the site, so we included these counts directly. Hereafter, this dataset of "site-level" counts for each benthic and fish species, at each site, for each year, is referred to as "community data". Since Random Point Contact surveys (RPCs) are frequency, and not count data, we excluded substrate types (rock, sand, etc) and calculated percent cover for all species and taxonomic categories.
 
-To test for differences in diversity between islands and MPA protection status, we calculated Shannon Index scores from our community dataset (see "Equations Used" below) for each site and year combination, using the "vegan" package in R (Oksanen et al. 2019). Similarly, we calculated Simpson's index (similar to Shannon Index, commonly used for percent cover data) from the RPCs data to analyse algal diversity. To test whether MPA reserve status, island, their interaction, or seawater temperature anomaly had a significant effect on community diversity over time, we used a pair of generalized linear mixed models with Shannon or Simpson Indicies as the independent variables, Reserve Status, Island, Oceanic Nino Index (ONI), and the interaction of Reserve Status and Island as fixed effects, and Survey Year as a random effect, using the "lme4" package in R (Bates et al. 2015). From our community dataset, we then conducted non-metric multidimensional scaling (nMDS) to visualize the structure and grouping of site communities, and used analysis of similarity (ANOSIM) to test for significant differences in groupings between islands. To conduct these analyses, we used the "vegan" package in R (Oksanen et al. 2019).  
+To test for differences in diversity between islands and MPA protection status, we calculated Shannon Index scores from our community dataset (see "Equations Used" below) for each site and year combination, using the "vegan" package in R (Oksanen et al. 2019). Similarly, we calculated Simpson's index (similar to Shannon Index, commonly used for percent cover data) from the RPCs data to analyse algal diversity. To test whether MPA reserve status, island, their interaction, or seawater temperature anomaly had a significant effect on community diversity over time, we used a pair of generalized linear mixed models with Shannon or Simpson Indicies as the independent variables, Reserve Status, Island, Oceanic Nino Index (ONI), and the interaction of Reserve Status and Island as fixed effects, and Survey Year as a random effect, using the "lme4" package in R (Bates et al. 2015). From our community dataset, we then conducted non-metric multidimensional scaling (nMDS) to visualize the structure and grouping of site communities, and used analysis of similarity (ANOSIM) to test for significant differences in groupings between islands. To conduct these analyses, we used the "vegan" package in R (Oksanen et al. 2019).
 
-After our nMDS analyses, we used Indicator Species Analyses (ISA), on the inside-MPA and outside-MPA data, respectively, to identify the species significantly associated with each island and MPA protection grouping, for each year. One of the advantages of ISA is that it accounts for both the abundance and frequency of species, is calculated separately for each species in the assemblage, and can be applied to many experimental designs, including a priori classifications like levels of a categorical variable (Bakker 2008, Dufrêne & Legendre 1997; McGeoch & Chown 1998). We then compiled the results from ISA from each year, and assembled paired heatmaps of inside- and outside-MPA data for each island, where a given species in a given year displays as red if it was not significant, or if significant displays as shades of green indicating the strength of association statistic.  Thus, these heatmaps identify and visualize the trends in species importance over time associated with changes in community diversity and similiarity. We conducted ISA tests using the "indicspecies" package in R (De Caceres and Legendre, 2009). 
+Random Forest analysis is a machine-learning approach based on classification, or "decision" trees, which operate by repeatedly splitting data into two groups that are as homogeneous as possible, selecting the predictor which best discriminates amongst the data at each split, or "node", and combines the results from this hierarchal process into a "tree". To measure which variables result in splits that are homogoneous as possible at each node, or minimize "impurity", the model uses the Gini index, which reflects the proportion of responses in each level of a categorical variable - if the observations fall into few categories, the Gini index is low.  Because even a single classification tree will likely overfit the data, The Random Forest method uses an aggregation of many individual classification trees, created using bootstrapped resamplings and the process described above, assigns a class for each observation based on which leaf it fell in, and after repeating this process 1000-5000 times, calculates the proportion of times each observation is assigned to a given class, and makes a final assignment for each observation based on the majority proportion (Lefcheck, 2015). Since the model is derived from repeated bootstrap resampling, the set of data not selected in the bootstrap, known as the "out of bag" sample, is used to validate the tree by tallying the number of misclassifications, resulting in an out-of-bag error rate, which can be interpreted similarly to measure of model "fit". Random Forest analyses return predictor variables ranked by their Gini Index (measure of impurity), as well as the decrease in accuracy, which measures how much worse the model performs without that variable included. Since Random Forests are a "black box" type of model, their process is often visualized using Partial dependence plots, which display the range of the predictor variable along the x axis, and the line converges either at the top or bottom of the plot, depending on the level of the response variable. These curves can be interpreted to show the values at which a predictor variable becomes associated with levels of the response variable. We used a random forest analysis on our fish and benthic community data, using biomass, or counts for species which did not have computed biomasses, as well as the RPC data measuring percent benthic cover. Since the analysis automatically accounts for the interactions between predictor variables based on the heirarchal nature of the classification tree, we also included Shannon and Simpson's indicies as measures of diversity, Island, and survey year. This process allowed us to determine the relative importance of each variable for accurately predicting reserve status based on the data, the corollary of which indicates the species most correlated with reserve status.
 
-Following our community-level analyses, we calculated biomass (see "Equations Used" below) for several species identified as significant from ISA, as well as during our literature review (eg. kelp declines, urchin proliferation, SSWD-associated star declines, and abalone declines), as well as some "iconic" species (eg Garibaldi, California Sheephead). To test whether MPA reserve status, island, their interaction, or seawater temperature anomaly had a significant effect on these species' biomasses over time, we used a series of generalized linear mixed models with Biomass as the independent variable, Reserve Status, Island, Oceanic Nino Index (ONI), and the interaction of Reserve Status and Island as fixed effects, and Survey Year as a random effect, using the "lme4" package in R (Bates et al. 2015). We also used bootstrapping to derive 95% confidence intervals for fish and invertebrate biomass ratios between Reserve statuses (ie inside biomass/outside biomass), and compared these ratios between targeted and non-targeted fishery species. The bootstrapping process randomly resamples the dataset with replacement, calculates a user-defined statistic (such as the biomass ratio), iterates through this process many times, and derives a 95% confidence interval using the derived distribution's 2.5th and 97.5th percentiles (Percentile Method, Cite_A_Source_Here...Rdocumentation?). Since bootstrapping is a non-parametric process, it is capable of estimating 95% confidence intervals without requiring data transformations, and provides a more accurate estimate of the data's underlying distribution than lumped averages based on small sample sizes (n=4, one inside/outside ratio per island per year). For our bootstrapping process, we calculated biomass ratios for each bootstrap subsample (equal numbers of inside and outside MPA sites were sampled in each bootstrap iteration) for 1000 iterations using the "boot" package in R (Citation for Boot), and assessed significance by comparing whether our confidence intervals contained 1 (equal biomasses inside and outside reserves). Since dividing by or with zero results in undefined values, we removed any species in a given year where biomass was zero for all inside or outside- MPA sites. 
+Following our Random Forest analysis, we also used Indicator Species Analyses (ISA), on the inside-MPA and outside-MPA data, respectively, to identify the species significantly associated with each island and MPA protection grouping, for each year. ISA assigns strength of association and significance values by comparing species occurrence to a permuted association level likely to occur by chance (De Caceres and Legendre, 2009). One of the advantages of ISA is that it accounts for both the abundance and frequency of species, is calculated separately for each species in the assemblage, and can be applied to many experimental designs, including a priori classifications like levels of a categorical variable (Bakker 2008, Dufrêne & Legendre 1997; McGeoch & Chown 1998). We then compiled the results from ISA from each year, and assembled paired heatmaps of inside- and outside-MPA data for each island, where a given species in a given year displays as red if it was not significant, or if significant displays as shades of green indicating the strength of association statistic. Thus, these heatmaps identify and visualize the trends in species importance over time associated with changes in community diversity and similiarity. Rather than the Random Forest model approach, where in order to identify the most important variables associated with Reserve Status, all data were tested as predictor variables in a model with Reserve Status as the response variable, the ISA allows for nested factors and returns series of indicator species for inside and outside MPA communities at each island. These two approaches combined provide better insight into which species are important in terms of MPA effects – the random forest, machine learning approach allows the widest range of data to be used and provides insight into the relative strength of association with Reserve Status between many variables, while the ISA returns results for fish and benthic species specific to each combination of Island and Reserve Status, allowing for more direct insight into the changing community structures at each Reserve Status and Island, and how these trends compare to those shown in community diversity and similarity over time. We conducted ISA tests using the “indicspecies” package in R (De Caceres and Legendre, 2009).
+
+Following our community-level analyses, we calculated biomass (see “Equations Used” below) for several species identified as significant from Random Forest and ISA, as well as during our literature review (eg. kelp declines, urchin proliferation, SSWD-associated star declines, and abalone declines, spiny lobster fishery effects), as well as some “iconic” species (eg Garibaldi, California Sheephead). To test whether MPA reserve status, island, their interaction, or seawater temperature anomaly had a significant effect on these species' biomasses over time, we used a series of generalized linear mixed models with Biomass as the independent variable, Reserve Status, Island, Oceanic Nino Index (ONI), and the interaction of Reserve Status and Island as fixed effects, and Survey Year as a random effect, using the "lme4" package in R (Bates et al. 2015). We also used bootstrapping to derive 95% confidence intervals for fish and invertebrate biomass ratios between Reserve statuses (ie inside biomass/outside biomass), and compared these ratios between targeted and non-targeted fishery species. The bootstrapping process randomly resamples the dataset with replacement, calculates a user-defined statistic (such as the biomass ratio), iterates through this process many times, and derives a 95% confidence interval using the derived distribution's 2.5th and 97.5th percentiles (Percentile Method, Cite_A_Source_Here...Rdocumentation?). Since bootstrapping is a non-parametric process, it is capable of estimating 95% confidence intervals without requiring data transformations, and provides a more accurate estimate of the data's underlying distribution than lumped averages based on small sample sizes (n=4, one inside/outside ratio per island per year). For our bootstrapping process, we calculated biomass ratios for each bootstrap subsample (equal numbers of inside and outside MPA sites were sampled in each bootstrap iteration) for 1000 iterations using the "boot" package in R (Citation for Boot), and assessed significance by comparing whether our confidence intervals contained 1 (equal biomasses inside and outside reserves). Since dividing by or with zero results in undefined values, we removed any species in a given year where biomass was zero for all inside or outside- MPA sites. 
 
 ### Equations Used
 
@@ -895,7 +765,7 @@ p1 <- ggplot2::ggplot(Diversity, aes(x = Date, y = ShannonIndex, linetype=Reserv
                 color = "Reserve Status") +
   timeseries_top_theme()
 
-p2 <- ggplot2::ggplot(data = Diversity, aes(x = Date, y = ShannonIndex, color = IslandName)) +
+p2 <- ggplot2::ggplot(Diversity, aes(x = Date, y = ShannonIndex, color = IslandName)) +
   ggplot2::stat_smooth(geom='ribbon', alpha = .2, linetype = 0, 
                        aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..))) +
   ggplot2::geom_smooth(se = FALSE) +
@@ -915,7 +785,7 @@ p3 <- ggplot2::ggplot() +
                        method = 'loess', formula = 'y~x', se = F) +
   ggplot2::geom_hline(aes(yintercept = 0)) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(expand = expansion(mult = c(0.1, 0))) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = "Survey Year", y = NULL,
@@ -973,7 +843,7 @@ p2 <- ggplot2::ggplot(Simp_Diversity, aes(x = Date, y = SimpsonIndex, color = Is
   timeseries_top_theme()
 
 p3 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -.25, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
@@ -981,9 +851,8 @@ p3 <- ggplot2::ggplot() +
                        method = 'loess', formula = 'y~x', se = F) +
   ggplot2::geom_hline(aes(yintercept = 0)) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-.25,NA), expand= c(0,0)) +
-  ggplot2::guides(color = guide_legend(order = 1), 
-                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = "Survey Year", y = NULL,
                 color = "Island Code",
@@ -1001,7 +870,7 @@ Simp_Diversity_annotated <- ggpubr::annotate_figure(
                            "\n",
                            "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
                      family ="Cambria", color = "black", size = 12, hjust = 0, x = 0),
-  left = text_grob("Shannon Index (Diversity)", family ="Cambria", color = "black", rot = 90, size = 13)
+  left = text_grob("Simpson's Index (Diversity)", family ="Cambria", color = "black", rot = 90, size = 13)
 )
 print(Simp_Diversity_annotated)
 ```
@@ -1104,108 +973,118 @@ nMDS_annotated1 <- ggpubr::annotate_figure(
 print(nMDS_annotated1)
 ```
 
-```{r SC-AN Community Similarity (nMDS plot, stress, ANOSIM) Calculations, warning= FALSE, message= FALSE, include=FALSE, fig.keep='none'}
-All_Community_Data2 <- All_Community_Counts_Wide %>% 
-  filter(IslandName != "Santa Rosa", IslandName != "Santa Barbara") %>% 
-  droplevels()
-anosim_table <- data.frame(Year= integer(), P_val=double(), R_statistic=double())
-for (k in unique(All_Community_Data2$SurveyYear)) {
-  nMDS_Table <- All_Community_Data2 %>%
-    filter(SurveyYear %in% k)  %>%
-    arrange(IslandName)
-  
-  nMDS <- nMDS_Table %>%
-    dplyr::select(-IslandCode, - IslandName, -SiteCode, -SiteName, - SurveyYear, - ReserveStatus) %>%
-    metaMDS(k=2, trymax=100)
-  stress_score <- nMDS$stress
-  
-  data_scores <- as.data.frame(scores(nMDS))
-  data_scores$site <- nMDS_Table$SiteCode
-  data_scores$island <- nMDS_Table$IslandName
-  data_scores$reserve <- nMDS_Table$ReserveStatus
-  
-  plot.new() #this is here because ordiellipse pops an error that plot.new() hasn't been opened yet
-  ellipses <- ordiellipse(nMDS, nMDS_Table$ReserveStatus, display = "sites", kind = "sd", conf = 0.95, label = T)
-  
-  df_ellipse <- data.frame()
-  veganCovEllipse <- function (cov, center = c(0, 0), scale = 1, npoints = 100) 
-  {
-    theta <- (0:npoints) * 2 * pi/npoints
-    Circle <- cbind(cos(theta), sin(theta))
-    t(center + scale * t(Circle %*% chol(cov)))
-  }
-  
-  for(g in unique(nMDS_Table$ReserveStatus)){
-    df_ellipse <- rbind(df_ellipse, 
-                        cbind(as.data.frame(with(
-                          nMDS_Table[nMDS_Table$ReserveStatus == g,],
-                          veganCovEllipse(ellipses[[g]]$cov, ellipses[[g]]$center, ellipses[[g]]$scale))),
-                          ReserveStatus=g))
-  }
-  
-  anosim_output <- nMDS_Table %>%
-    dplyr::select(-IslandCode, - IslandName, -SiteCode, -SiteName, - SurveyYear, - ReserveStatus) %>%
-    anosim(nMDS_Table$IslandName)
-  
-  anosim_table <- anosim_table %>%
-    add_row(Year=k, P_val= anosim_output$signif, R_statistic= anosim_output$statistic)
-  
-  nMDS.plot <- ggplot2::ggplot() + 
-    ggplot2::geom_path(data = df_ellipse, aes(x = NMDS1, y = NMDS2, color = ReserveStatus), size = 1) +
-    ggplot2::labs(color = "Reserve Status",
-                  shape = "Reserve Status") + 
-    ggplot2::scale_colour_manual(values = Island_Colors) +
-    ggnewscale::new_scale_color() +
-    ggplot2::geom_point(data = data_scores, size = 2, 
-                        aes(x = NMDS1, y = NMDS2, shape = reserve, colour = island)) + 
-    ggplot2::geom_text(data = data_scores, aes(x = NMDS1, y = NMDS2, label = site), size = 2, vjust = 2) +  
-    ggplot2::scale_colour_manual(values = Island_Colors) +
-    ggplot2::coord_fixed() +
-    ggplot2::theme_bw() + 
-    ggplot2::labs(title = glue("{k}"), 
-                  caption = glue::glue("P-Value: {round(anosim_output$signif, 3)
-                                       }  R: {round(anosim_output$statistic, 3)}"),
-                  color = "Island") +
-    ggplot2::theme(plot.title = element_text(size = 10, hjust = 0.5),
-                   axis.text = element_blank(), 
-                   axis.ticks = element_blank(), 
-                   axis.title = element_blank(), 
-                   panel.background = element_blank(), 
-                   panel.grid.major = element_blank(),  
-                   panel.grid.minor = element_blank(),  
-                   plot.background = element_blank(),
-                   plot.caption = element_text(size=9, hjust = 0),
-                   aspect.ratio=1)
-  print(nMDS.plot)
-  unique_plotname <- paste("SC.AN.nMDS.plot.", k, sep = "")
-  assign(unique_plotname, nMDS.plot)
-}
+## Random Forest 
+
+Random Forest analysis ranked variables by their importance to determining reserve status. The following results highlight the top 30 variables that lead to the highest accuracy in predicting reserve status.
+```{r Random Forest, fig.height=8.5, fig.width=11}
+Random_Kelp_Forest <- All_Mixed_Data_Wide %>%
+  dplyr::rename("KGBC_YOY" = `Sebastes_atrovirens/carnatus/caurinus/chrysomelas`,
+                "OY_YOY" = `Sebastes_serranoides/flavidus`,
+                "BG_YOY" = `Sebastes_chrysomelas/carnatus`,
+                "Misc_Invert" = `Miscellaneous_Invertebrates_excluding_Ophiothrix_spiculata`) %>%
+  dplyr::mutate(SiteCode = factor(SiteCode, levels = siteInfo1$SiteCode),
+                IslandCode = factor(IslandCode),
+                ReserveStatus = factor(ReserveStatus)) %>% 
+  dplyr::select(-SiteName, 
+                # -IslandName,
+                -IslandCode,
+                -SiteCode) 
+
+set.seed(100)
+train <- sample(nrow(Random_Kelp_Forest), 
+                0.7 * nrow(Random_Kelp_Forest), replace = FALSE)
+
+TrainSet <- Random_Kelp_Forest[train,]
+ValidSet <- Random_Kelp_Forest[-train,]
+
+RF_Reserve_Model <- randomForest::randomForest(
+  data = Random_Kelp_Forest,
+  ReserveStatus ~ ., ntree = 3000, mtry = 8,
+  importance = TRUE, proximity = TRUE, keep.forest = TRUE)
+
+# Predicting on train set
+predTrain <- predict(RF_Reserve_Model, TrainSet, type = "class")
+# Checking classification accuracy
+table(predTrain, TrainSet$ReserveStatus) 
+# Predicting on Validation set
+predValid <- predict(RF_Reserve_Model, ValidSet, type = "class")
+# Checking classification accuracy
+mean(predValid == ValidSet$ReserveStatus)                    
+table(predValid, ValidSet$ReserveStatus)
+
+# RF_Reserve_Model
 ```
 
-```{r SC-AN Community Similarity Plots (nMDS) and statistical results (ANOSIM), fig.height=8.5, fig.width=11, message=FALSE, warning=FALSE}
-SC.AN.nMDS_Plot1 <- ggpubr::ggarrange(SC.AN.nMDS.plot.2005, SC.AN.nMDS.plot.2006, SC.AN.nMDS.plot.2007,
-                                SC.AN.nMDS.plot.2008, SC.AN.nMDS.plot.2009, SC.AN.nMDS.plot.2010,
-                                SC.AN.nMDS.plot.2011, SC.AN.nMDS.plot.2012, SC.AN.nMDS.plot.2013, 
-                                SC.AN.nMDS.plot.2014, SC.AN.nMDS.plot.2015, SC.AN.nMDS.plot.2016,
-                                SC.AN.nMDS.plot.2017, SC.AN.nMDS.plot.2018, SC.AN.nMDS.plot.2019,
-                                ncol = 5, nrow = 3, common.legend = TRUE, legend = "bottom", align = "hv")
+```{r RF Error and Importance, fig.height=8.5, fig.width=11}
+# plot(RF_Reserve_Model, log="y")
+randomForest::varImpPlot(RF_Reserve_Model, n.var = 30, main = "Variable Importance")
+```
 
-SC.AN.nMDS_annotated1 <- ggpubr::annotate_figure(
-  SC.AN.nMDS_Plot1, 
+```{r RF Partial Importance, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+RF_Importance <- importance(RF_Reserve_Model) %>%
+  as.data.frame() %>%
+  tibble::rownames_to_column("ScientificName") %>%
+  dplyr::arrange(desc(MeanDecreaseAccuracy)) 
+
+Important_Variables <- RF_Importance$ScientificName[1:30] # <== Choose the top number of variables
+
+Mixed_Data_xRef <- readr::read_csv("Meta_Data/Mixed_Data_xref.csv") %>% 
+  dplyr::filter(ScientificName %in% Important_Variables)
+q <- 1
+for (i in seq_along(Important_Variables)) {
+  a <- partial(RF_Reserve_Model, 
+               pred.var = Important_Variables[i], 
+               train = Random_Kelp_Forest,
+               plot = TRUE, rug = TRUE, 
+               plot.engine = "ggplot2") +
+    labs(title = gsub("_", " ", Important_Variables[i]), 
+         x = Mixed_Data_xRef[i, 2], y = NULL) +
+    theme_classic() +
+    theme(plot.title = element_text(hjust = .5, size = 10),
+          axis.title = element_text(size = 9))
+  unique_plotname <- paste("PDP_", q, sep = "")
+  assign(unique_plotname, a)
+  q <- q + 1
+}
+
+PDP_Grid_1 <- ggpubr::ggarrange(
+  PDP_1, PDP_2, PDP_3,
+  PDP_4, PDP_5, PDP_6,
+  PDP_7, PDP_8, PDP_9,
+  PDP_10, PDP_11, PDP_12,
+  PDP_13, PDP_14, PDP_15,
+  ncol = 3, nrow = 5, align = "v")
+
+PDP_Grid_2 <- ggpubr::ggarrange(
+  PDP_16, PDP_17, PDP_18,
+  PDP_19, PDP_20, PDP_21,
+  PDP_22, PDP_23, PDP_24,
+  PDP_25, PDP_26, PDP_27,
+  PDP_28, PDP_29, PDP_30,
+  ncol = 3, nrow = 5, align = "v")
+
+PDP_annotated1 <- ggpubr::annotate_figure(
+  PDP_Grid_1,
   bottom = ggpubr::text_grob(
-    paste(" nMDS plots for community similarity from 2005-2010, grouped by island. Symbols represent reserve",
-          "\n",
-          "status, ellipses represent 95% confidence regions, ANOSIM R statistics and P-values are shown."),
+    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
     color = "black", size = 11, hjust = 0, x = 0))
 
-print(SC.AN.nMDS_annotated1)
+PDP_annotated2 <- ggpubr::annotate_figure(
+  PDP_Grid_2,
+  bottom = ggpubr::text_grob(
+    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
+    color = "black", size = 11, hjust = 0, x = 0))
+
+print(PDP_annotated1)
+print(PDP_annotated2)
+
 ```
 
 ## Indicator Species Analysis
 
 Indicator Species analysis identified several species that were significant indicators to only inside, or outside MPA communities, as well as several which were indicators for both types of communities within an island. For the fish community at Santa Rosa Island, Embiotoca lateralis (striped surfperch), Sebastes atrovirens (Kelp rockfish), S. chrysomelas (Black and Yellow rockfish), and S. serranoides (Olive rockfish) were indicator species for both inside- and outside-MPA communities for most years, while Oxyliebus pictus (painted greenling) have been indicator species consistently since 2014/15 (Fig 6). The Santa Rosa Island invertebrate community similarly had indicator species consistent between reserve statuses; Urticina lofotensis (white-spotted rose anemone) was a significant indicator species for all years in both communities (Fig 6). Additional invertebrate indicator species include Tethya aurantia (orange puffball sponge), which was significant for all years except 2011-2012 outside of MPAs, but significant only in 2005, 2006, 2008, and 2018-2019 inside MPAs (Fig 6). Pycnopodia helianthoides (sunflower star) was significant for both reserve statuses every year until 2013, while Strongylocentrotus purpuratus and Mesocentrotus franciscanus (purple and red urchins, respectively) began consistently indicating inside-MPA communities since 2015, and also outside-MPA communities in 2016-2018 (purples) and 2018 (reds; Fig 6). Patiria miniata (bat star) were significant for every year inside MPA communities, but only in 2013, and 2015-2018 outside of MPAs (Fig 6).  Lastly, Pterygophora californica was a significant algal indicator species for outside-MPA communities for most years, until 2014 (Fig 6). 
 
-For Santa Cruz Island, the fish community inside MPAs was indicated by Halichoeres simicinctus (rock wrasse) in 2005-2008, 2010-2011, and 2016, whereas it indicated outside-MPA communities in 2006-2007, and 2009 (Fig 7). Hypsypops rubicundus (Garibaldi) were indicators for outside-MPA communities in 2005, 2008, and 2013, whereas they never indicated inside-MPA communities at Santa Cruz island (Fig 7). Lythrypnus dalli (blue-banded goby) has recently (since 2016) indicated outside-MPA communities, whereas they indicated inside-MPAs only in 2016, indicating a possible recruitment event in that year. For the invertebrate community, Lophogorgia chilensis (red gorogonian) has indicated outside-MPA communities at Santa Cruz Island for all years except 2019, but has not been an indicator species in any year for inside-MPA communities (Fig 7). Lastly, Sargassum horneri, an invasive species, indicated the outside-MPA communities at Santa Cruz in 2019 (Fig 7).
+For Santa Cruz Island, the fish community inside MPAs was indicated by Halichoeres simicinctus (rock wrasse) in 2005-2008, 2010-2011, and 2016, whereas it indicated outside-MPA comunities in 2006-2007, and 2009 (Fig 7). Hypsypops rubicundus (Garibaldi) were indicators for outside-MPA communities in 2005, 2008, and 2013, whereas they never indicated inside-MPA communities at Santa Cruz island (Fig 7). Lythrypnus dalli (blue-banded goby) has recently (since 2016) indicated outside-MPA communities, whereas they indicated inside-MPAs only in 2016, indicating a possible recruitment event in that year. For the invertebrate community, Lophogorgia chilensis (red gorogonian) has indicated outside-MPA communities at Santa Cruz Island for all years except 2019, but has not been an indicator species in any year for inside-MPA communities (Fig 7). Lastly, Sargassum horneri, an invasive species, indicated the outside-MPA communities at Santa Cruz in 2019 (Fig 7).
 
 Anacapa Island exhibited similar trends to Santa Cruz Island overall, the fish community inside-MPAs was significantly indicated by H. simicinctus in 2006-2008, 2010-2011, 2014, and 2016, whereas they also indicated outside-MPA communities in 2006-2007, and 2009 (Fig 8). The outside-MPA community at Anacapa was indicated by Centrostephanus coronatus (coronado urchin), Muricea fruticosa (brown gorogonian), and Muricea californica (california golden gorogonian) for most years analysed, whereas these species never indicated inside-MPA communities (Fig 8). Similar to Santa Cruz Island, S. horneri also indicated outside-MPA communities at Anacapa for 2019 (Fig 8). 
 
@@ -1300,8 +1179,7 @@ short_names <- Species_Info %>%
   dplyr::filter(ScientificName %in% unique(indic_spp_table$ScientificName)) %>% 
   dplyr::distinct()
 
-heat_map <- dplyr::left_join(full_heat_table, heat_map_data, 
-                             by=c("IslandName", "Year", "ScientificName", "ReserveStatus")) %>%
+heat_map <- dplyr::left_join(full_heat_table, heat_map_data, by=c("IslandName", "Year", "ScientificName", "ReserveStatus")) %>%
   dplyr::mutate(IslandName = dplyr::recode_factor(
     IslandName, s.SR ="Santa Rosa Island", s.SC ="Santa Cruz Island",
     s.AN ="Anacapa Island", s.SB ="Santa Barbara Island")) %>% 
@@ -1343,9 +1221,7 @@ for(i in unique(heat_map$IslandName)) {
   
   ISA_Heatmap_Annotated <- ggpubr::annotate_figure(
     p,
-    bottom = text_grob(paste(" Fig", 
-                             fig_counter, 
-                             ". Indicator Species Analysis (ISA) for sites at", i, ". ISA indicates species significantly associated with nMDS clustering groups.",
+    bottom = text_grob(paste(" Fig", fig_counter, ". Indicator Species Analysis (ISA) for sites at", i, ". ISA indicates species significantly associated with nMDS clustering groups.",
                              "\n",
                              "Values shown in heatmap indicate ISA strengths of associations scaled in green if significant, or display as red if insignficant."),
                        color = "black", size = 12, hjust = 0, x = 0)
@@ -1390,9 +1266,9 @@ heat_table_summary <- heat_map %>% # USE ME
                 Years = "Years") %>%
   dplyr::ungroup() %>%
   dplyr::filter(Distribution > 1) %>%
-  dplyr::distinct(ScientificName, Year, Years, .keep_all = TRUE) %>%
+  dplyr::distinct(ScientificName, Year, Years) %>%
   dplyr::select(ScientificName, Year, Years) %>%
-  dplyr::arrange(ScientificName, Year)  %>%
+  dplyr::arrange(ScientificName, Year, Years)  %>%
   tidyr::pivot_wider(names_from = Years, values_from = Year, values_fn = list)
 
 # knitr::kable(heat_table,
@@ -1447,15 +1323,14 @@ p8 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Macrocystis_pyrife
   timeseries_top_theme()
 
 p9 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -50, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
-  ggplot2::geom_smooth(data = Benthic_Biomass_Wide, 
-                       aes(x = Date, y = Macrocystis_pyrifera, color = IslandName, 
-                                                     linetype = ReserveStatus), se = FALSE) +
+  ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Macrocystis_pyrifera, color = IslandName, 
+                                                     linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-50,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1514,14 +1389,14 @@ p11 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Strongylocentrotu
   timeseries_top_theme()
 
 p12 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -50, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Strongylocentrotus_purpuratus, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-50,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   
@@ -1534,13 +1409,13 @@ p12 <- ggplot2::ggplot() +
 PurpleUrchin_Biomass_Plot <- ggarrange(p10, p11, p12, ncol = 1, align = "v")
 PurpleUrchin_Biomass_annotated <- ggpubr::annotate_figure(
   PurpleUrchin_Biomass_Plot,
-  bottom = text_grob(paste(" Fig 11. Strongylocentrotus purpuratus (purple urchin) biomass by reserve status across all reference sites",
+  bottom = text_grob(paste(" Strongylocentrotus purpuratus (purple urchin) biomass by reserve status across all reference sites",
                            "\n",
-                           "(Top), biomass by island across all reference sites (Middle), and FSC by island and reserve status",
+                           "(Top), by island across all reference sites (Middle), and  by island and reserve status across",
                            "\n",
-                           "across all reference sites (Bottom); grey intervals indicate 95% confidence ranges with LOESS",
+                           "all reference sites (Bottom); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
                            "\n",
-                           "smoothing. Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
+                           "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
                      color = "black", size = 12, hjust = 0, x = 0),
   left = text_grob(glue("Strongylocentrotus purpuratus", "Biomass (g/m²)"), color = "black", rot = 90, size = 12) #figure out how to make this italic
 )
@@ -1581,14 +1456,14 @@ p14 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Strongylocentrotu
   timeseries_top_theme()
 
 p15 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -250, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Strongylocentrotus_franciscanus, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-250,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +  
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1647,14 +1522,14 @@ p20 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Pycnopodia_helian
   timeseries_top_theme()
 
 p21 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -5, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Pycnopodia_helianthoides, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-5,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1715,14 +1590,14 @@ p17 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Pisaster_giganteu
   timeseries_top_theme()
 
 p18 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -5, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Pisaster_giganteus, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-5,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1780,14 +1655,14 @@ p23 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Patiria_miniata, 
   timeseries_top_theme()
 
 p24 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -30, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Patiria_miniata, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-30,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1801,7 +1676,7 @@ Patmin_Biomass_annotated <- ggpubr::annotate_figure(
   Patmin_Biomass_Plot,
   bottom = text_grob(paste(" Patiria miniata (bat star) biomass by reserve status across all reference sites (Top), biomass",
                            "\n",
-                           "by island across all reference sites (Middle), and FSC by island and reserve status across all",
+                           "by island across all reference sites (Middle), and biomass by island and reserve status across all",
                            "\n",
                            "reference sites (Bottom); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
                            "\n",
@@ -1845,14 +1720,14 @@ p26 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Haliotis_rufescen
   timeseries_top_theme()
 
 p27 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -2.5, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Haliotis_rufescens, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-2.5,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1910,14 +1785,14 @@ p29 <- ggplot2::ggplot(Benthic_Biomass_Wide, aes(x = Date, y = Tethya_aurantia, 
   timeseries_top_theme()
 
 p30 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -2.5, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Benthic_Biomass_Wide, aes(x = Date, y = Tethya_aurantia, color = IslandName, 
                                                      linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-2.5,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -1975,14 +1850,15 @@ p32 <- ggplot2::ggplot(Fish_Biomass_Wide, aes(x = Date, y = Hypsypops_rubicundus
   timeseries_top_theme()
 
 p33 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index[SST_Anomaly_Index$SurveyYear >= 2007, ], aes(xmin = DateStart, xmax = DateEnd, ymin = -50, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index,
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Fish_Biomass_Wide, aes(x = Date, y = Hypsypops_rubicundus, color = IslandName, 
                                                   linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-50,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -2040,14 +1916,15 @@ p35 <- ggplot2::ggplot(Fish_Biomass_Wide, aes(x = Date, y = Halichoeres_semicinc
   timeseries_top_theme()
 
 p36 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index[SST_Anomaly_Index$SurveyYear >= 2007, ], aes(xmin = DateStart, xmax = DateEnd, ymin = -20, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Fish_Biomass_Wide, aes(x = Date, y = Halichoeres_semicinctus, color = IslandName, 
                                                   linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-20,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
@@ -2105,14 +1982,15 @@ p38 <- ggplot2::ggplot(Fish_Biomass_Wide, aes(x = Date, y = Semicossyphus_pulche
   timeseries_top_theme()
 
 p39 <- ggplot2::ggplot() +
-  geom_rect(data = SST_Anomaly_Index[SST_Anomaly_Index$SurveyYear >= 2007, ], aes(xmin = DateStart, xmax = DateEnd, ymin = -200, ymax = 0, fill = ONI_ANOM)) +
+  geom_rect(data = SST_Anomaly_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
                                               order = 3, barheight = unit(.2, "cm"))) +
   ggplot2::geom_smooth(data = Fish_Biomass_Wide, aes(x = Date, y = Semicossyphus_pulcher, color = IslandName, 
                                                   linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(-200,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1),
@@ -2184,14 +2062,15 @@ We still have some things to dust up on these graphs but planning on looking at:
 #   timeseries_top_theme()
 # 
 # p39 <- ggplot2::ggplot() +
-#   geom_rect(data = SST_Anomaly_Index[SST_Anomaly_Index$SurveyYear >= 2007, ], aes(xmin = DateStart, xmax = DateEnd, ymin = -200, ymax = 0, fill = ONI_ANOM)) +
+#   geom_rect(data = SST_Anomaly_Index, 
+#             aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
 #   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
 #                        guide = guide_colorbar(direction = "horizontal", title.position = "top",
 #                                               order = 3, barheight = unit(.2, "cm"))) +
 #   ggplot2::geom_smooth(data= RPC_Cover_Wide, aes(x = Date, y =a, color = IslandName, 
 #                                                   linetype = ReserveStatus), se=FALSE) +
 #   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-#   ggplot2::scale_y_continuous(limits= c(-200,NA), expand= c(0,0)) +
+  # ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
 #   ggplot2::scale_colour_manual(values = Island_Colors) +
 #   geom_hline(aes(yintercept=0)) +
 #   ggplot2::guides(color = guide_legend(order = 1),
@@ -2219,7 +2098,7 @@ We still have some things to dust up on these graphs but planning on looking at:
 
 ``` 
 
-# Fish Biomass Ratios
+## Fish Biomass Ratios
 
 See bootstrapping description in methods. I'm sorry that we didn't make it this far with the state of our draft, but this is something fundamental that will need to be discussed compared to how these have been presented previously. Specifically, standard error allow for eyeball comparison of error bars between groups (ie are two means + ranges significantly different from each other), but NOT whether a mean/range is significantly different from a given number, which requires 95% CIs, and by grouping across multiple years the parametric assumption of independent samples is violated even when converted to log ratios, which artificially inflates the sample size since SE is SD/sqrt(sample size)). Further, since calculating ratios within a year only allows an n=4 (one ratio per island, based off the average biomass inside and outside from each pair of three sites) these result in error bars massively overestimating the range, but bootstrapping the data allows us to non-parametrically estimate the underlying distribution based on resampling individual site biomasses, not averaging averages for each level of reserve status. 
 
@@ -2232,7 +2111,6 @@ boot_ratio = function(data, indices){
 }
 Booted_Fish_Ratios <- tibble(CommonName = character(), SurveyYear = integer(),
                              Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
-
 Fish_Biomass_Boot <- Fish_Biomass_Long %>%
   mutate(CommonName = forcats::fct_collapse(
     CommonName, "California sheephead, female" = c(
@@ -2244,6 +2122,7 @@ Fish_Biomass_Boot <- Fish_Biomass_Long %>%
   dplyr::summarise(Mean_Biomass = sum(Mean_Biomass),
                    ScientificName = ScientificName) %>%
   dplyr::ungroup()
+
 for(y in unique(Fish_Biomass_Boot$SurveyYear)){
   for(s in unique(Fish_Biomass_Boot$CommonName)){
     d <- Fish_Biomass_Boot %>%
@@ -2253,7 +2132,6 @@ for(y in unique(Fish_Biomass_Boot$SurveyYear)){
     Booted_Fish_Ratios <- add_row(Booted_Fish_Ratios, CommonName = s, SurveyYear = y, Mean_Ratio = ci_boot$t0, CI_minus = ci_boot$percent[4], CI_plus = ci_boot$percent[5])
   }
 }
-
 Fish_Trophic_Levels_Short <- Fish_Trophic_Levels %>%
   dplyr::select(ScientificName, CommonName, Broad_Trophic_Level, Targeted) %>%
   dplyr::mutate(CommonName = case_when(
@@ -2264,7 +2142,6 @@ Fish_Trophic_Levels_Short <- Fish_Trophic_Levels %>%
 
 Booted_Fish_Ratios <- Booted_Fish_Ratios %>%
   dplyr::left_join(Fish_Trophic_Levels_Short)
-  
 i <- 1
 for (name in unique(Booted_Fish_Ratios$CommonName)) {
   Fish_Ratios <- Booted_Fish_Ratios %>% 
@@ -2286,6 +2163,7 @@ for (name in unique(Booted_Fish_Ratios$CommonName)) {
     facet_grid(rows = vars(Targeted), space = "free", scales = "free") +
     labs(title = name, color = NULL, shape = NULL,
          x = NULL, y = NULL) +
+    scale_y_continuous(trans = 'log10') +
     coord_cartesian(ylim = c(NA, max(Fish_Ratios$Mean_Ratio) * 1.2)) +
     theme_classic2() +
     theme(plot.title = element_text(hjust = 0.5, size = 16),
@@ -2354,10 +2232,9 @@ print(FR_annotated3)
 print(FR_annotated4)
 ```
 
-# Benthic Biomass Ratios
+## Benthic Biomass Ratios
 
 ```{r Benthic Biomass Ratio Plots, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
-
 boot_ratio = function(data, indices){
   sample = data[indices, ]
   ratio = (mean(sample$Mean_Biomass[sample$ReserveStatus == "Inside"])/
@@ -2366,7 +2243,6 @@ boot_ratio = function(data, indices){
 }
 Benthic_Booted_Ratios <- tibble(ScientificName = character(), SurveyYear = integer(), 
                                 Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
-
 Benthic_Biomass_Boot <- Benthic_Biomass_Long %>%
   dplyr::group_by(SiteName, IslandName, ScientificName, ReserveStatus) %>% 
   dplyr::mutate(Mean_Biomass = Mean_Biomass + mean(runif(1000, min = 0, max = 10^-100))) %>%
@@ -2375,10 +2251,8 @@ Benthic_Biomass_Boot <- Benthic_Biomass_Long %>%
                 ScientificName != "Cryptochiton stelleri",
                 ScientificName != "Haliotis assimilis",
                 ScientificName != "Haliotis sorenseni")
-
 Benthic_Biomass_Boot$ScientificName <- factor(Benthic_Biomass_Boot$ScientificName,
                                               levels = unique(Benthic_Biomass_Boot$ScientificName))
-
 for(y in 2005:2019){
   d <- Benthic_Biomass_Boot %>%
       dplyr::filter(SurveyYear == y) %>%
@@ -2395,7 +2269,6 @@ for(y in 2005:2019){
               CI_plus = ci_boot$percent[5])
   }
 }
-
 Benthic_Targets <- Species_Info %>% 
   dplyr::select(ScientificName, Targeted_Broad, Commercially_Targeted, Recreationally_Targetted) %>% 
   dplyr::filter(ScientificName %in% unique(Benthic_Biomass_Boot$ScientificName)) %>% 
@@ -2482,6 +2355,268 @@ print(BR_annotated2)
 print(BR_annotated3)
 ```
 
+## Spiny Lobster Density
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=`r palint_MPA_p_val`), Island (P=`r palint_Isl_p_val`), and their interaction (P=`r palint_MPA_Isl_p_val`), but displayed distinct trends over time (Fig 17). More text will go here
+
+```{r Panulirus interruptus Densities Summary Tables (GLMM), results = 'asis'}
+knitr::kable(palint, caption= "Model Formula: California spiny lobster density = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Panulirus interruptus Density Plots, warning=FALSE, message=FALSE, fig.width=7.5, fig.height=10}
+
+p28 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Panulirus_interruptus, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p29 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Panulirus_interruptus, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p30 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Densities_Wide, aes(x = Date, y = Panulirus_interruptus, color = IslandName, 
+                                                     linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Nino Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+Palint_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+Palint_Density_annotated <- ggpubr::annotate_figure(
+  Palint_Density_Plot,
+  bottom = text_grob(paste(" Panulirus interruptus (California spiny lobster) density by reserve status across all reference sites (A),",
+                           "\n",
+                           "by island across all reference sites (B), and by island and reserve status across",
+                           "\n",
+                           "all reference sites (C); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
+                           "\n",
+                           "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
+                     color = "black", size = 12, hjust = 0, x = 0),
+  left = text_grob(paste("Panulirus interruptus density (#/m²)"), color = "black", rot = 90, size = 12)
+)
+print(Palint_Density_annotated)
+
+``` 
+
+## Warty Cucumber Density
+
+usual format over time, and then old reserve/new reserve/dive fishery story in this results section too
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=), Island (P=), and their interaction (P=), but displayed distinct trends over time (Fig 17). More text will go here
+
+```{r warty cucumber Densities Summary Tables (GLMM), results = 'asis'}
+knitr::kable(parpar, caption= "Model Formula: Warty sea cucumber density = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r warty cucumber Density Plots, warning=FALSE, message=FALSE, fig.width=7.5, fig.height=10}
+
+p28 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Parastichopus_parvimensis, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+ 
+p29 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Parastichopus_parvimensis, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p30 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Densities_Wide, aes(x = Date, y = Parastichopus_parvimensis, color = IslandName, 
+                                                     linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Nino Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+Parpar_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+Parpar_Density_annotated <- ggpubr::annotate_figure(
+  Parpar_Density_Plot,
+  bottom = text_grob(paste(" Parastichopus parvimensis (Warty sea cucumber) density by reserve status across all reference sites (A),",
+                           "\n",
+                           "by island across all reference sites (B), and by island and reserve status across",
+                           "\n",
+                           "all reference sites (C); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
+                           "\n",
+                           "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
+                     color = "black", size = 12, hjust = 0, x = 0),
+  left = text_grob(paste("Parastichopusparvimensis density (#/m²)"), color = "black", rot = 90, size = 12)
+)
+print(Parpar_Density_annotated)
+
+``` 
+
+## Centrostephanus coronatus Density
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=), Island (P=), and their interaction (P=), but displayed distinct trends over time (Fig 17). More text will go here
+
+```{r Centrostephanus_coronatus Densities Summary Tables (GLMM), results = 'asis'}
+knitr::kable(cencor, caption= "Model Formula: Coronado urchin density = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Centrostephanus_coronatus Density Plots, warning=FALSE, message=FALSE, fig.width=7.5, fig.height=10}
+
+p28 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Centrostephanus_coronatus, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p29 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Centrostephanus_coronatus, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p30 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Densities_Wide, aes(x = Date, y = Centrostephanus_coronatus, color = IslandName, 
+                                                     linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Nino Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+cencor_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+cencor_Density_annotated <- ggpubr::annotate_figure(
+  cencor_Density_Plot,
+  bottom = text_grob(paste(" Centrostephanus coronatus (Coronado urchin) density by reserve status across all reference sites (A),",
+                           "\n",
+                           "by island across all reference sites (B), and by island and reserve status across",
+                           "\n",
+                           "all reference sites (C); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
+                           "\n",
+                           "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
+                     color = "black", size = 12, hjust = 0, x = 0),
+  left = text_grob(paste("Centrostephanus coronatus density (#/m²)"), color = "black", rot = 90, size = 12)
+)
+print(cencor_Density_annotated)
+
+``` 
+
+## Lophogorgia chilensis Density
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=), Island (P=), and their interaction (P=), but displayed distinct trends over time (Fig 17). More text will go here
+
+```{r Lophogorgia chilensis Densities Summary Tables (GLMM), results = 'asis'}
+knitr::kable(lopchi, caption= "Model Formula: Red Gorgonian = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Lophogorgia chilensis Density Plots, warning=FALSE, message=FALSE, fig.width=7.5, fig.height=10}
+
+p28 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Lophogorgia_chilensis, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p29 <- ggplot2::ggplot(Benthic_Densities_Wide, aes(x = Date, y = Lophogorgia_chilensis, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p30 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Densities_Wide, aes(x = Date, y = Lophogorgia_chilensis, color = IslandName, 
+                                                     linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Nino Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+lopchi_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+lopchi_Density_annotated <- ggpubr::annotate_figure(
+  lopchi_Density_Plot,
+  bottom = text_grob(paste(" Lophogorgia chilensis (Red gorogonian) density by reserve status across all reference sites (A),",
+                           "\n",
+                           "by island across all reference sites (B), and by island and reserve status across",
+                           "\n",
+                           "all reference sites (C); grey intervals indicate 95% confidence ranges with LOESS smoothing.",
+                           "\n",
+                           "Oceanic Nino Index (ONI) is a measure of El Nino oscillation and strength, in units of *C."),
+                     color = "black", size = 12, hjust = 0, x = 0),
+  left = text_grob(paste("Lophogorgia chilensis density (#/m²)"), color = "black", rot = 90, size = 12)
+)
+print(lopchi_Density_annotated)
+
+``` 
+
 # Discussion
 
 Diversity differences – Recent significant increase inside of MPAs, SR recently decreasing while other islands increasing
@@ -2540,7 +2675,6 @@ Species interactions and biomass/density trends trends…
 
 De Caceres, M., Legendre, P. (2009). Associations between species and groups of sites: indices and statistical inference. Ecology, URL
 http://sites.google.com/site/miqueldecaceres/ 
-(Note, I lifted this using citation("indicspecies") and the metadata on this isn't as complete as the bigtime packages like Vegan, need to track down and update this)
 
 Douglas Bates, Martin Maechler, Ben Bolker, Steve Walker (2015). Fitting Linear Mixed-Effects Models Using lme4. Journal of Statistical Software, 67(1),
 1-48. doi:10.18637/jss.v067.i01.
