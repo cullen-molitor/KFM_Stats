@@ -1,0 +1,211 @@
+---
+output: 
+  word_document:
+    reference_docx: Meta_Data/template_annual.docx
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding,
+  output_dir = "Output_Documents") })
+---
+```{r Species Trends setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("global_markdown.R")
+oneM_Data <-  readr::read_csv("Tidy_Data_Dont_Touch/oneM_Summary.csv")
+
+fiveM_Data <-  readr::read_csv("Tidy_Data_Dont_Touch/fiveM_Summary.csv")
+
+bands_Data <-  readr::read_csv("Tidy_Data_Dont_Touch/bands_Summary.csv")
+
+rdfc_Data <-  readr::read_csv("Tidy_Data_Dont_Touch/RDFC_Summary.csv")
+
+Benthic_Density_Long <- base::rbind(oneM_Data, fiveM_Data, bands_Data) %>% 
+  dplyr::filter(SiteNumber %in% 1:16) %>% 
+  dplyr::mutate(IslandName = factor(IslandName, levels = IslandLevelsFull),
+                SiteName = factor(SiteName, levels = SiteLevels))
+
+
+Par_par_sc <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Parastichopus parvimensis",
+                IslandCode == "SC") %>% 
+  base::droplevels()
+Par_par_an <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Parastichopus parvimensis",
+                IslandCode == "AN") %>% 
+  base::droplevels()
+Par_par_sb <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Parastichopus parvimensis",
+                IslandCode == "SB") %>% 
+  base::droplevels()
+
+Lobsta_sc <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Panulirus interruptus",
+                IslandCode == "SC") %>% 
+  base::droplevels()
+Lobsta_an <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Panulirus interruptus",
+                IslandCode == "AN") %>% 
+  base::droplevels()
+Lobsta_sb <- Benthic_Density_Long %>% 
+  dplyr::filter(ScientificName == "Panulirus interruptus",
+                IslandCode == "SB") %>% 
+  base::droplevels()
+```
+
+```{r Par Par, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+ggplot2::theme_set(
+  ggpubr::theme_classic2() +
+    ggplot2::theme(plot.title = element_text(hjust = 0.5, size = 20, face = "italic"),
+                   plot.subtitle = element_text(hjust = 0.5, size = 16),
+                   legend.position = "right",
+                   legend.justification = c(0,0.5),
+                   legend.key.width = unit(.75, "cm"),
+                   legend.background = element_rect(size = unit(5, "cm")),
+                   legend.title = element_text(size = 12, color = "black"),
+                   legend.text = element_text(size = 10, colour = "black"),
+                   panel.grid.major = element_line(),
+                   axis.title = element_text(hjust = .5, size = 14),
+                   axis.text.x = element_blank(),
+                   axis.text.y = element_text(size = 12),
+                   strip.text = element_text(size = 10, colour = "black", angle = 90))
+)
+SC_Par_par <- ggplot(Par_par_sc,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 1997), size = 1) +
+  geom_label(aes(x = 1997, y = Inf, vjust = 1, hjust = 1, label = "Dive Fishery Begins"), color = "black") +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  geom_label(aes(x = 2003, y = Inf, vjust = 1, hjust = 1, label = "MPAs Created"), color = "black") +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = Par_par_sc$ScientificName,  
+       subtitle = Par_par_sc$CommonName,
+       color = "Site Name", linetype = "Site Name",
+       x = NULL, y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme_get()
+
+AN_Par_par <- ggplot(Par_par_an,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 1997), size = 1) +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Site Name", linetype = "Site Name",
+       x = NULL, y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme_get()
+
+SB_Par_par <- ggplot(Par_par_sb,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 1997), size = 1) +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Site Name", linetype = "Site Name",
+       x = "Year", y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12))
+
+  plot <- ggpubr::ggarrange(SC_Par_par, AN_Par_par, SB_Par_par, ncol = 1, align = "v", heights = c(2,1.5,1.9),
+                            common.legend = FALSE)
+  a <- ggpubr::annotate_figure(
+    plot,
+    bottom = text_grob("1 m² Quadrat Data",
+                       color = "black", size = 14, hjust = 0, x = 0),
+    left = text_grob("Mean Density/m²", color = "black", rot = 90, size = 18)
+  )
+  print(a)
+
+```
+```{r Lobsta, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+ggplot2::theme_set(
+  ggpubr::theme_classic2() +
+    ggplot2::theme(plot.title = element_text(hjust = 0.5, size = 20, face = "italic"),
+                   plot.subtitle = element_text(hjust = 0.5, size = 16),
+                   legend.position = "right",
+                   legend.justification = c(0,0.5),
+                   legend.key.width = unit(.75, "cm"),
+                   legend.background = element_rect(size = unit(5, "cm")),
+                   legend.title = element_text(size = 12, color = "black"),
+                   legend.text = element_text(size = 10, colour = "black"),
+                   panel.grid.major = element_line(),
+                   axis.title = element_text(hjust = .5, size = 14),
+                   axis.text.x = element_blank(),
+                   axis.text.y = element_text(size = 12),
+                   strip.text = element_text(size = 10, colour = "black", angle = 90))
+)
+SC_Par_par <- ggplot(Lobsta_sc,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  geom_label(aes(x = 2003, y = Inf, vjust = 1, hjust = 1, label = "MPAs Created"), color = "black") +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = Lobsta_sc$ScientificName,  
+       subtitle = Lobsta_sc$CommonName,
+       color = "Site Name", linetype = "Site Name",
+       x = NULL, y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme_get()
+
+AN_Par_par <- ggplot(Lobsta_an,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Site Name", linetype = "Site Name",
+       x = NULL, y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme_get()
+
+SB_Par_par <- ggplot(Lobsta_sb,
+       aes(x = SurveyYear, y = Mean_Density, color = SiteName, linetype = SiteName)) + 
+  geom_smooth(size = 1, se = FALSE) +
+  geom_vline(aes(xintercept = 2003), size = 1) +
+  scale_x_continuous(breaks = c(1982:Year_to_Filter_Data_by), expand = c(0,0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Site Name", linetype = "Site Name",
+       x = "Year", y = NULL) +
+  facet_grid(rows = vars(IslandName), scales = "free") +
+  scale_color_manual(values = SiteColor, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  scale_linetype_manual(values = SiteLine, guide = guide_legend(
+    title.position = "top", title.hjust = .5, ncol = 1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12))
+
+  plot <- ggpubr::ggarrange(SC_Par_par, AN_Par_par, SB_Par_par, ncol = 1, align = "v", heights = c(2,1.5,1.9),
+                            common.legend = FALSE)
+  a <- ggpubr::annotate_figure(
+    plot,
+    bottom = text_grob("1 m² Quadrat Data",
+                       color = "black", size = 14, hjust = 0, x = 0),
+    left = text_grob("Mean Density/m²", color = "black", rot = 90, size = 18)
+  )
+  print(a)
+
+```

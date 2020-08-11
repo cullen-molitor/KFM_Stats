@@ -1,0 +1,26 @@
+ScientificName,CommonName,Trophic_Code,Trophic_Full,Trophic_Level_Primary,Trophic_Level_Secondary,Broad_Trophic_Level,Targeted,Legal_Size_cm,Color_R
+Rhacochilus vacca,pile perch,Bi,Benthic macro-invertivore,benthic macro-invertivore,NA,carnivore,Non-targeted,NA,honeydew3
+Rhacochilus toxotes,rubberlip surfperch,Bi,Benthic macro-invertivore,benthic macro-invertivore,NA,carnivore,Non-targeted,NA,lemonchiffon3
+Semicossyphus pulcher,"California sheephead, juvenile",Bi,Benthic macro-invertivore,benthic macro-invertivore,NA,carnivore,Targeted,30,firebrick1
+Paralabrax clathratus,kelp bass,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,30,seagreen4
+Sebastes atrovirens,kelp rockfish,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,NA,darkkhaki
+Sebastes chrysomelas,black and yellow rockfish,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,NA,gold4
+Scorpaena guttata,California scorpionfish,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,25,brown
+Scorpaenichthys marmoratus,cabezon,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,37.5,coral
+Sebastes serranoides,olive rockfish,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,NA,olivedrab1
+Sebastes serriceps,treefish,Bi/Pi,Benthic macro-invertivore + Piscivore,piscivore,benthic macro-invertivore,piscivore,Targeted,NA,gold
+Caulolatilus princeps,ocean whitefish,Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Targeted,NA,antiquewhite2
+Embiotoca jacksoni,black surfperch,Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,gray43
+Embiotoca lateralis,striped surfperch,Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,darksalmon
+Hypsypops rubicundus,garibaldi,Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,darkorange
+Halichoeres semicinctus,"rock wrasse, juvenile",Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,chocolate3
+Oxyjulis californica,senorita,Bmi/Zp,Benthic micro-invertivore + Zooplanktivore,planktivore,benthic micro-invertivore,planktivore,Non-targeted,NA,chocolate1
+Girella nigricans,opaleye,He,Herbivore,herbivore,NA,herbivore,Non-targeted,NA,burlywood4
+Medialuna californiensis,halfmoon,He,Herbivore,herbivores,NA,herbivore,Non-targeted,NA,antiquewhite4
+Ophiodon elongatus,lingcod,Pi,Piscivore,piscivore,NA,piscivore,Targeted,60,azure4
+Sebastes mystinus,blue rockfish,Pi/Zp,Piscivore + Zooplanktivore,planktivore,piscivore,planktivore,Targeted,NA,blue4
+Chromis punctipinnis,blacksmith,Zp,Zooplanktivore,planktivore,NA,planktivore,Non-targeted,NA,black
+Semicossyphus pulcher,"California sheephead, female",Bi,Benthic macro-invertivore,benthic macro-invertivore,NA,carnivore,Targeted,30,indianred1
+Semicossyphus pulcher,"California sheephead, male",Bi,Benthic macro-invertivore,benthic macro-invertivore,NA,carnivore,Targeted,30,red
+Halichoeres semicinctus,"rock wrasse, female",Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,tomato
+Halichoeres semicinctus,"rock wrasse, male",Bmi,Benthic micro-invertivore,benthic micro-invertivore,NA,carnivore,Non-targeted,NA,salmon4
