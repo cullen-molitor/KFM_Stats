@@ -48,14 +48,16 @@ knitr::opts_chunk$set(echo = FALSE)
 source("global_markdown.R")
 
 { # SST Anomaly ONI and PDO  ----
-SST_Anomaly_Index <- readr::read_csv("Tidy_Data_Dont_Touch/SST_Anomaly_Index.csv")
+SST_Anomaly_Index <- readr::read_csv("Tidy_Data_Dont_Touch/SST_Anomaly_Index.csv") 
 
 annual_mean_oni <- SST_Anomaly_Index %>% 
+      # dplyr::filter(SurveyYear > 2004, Date < glue("{Year_to_Filter_Data_by}-2-1")) %>% 
   dplyr::select(SurveyYear, Mean_ONI_ANOM) %>% 
   # dplyr::mutate(SurveyYear = factor(SurveyYear)) %>%
   dplyr::distinct(SurveyYear, .keep_all = TRUE)
 
 annual_mean_pdo <- SST_Anomaly_Index %>% 
+      # dplyr::filter(SurveyYear > 2004, Date < glue("{Year_to_Filter_Data_by}-2-1")) %>% 
   dplyr::select(SurveyYear, Mean_PDO_ANOM) %>% 
   dplyr::distinct(SurveyYear, .keep_all = TRUE)
 }
@@ -351,7 +353,7 @@ ValidSet <- Random_Kelp_Forest[-train,]
 
 RF_Reserve_Model <- randomForest::randomForest(
   data = Random_Kelp_Forest,
-  ReserveStatus ~ ., ntree = 7000, mtry = 8,
+  ReserveStatus ~ ., ntree = 2500, mtry = 8,
   importance = TRUE, proximity = TRUE, keep.forest = TRUE)
 
 # Predicting on train set
@@ -364,29 +366,84 @@ predValid <- predict(RF_Reserve_Model, ValidSet, type = "class")
 mean(predValid == ValidSet$ReserveStatus)                    
 table(predValid, ValidSet$ReserveStatus)
 
-
-
 RF_Reserve_Model
+# 
+# RF_Importance <- importance(RF_Reserve_Model) %>%
+#   as.data.frame() %>% 
+#   tibble::rownames_to_column("ScientificName") %>%
+#   dplyr::arrange(desc(MeanDecreaseAccuracy))
+# Important_Variables <- RF_Importance$ScientificName[1:11] # <== Choose the top number of variables
+# 
+# for (i in seq_along(Important_Variables)) {
+#   a <- partial(RF_Reserve_Model, pred.var = Important_Variables[i], train = Random_Kelp_Forest)
+#   p <- plotPartial(a)
+#   print(p)
+# }
 ```
 
 ```{r RF Error and Importance, fig.height=8.5, fig.width=11}
-plot(RF_Reserve_Model, log="y")
+# plot(RF_Reserve_Model, log="y")
 randomForest::varImpPlot(RF_Reserve_Model, n.var = 30)
 ```
 
-```{r RF Partial Importance}
-RF_Importance <- as.data.frame(importance(RF_Reserve_Model)) %>%
+```{r RF Partial Importance, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+RF_Importance <- importance(RF_Reserve_Model) %>%
+  as.data.frame() %>%
   tibble::rownames_to_column("ScientificName") %>%
-  dplyr::arrange(desc(MeanDecreaseAccuracy))
-Important_Variables <- RF_Importance$ScientificName[1:11] # <== Choose the top number of variables
+  dplyr::arrange(desc(MeanDecreaseAccuracy)) 
 
+Important_Variables <- RF_Importance$ScientificName[1:30] # <== Choose the top number of variables
+
+Mixed_Data_xRef <- readr::read_csv("Meta_Data/Mixed_Data_xref.csv") %>% 
+  dplyr::filter(ScientificName %in% Important_Variables)
+q <- 1
 for (i in seq_along(Important_Variables)) {
-      a <- partialPlot(RF_Reserve_Model, as.data.frame(Random_Kelp_Forest),
-                Important_Variables[i], xlab = Important_Variables[i],
-                main=paste("Partial Dependence on", Important_Variables[i]))
+  a <- partial(RF_Reserve_Model, 
+               pred.var = Important_Variables[i], 
+               train = Random_Kelp_Forest,
+               plot = TRUE, rug = TRUE, 
+               plot.engine = "ggplot2") +
+    labs(title = gsub("_", " ", Important_Variables[i]), 
+         x = Mixed_Data_xRef[i, 2], y = NULL) +
+    theme_classic() +
+    theme(plot.title = element_text(hjust = .5, size = 10),
+          axis.title = element_text(size = 9))
+  unique_plotname <- paste("PDP_", q, sep = "")
+  assign(unique_plotname, a)
+  q <- q + 1
 }
-is.vector(Important_Variables)
-is.matrix(Important_Variables)
+
+PDP_Grid_1 <- ggpubr::ggarrange(
+  PDP_1, PDP_2, PDP_3,
+  PDP_4, PDP_5, PDP_6,
+  PDP_7, PDP_8, PDP_9,
+  PDP_10, PDP_11, PDP_12,
+  PDP_13, PDP_14, PDP_15,
+  ncol = 3, nrow = 5, align = "v")
+
+PDP_Grid_2 <- ggpubr::ggarrange(
+  PDP_16, PDP_17, PDP_18,
+  PDP_19, PDP_20, PDP_21,
+  PDP_22, PDP_23, PDP_24,
+  PDP_25, PDP_26, PDP_27,
+  PDP_28, PDP_29, PDP_30,
+  ncol = 3, nrow = 5, align = "v")
+
+PDP_annotated1 <- ggpubr::annotate_figure(
+  PDP_Grid_1,
+  bottom = ggpubr::text_grob(
+    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
+    color = "black", size = 11, hjust = 0, x = 0))
+
+PDP_annotated2 <- ggpubr::annotate_figure(
+  PDP_Grid_2,
+  bottom = ggpubr::text_grob(
+    "Lines that trend upwards indicate importance of variable in determining 'inside' reserve status\nLines that trend downwards indicate importance of variable in determining 'outside' reserve status",
+    color = "black", size = 11, hjust = 0, x = 0))
+
+print(PDP_annotated1)
+print(PDP_annotated2)
+
 ```
 
 ```{r RF 3D MDS, include=FALSE}
@@ -463,22 +520,33 @@ Page
 
 # Executive Summary
 
-Channel Islands National Park (CINP) has conducted long-term ecological monitoring of the kelp forests around San Miguel, Santa Rosa, Santa Cruz, Anacapa and Santa Barbara Islands since 1982. The original permanent transects were established at 16 sites between 1981 and 1986 with the first sampling beginning in 1982, this being the 37th year of monitoring. An additional site, Miracle Mile, was established at San Miguel Island in 2001 by a commercial fisherman with assistance from the park. Miracle Mile was partially monitored from 2002-2004, and then fully monitored (using all KFM protocols) since 2005. In 2005, 16 additional permanent sites were established to collect baseline data from inside and adjacent to four marine reserves that were established in 2003. Sampling results from 24 of the 33 sites mentioned above are included in this report. These 24 sites represent our efforts to monitor 4 selected MPAs at 4 of the 5 park islands. Funding for the Kelp Forest Monitoring Program (KFM) has been provided by the National Park Service (NPS).
+Channel Islands National Park (CINP) has conducted long-term ecological monitoring of the kelp forests around San Miguel, Santa Rosa, Santa Cruz, Anacapa and Santa Barbara Islands since 1982. The original permanent transects were established at 16 sites between 1981 and 1986 with the first sampling beginning in 1982. An additional site, Miracle Mile, was established at San Miguel Island in 2001 by a commercial fisherman with assistance from the park. Miracle Mile was partially monitored from 2002-2004, and then fully monitored (using all KFM protocols) since 2005. In 2005, 16 additional permanent sites were established to collect baseline data from inside and adjacent to four marine reserves that were established in 2003. Each reserve has 6 reference sites, three inside the reserve and 3 outside and adjacent to the reserve. This gives a total of 24 sampling locations at 4 of the 5 park islands that can be used to analyze the effects of marine reserves. Sampling results from these 24 sites mentioned above are included in this report. Funding for the Kelp Forest Monitoring Program (KFM) has been provided by the National Park Service (NPS). 
 
-The 2005-2019 monitoring efforts utilized BLANK days of vessel time to conduct BLANK dives for a total of BLANK hours of bottom time. Population dynamics of a select list of 71 “indicator species” (consisting of taxa or categories of algae, fish, and invertebrates) were measured at the 33 permanent sites. In addition, population dynamics were measured for all additional species of fish observed at the sites during the roving diver fish count. Survey techniques follow the CINP Kelp Forest Monitoring Protocol Handbooks (Davis et al., 1997, and Kushner and Sprague, I/P). The techniques utilize SCUBA and surface-supplied-air to conduct the following monitoring protocols: 1 m² quadrats, 5 m² quadrats, band transects, random point contacts, fish transects, roving diver fish counts, video transects, size frequency measurements, and artificial recruitment modules. Hourly temperature data were collected using remote temperature loggers at 32 sites, the exception being Miracle Mile where there is no temperature logger installed. This community trend report contains a summary of survey methods used, statistical methods used for analysis, results of analysis, and a discussion of the results. 
+The 2005-2019 monitoring efforts utilized BLANK days of vessel time to conduct BLANK dives for a total of BLANK hours of bottom time. Population dynamics of a select list of 71 “indicator species” (consisting of taxa or categories of algae, fish, and invertebrates) were measured at the 33 permanent sites. In addition, population dynamics were measured for all additional species of fish observed at the sites during the roving diver fish count. Survey techniques follow the CINP Kelp Forest Monitoring Protocol Handbooks (Davis et al., 1997, and Kushner and Sprague, I/P). The techniques utilize SCUBA and surface-supplied-air to conduct the following monitoring protocols: 1 m² quadrats, 5 m² quadrats, band transects, random point contacts, fish transects, roving diver fish counts, video transects, size frequency measurements, and artificial recruitment modules. Hourly temperature data were collected using remote temperature loggers at 32 sites, the exception being Miracle Mile where there is no temperature logger installed. 
+
+This community trend report was compiled using a subset of the data collected from a subset of the monitoring protocols. This report contains a summary of the relevant survey methods, the analytical methods used, the results of analysis, and a discussion of the results.
 
 The status of kelp forests... inside trends vs outside trends... SSWD... Urchin disease
 
 2005-2019 broad oceanographic and meteorological trends... ONI, PDO, blob, temp loggers, other
 
-```{r ONI plot, fig.height=4, fig.width=8.5}
-ggplot(SST_Anomaly_Index, aes(x = Date, y = ONI_ANOM, fill = ONI_ANOM)) +
+```{r ONI plot, message=FALSE, warning=FALSE, fig.height=4, fig.width=8.5}
+oni <- read.table( # Read in  ONI to be added to all data
+      "https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt",
+      header = T) %>%
+      dplyr::mutate(Date = as.Date(ISOdate(YR, MON, 1)),
+                    DateStart = as.Date(ISOdate(YR, MON, 1)),
+                    DateEnd = ceiling_date(DateStart, "month")) %>%
+      dplyr::rename(ONI_ANOM = ANOM,
+                    Month = MON,
+                    SurveyYear = YR)
+ggplot(oni, aes(x = Date, y = ONI_ANOM, fill = ONI_ANOM)) +
   geom_hline(size = 1, yintercept = c(-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
              color = c("blue4", "blue","deepskyblue2", "white", "black", 
                        "white", "gold2", "orange2", "red", "red4")) +
   geom_bar(stat = "identity") +
   # geom_smooth(se = FALSE, span = 0.75, color = "deeppink") +
-  scale_x_date(date_labels = "%Y", date_breaks = "1 year",
+  scale_x_date(date_labels = "%Y", date_breaks = "2 year",
                expand = c(0.01,0)) +
   labs(title = "Oceanic Nino Index (ONI)",
        subtitle = "Nino Region 3.4 (5°N-5°S,120°-170°W)",
@@ -495,10 +563,22 @@ ggplot(SST_Anomaly_Index, aes(x = Date, y = ONI_ANOM, fill = ONI_ANOM)) +
                  "Moderate El Nino", "Strong El Nino", 
                  "Very Strong El Nino", "2.5"))) +
   scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
-  # geom_vline(size = 1, xintercept = as.Date("1982-01-01", format = "%Y-%m-%d")) +
-  # geom_label(x = as.Date("1982-01-01", format = "%Y-%m-%d"), 
-  #            y = 2.5, aes(label = "KFM begins"),
-  #            hjust = 0, vjust = 0, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("1978-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("1978-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "Old MPA"),
+             hjust = 1, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("1982-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("1982-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "KFM begins"),
+             hjust = 0, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("2003-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("2003-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "New MPAs"),
+             hjust = 1, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("2005-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("2005-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "New Sites"),
+             hjust = 0, vjust = 1, size = 3, inherit.aes = FALSE) +
   theme_dark()+
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5, size = 15),
@@ -511,37 +591,48 @@ ggplot(SST_Anomaly_Index, aes(x = Date, y = ONI_ANOM, fill = ONI_ANOM)) +
         axis.line = element_line(colour = "black"))
 ```
 
-```{r PDO plot, fig.height=4, fig.width=8.5}
-ggplot(SST_Anomaly_Index, aes(x = Date, y = PDO_ANOM, fill = PDO_ANOM)) +
+```{r PDO plot, message=FALSE, warning=FALSE, fig.height=4, fig.width=8.5}
+pdo <- read.table(
+      "https://www.cpc.ncep.noaa.gov/products/GODAS/PDO/pdo_h300_pac_current.txt",
+      header = T)  %>%
+      dplyr::mutate(Date = as.Date(ISOdate(Year, Month, 1)),
+                    DateStart = as.Date(ISOdate(Year, Month, 1)),
+                    DateEnd = ceiling_date(DateStart, "month")) %>%
+      dplyr::rename(PDO_ANOM = PDO,
+                    SurveyYear = Year)
+ggplot(pdo, aes(x = Date, y = PDO_ANOM, fill = PDO_ANOM)) +
   geom_hline(size = 1, yintercept = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
              color = c("darkblue", "blue2", "dodgerblue2","deepskyblue2", "white", "black", 
                        "white", "gold2", "orange2", "red", "red4")) +
   geom_col() +
   geom_smooth(se = FALSE, span = 0.75, color = "deeppink") +
-  scale_x_date(date_labels = "%Y", date_breaks = "1 year",
+  scale_x_date(date_labels = "%Y", date_breaks = "2 year",
                expand = c(0.01,0)) +
-  labs(title = "Pacific Decadal Oscillation (PDO)",
+  labs(title = "H300 based Pacific Decadal Oscillation (HPDO)",
        # subtitle = "Nino Region 3.4 (5°N-5°S,120°-170°W)",
        fill = "Anomaly Intensity (°C)",
-       x = NULL, y = "Sea Surface Temperature Anomaly (°C)") +
+       x = NULL, y = "Monthly Mean H300 Anomalies") +
   scale_y_continuous(
     breaks = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
     labels = c(-2.5, -2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5),
-    # sec.axis = sec_axis(
-    #   ~. * 1,
-    #   breaks = c(-2, -1.5, -1, -.5, 0, .5, 1, 1.5, 2, 2.5)
-      # ,
-      # labels = c("-2", "Strong La Nina", "Moderate La Nina", 
-      #            "Weak La Nina", "Neutral", "Weak El Nino",
-      #            "Moderate El Nino", "Strong El Nino", 
-      #            "Very Strong El Nino", "2.5")
-      # )
     ) +
   scale_fill_gradient2(low = "blue", high = "red", mid = "white", midpoint = 0) +
-  # geom_vline(size = 1, xintercept = as.Date("1982-01-01", format = "%Y-%m-%d")) +
-  # geom_label(x = as.Date("1982-01-01", format = "%Y-%m-%d"), 
-  #            y = 2.5, aes(label = "KFM begins"),
-  #            hjust = 0, vjust = 0, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("1978-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("1978-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "Old MPA"),
+             hjust = 1, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("1982-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("1982-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "KFM begins"),
+             hjust = 0, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("2003-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("2003-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "New MPAs"),
+             hjust = 1, vjust = 1, size = 3, inherit.aes = FALSE) +
+  geom_vline(size = 1, xintercept = as.Date("2005-01-01", format = "%Y-%m-%d")) +
+  geom_label(x = as.Date("2005-01-01", format = "%Y-%m-%d"),
+             y = Inf, aes(label = "New Sites"),
+             hjust = 0, vjust = 1, size = 3, inherit.aes = FALSE) +
   theme_dark()+
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5, size = 15),

@@ -772,7 +772,6 @@ source("global_markdown.R")
   Biomass_Species <- unique(factor(c(names(Benthic_Biomass_Wide), names(Fish_Biomass_Wide))))
   Biomass_Species <- droplevels(Biomass_Species[! Biomass_Species %in% remove])
   
-  
   All_Mixed_Data_Wide <- readr::read_csv(
     glue("Raw_DB_Files_SAVE_HERE/KFM_RandomPointContact_RawData_1982-{Export_END_Year}.txt"), 
     col_types = cols(CountA = col_number(), CountB = col_number(), CountC = col_number(), CountD = col_number())) %>%
