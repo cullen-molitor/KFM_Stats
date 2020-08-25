@@ -1,0 +1,467 @@
+ScientificName,CommonName,WL_a,WL_b,WL_W_units,WL_L_units,WL_input_length,WL_Reference_Notes,LC.a._for_WL,LC.b._for_WL,LC_type_for_WL,LL_Reference_Notes_for_WL,LL_Equation_for_WL
+Abudefduf troschelii,Panamic Sergeant Major,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Acanthogobius flavimanus,Yellowfin Goby,0.00878,2.869,g,cm,TL,Yoon et al. 2013,NA,NA,NA,,
+Acipenser transmontanus,White Sturgeon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Agonidae,poachers,0.003145,3.030433,g,cm,TL,used Xeneretmus latifrons,NA,NA,NA,,
+Agonopsis sterletus,Southern Spearnose Poacher,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Agonopsis vulsa,Northern Spearnose Poacher,0.001025,3.3283,g,cm,TL,used Sarritor leptorhynchus (Tokranov 1993),NA,NA,NA,,
+Agonus acipenserinus,Sturgeon Poacher,0.001025,3.3283,g,cm,TL,used Sarritor leptorhynchus (Tokranov 1993),NA,NA,NA,,
+Albula gilberti,Cortez Bonefish,2.05E-07,3.7744,g,mm,SL,Williams et al. 2013,1.186,1.25,REVERSE,Crabtree et al. 1996,TL=1.25+1.186SL (cm)
+Alepocephalus tenebrosus,California Slickhead,2.25E-08,2.8408,kg,mm,TL,used Anoplopoma fimbria,NA,NA,NA,,
+Alloclinus holderi,Island Kelpfish,0.008303,3.089217,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Alopias vulpinus,Thresher Shark,0.000311,2.3627,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Alosa sapidissima,American Shad,6.25E-08,2.6254,kg,mm,FL,RecFIN,1.127,0,REVERSE,FishBase,TL=1.127FL
+Amphistichus argenteus,Barred Surfperch,0.03,3,g,cm,SL,Ruiz-Campos et al. 2006,0.805,0.203,TYPICAL,Karpov and Kwiecien 1988,
+Amphistichus koelzi,Calico Surfperch,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Amphistichus rhodoterus,Redtail Surfperch,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Anarrhichthys ocellatus,Wolf-Eel,5.03E-06,3.091,g,mm,TL,RecFIN,NA,NA,NA,,
+Anchoa compressa,Deepbody Anchovy,1.11E-05,3.0486,g,mm,SL,Williams et al. 2013,1.1608,0.72243,REVERSE,Williams et al. 2013,TL= 1.1608 *SL + 7.2243
+Anchoa delicatissima,Slough Anchovy,7.55E-06,3.0908,g,mm,SL,Williams et al. 2013,1.1633,0.24219,REVERSE,Williams et al. 2013,TL= 1.1633 *SL + 2.4219
+Anisotremus davidsonii,Sargo,1.64E-05,3.1266,g,mm,SL,Williams et al. 2013,1.2345,0.5784,REVERSE,Williams et al. 2013,TL= 1.2345 *SL + 5.784
+Anoplopoma fimbria,Sablefish,2.25E-08,2.8408,kg,mm,TL,RecFIN,NA,NA,NA,,
+Apodichthys flavidus,Penpoint Gunnel,1.12E-06,3.42744,g,mm,TL,used Gymnothorax mordax,NA,NA,NA,,
+Apodichthys fucorum,Rockweed Gunnel,1.12E-06,3.42744,g,mm,TL,used Gymnothorax mordax,NA,NA,NA,NA,NA
+Apodichthys sactaerosae,Kelp Gunnel,1.12E-06,3.42744,g,mm,TL,used Gymnothorax mordax,NA,NA,NA,,
+Apogon guadalupensis,Guadalupe Cardinalfish,0.01034,3.07492,g ,cm,TL,Balart et al. 2006 (used A. pacificus),NA,NA,NA,,
+Apristurus brunneus,Brown Catshark,3.68E-07,3.341,g,cm,TL,Flammang et al. 2006,NA,NA,NA,,
+Argentina sialis,Pacific Argentine,0.003,3.306,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Artedius corallinus,Coralline Sculpin,3.19E-05,2.8831,g,mm,SL,Williams et al. 2013,0.8414,-0.10798,TYPICAL,VRG unpublished data,(SL = aTL+b)cm
+Artedius harringtoni,Scalyhead Sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Artedius lateralis,Smoothhead Sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Artedius notospilotus,Bonyhead Sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Artedius sp.,sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Artedius Type 16,sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Atheresthes stomias,Arrowtooth Flounder,0.00851,3.034,g,cm,TL,Fadeev 2005,NA,NA,NA,,
+Atherinidae,Old World Silversides,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Atherinops affinis,Topsmelt,3.83E-06,3.238,g,mm,SL,Williams et al. 2013,1.1934,-0.00192,REVERSE,Williams et al. 2013,TL= 1.1934 *SL + -0.0192
+Atherinops affinis < 100 mm SL,Topsmelt,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Atherinopsidae,New World Silversides,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Atherinopsis californiensis,Jacksmelt,1.03E-05,3.0114,g,mm,SL,Williams et al. 2013,1.2181,-0.23293,REVERSE,Williams et al. 2013,TL= 1.2181 *SL + -2.3293
+Atractoscion nobilis,White Seabass,2.97E-05,2.8724,g,mm,SL,Williams et al. 2013,1.1527,1.1294,REVERSE,Williams et al. 2013,TL= 1.1527 *SL + 11.294
+Aulorhynchus flavidus,Tubesnout,1.62E-07,3.43,g,mm,TL,Bayer 1980,NA,NA,NA,,
+Azurina hirundo,Swallow Damselfish,2.69E-05,3.0177,g,mm,SL,used Chromis punctipinnis,1.27,0,REVERSE,used Chromis punctipinnis,TL=1.27SL
+Bairdiella icistia,Bairdiella,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Baitball,unidentified bait fish,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Balistes polylepis,Finescale Triggerfish,0.0547,2.66,g,cm,TL,Barroso-Soto et al. 2007,NA,NA,NA,,
+Bathylagidae sp.,Deepsea Smelt,0.0132,2.853,g,cm,TL,used Bathylagus ochotensis,NA,NA,NA,,
+Bathylagus ochotensis,Popey Blacksmelt,0.0132,2.853,g,cm,TL,Orlov and Binohlan 2009,NA,NA,NA,,
+Bathymasteridae sp.,ronquil,1.14E-06,3.442696,g,mm,TL,used Rathbunella hypoplecta,NA,NA,NA,,
+Bathyraja interrupta,Sandpaper Skate,2.43E-08,2.8549,kg,mm,TL,used Raja binoculata,NA,NA,NA,,
+Blenniidae,blenny,1.58E-05,3.1049,g,mm,SL,used Hypsoblennius gentilis,1.1501,0.3994,REVERSE,used Hypsoblennius gentilis,TL= 1.1501 *SL + 3.994
+Bodianus diplotaenia,Mexican Hogfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Bothidae,lefteye flounders,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Bothragonus swanii,Rockhead,0.001025,3.3283,g,cm,TL,used Sarritor leptorhynchus (Tokranov 1993),NA,NA,NA,,
+Brachyistius frenatus,Kelp Perch,5.00E-06,3.3596,g,mm,SL,Miller et al. 2008,0.7823,0.53443,TYPICAL,VRG unpublished data,(SL = aTL+b)cm
+Brosmophycis marginata,Red Brotula,4.37E-06,3.096414,g,mm,TL,Burge and Schultz 1973,NA,NA,NA,,
+Caelorinchus scaphopsis,Shoulderspot Grenadier,4.37E-06,3.096414,g,mm,TL,used Brosmophycis marginata,NA,NA,NA,,
+Carangidae,jacks,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Careproctus melanurus,Blacktail Snailfish,8.16E-06,3.09,g,mm,SL,Stein 1980,1.126,0,REVERSE,FishBase,TL=1.126SL
+Caulolatilus princeps,Ocean Whitefish,3.04E-06,3.22,g,mm,TL,RecFIN,NA,NA,NA,,
+Cebidichthys violaceus,Monkeyface Prickleback,0.01289,2.9,g,cm,SL,Marshall and Escheverria 1992,0.91,0,TYPICAL,used Chirolophis japonicus (FishBase),
+Cephaloscyllium ventriosum,Swell Shark,3.00E-06,3.1276,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Chaenopsis alepidota,Orangethroat Pikeblenny,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,1.0212,0.11986,REVERSE,used Synganthus leptorhynchus,
+Chaetodon humeralis,Threebanded Butterflyfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cheilotrema saturnum,Black Croaker,3.83E-05,2.9088,g,mm,SL,Williams et al. 2013,1.1944,0.13972,REVERSE,Williams et al. 2013,TL= 1.1944 *SL + 1.3972
+Chilara taylori,Spotted Cusk-Eel,1.00E-06,3.2744,g,mm,SL,Miller et al. 2008,1,0,REVERSE,FishBase,TL=1.0SL
+Chirolophis nugator,Mosshead Warbonnet,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Chitonotus pugetensis,Roughback Sculpin,0.005064,3.267753,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Chromis alta,Silverstripe Chromis,2.69E-05,3.0177,g,mm,SL,used Chromis punctipinnis,1.27,0,REVERSE,used Chromis punctipinnis,TL=1.27SL
+Chromis punctipinnis,Blacksmith,2.69E-05,3.0177,g,mm,SL,Williams et al. 2013,1.27,0,REVERSE,FishBase,TL=1.27SL
+Citharichthys sordidus,Pacific Sanddab,0.00552,3.232454,g,cm,TL,Love and Nishimoto unpublished data,NA,NA,NA,,
+Citharichthys sp.,sanddab,0.00552,3.232454,g,cm,TL,used Citharichthys sordidus,NA,NA,NA,,
+Citharichthys stigmaeus,Speckled Sanddab,8.33E-06,3.1996,g,mm,SL,Williams et al. 2013,1.1699,0.0648,REVERSE,Williams et al. 2013,TL= 1.1699 *SL + 0.648
+Citharichthys xanthostigma,Longfin Sanddab,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Clevelandia ios,Arrow Goby,2.55E-06,3.4162,g,mm,SL,Williams et al. 2013,1.1559,0.03651,REVERSE,Williams et al. 2013,TL= 1.1559 *SL + 0.3651
+Clinidae,kelp blennies,4.80E-06,3.2364,g,mm,SL,used Gibbonsia elegans,1.1532,-0.03716,REVERSE,used Gibbonsia elegans,TL= 1.1532 *SL + -0.3716
+Clinidae Type A,Kelpfish Type A,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Clinidae Type B,Kelpfish Type B,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Clinidae Type C,Kelpfish Type C,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Clinidae Type D,Kelpfish Type D,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Clinocottus analis,Wooly Sculpin,1.74E-05,2.958,g,mm,TL,Wells 1986,NA,NA,NA,,
+Clupeidae,herrings,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Clupeiformes,herrings and anchovies,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cololabus saira,Pacific Saury,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Cosmocampus arctus,Snubnose Pipefish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cottidae,sculpins,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Cottidae Type A,Sculpin Type A,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cottidae Type B,Sculpin Type B,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cottidae Type E,Sculpin Type E,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cryptotrema corallinum,Deepwater Blenny,0.008303,3.089217,g,cm,TL,used Alloclinus holderi,NA,NA,NA,,
+Cyclopteridae,lumpfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cymatogaster aggregata,Shiner Perch,2.08E-05,3.0721,g,mm,SL,Williams et al. 2013,1.2398,0.18277,REVERSE,Williams et al. 2013,TL= 1.2398 *SL + 1.8277
+Cynoscion parvipinnis,Shortfin Corvina,6.52E-05,2.7354,g,mm,SL,Williams et al. 2013,1.136,0,REVERSE,FishBase,TL=1.136SL
+Cynoscion xanthulus,Orangemouth Corvina,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Cypselurus californicus,California Flyingfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Cypselurus sp.,flyingfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Dasyatis dipterura,Diamond Stingray,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Decapterus macarellus,Mackerel Scad,7.00E-06,3.1246,g,mm,SL,used Trachurus symmetricus,0.795,0,TYPICAL,used Trachurus symmetricus,SL=0.795*TL
+decomposed,decomposed,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Diaphus theta,California Headlightfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Dolichopteryx longipes,Brownsnout Spookfish,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Dorosoma petenense,Threadfin Shad,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Echinorhinus cookei,Prickly Shark,0.0135,3,g,cm,TL,used Hexanchus griseus,NA,NA,NA,,
+Embassichthys bathybius,Deepsea Sole,0.00407,3.248,g,cm,TL,used Microstomus pacificus,NA,NA,NA,,
+Embiotoca jacksoni,Black Perch,8.00E-06,3.3244,g,mm,SL,Miller et al. 2008,0.799,-0.407,TYPICAL,RecFIN,(SL = aTL+b)cm
+Embiotoca lateralis,Striped Seaperch,1.54E-05,3.01,g,mm,TL,RecFIN,NA,NA,NA,,
+Embiotocidae,surfperches,8.00E-06,3.3244,g,mm,SL,used Embiotoca jacksoni,0.799,-0.407,TYPICAL,RecFIN,(SL = aTL+b)cm
+Engraulidae,anchoves,5.60E-06,2.984,g,mm,TL,used Engraulis mordax,NA,NA,NA,,
+Engraulidae/Atherinopsidae/Clupeidae,unidentified bait fish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Engraulis mordax,Northern Anchovy,5.60E-06,2.984,g,mm,TL,RecFIN,NA,NA,NA,,
+Engraulis mordax eggs,Northern Anchovy eggs,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Enophrys bison,Buffalo Sculpin,1.79E-08,2.896,kg,mm,TL,RecFIN,NA,NA,NA,,
+Enophrys taurina,Bull Sculpin,0.036821,2.747424,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Eopsetta jordani,Petrale Sole,3.06E-09,3.2395,kg,mm,TL,RecFIN,NA,NA,NA,,
+Epinephelus labriformis,Flag Cabrilla,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Eptatretus spp.,hagfish,2.09E-05,2.6,g,mm,TL,used Eptatretus stoutii,NA,NA,NA,,
+Eptatretus stoutii,Pacific Hagfish,2.09E-05,2.6,g,mm,TL,Reid 1990,NA,NA,NA,,
+Ernogrammus walkeri,Masked Prickleback,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Etrumeus teres,Round Herring,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Exocoetidae,flyingfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Fundulus parvipinnis,California Killifish,1.49E-05,3.0819,g,mm,SL,Williams et al. 2013,1.1052,0.19122,REVERSE,Williams et al. 2013,TL= 1.1052 *SL + 1.9122
+Gadus macrocephalus,Pacific Cod,1.38E-08,2.96,kg,mm,FL,Wildermuth et al. 1986 ,0.937207,1.19015933,TYPICAL,RecFIN,FL=.937207TL+1.19015933
+Galeorhinus galeus,Tope Shark,7.78E-06,2.9285,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Gasterosteus aculeatus,Three-Spined Stickleback,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Genyonemus lineatus,White Croaker,3.30E-05,2.804,g,mm,TL, Issacson 1964,NA,NA,NA,,
+Gibbonsia elegans,Spotted Kelpfish,4.80E-06,3.2364,g,mm,SL,Williams et al. 2013,1.1532,-0.03716,REVERSE,Williams et al. 2013,TL= 1.1532 *SL + -0.3716
+Gibbonsia metzi,Striped Kelpfish,0.000109,2.570443,g,mm,TL,Burge and Schultz 1973,NA,NA,NA,,
+Gibbonsia montereyensis,Crevice Kelpfish,0.000109,2.570443,g,mm,TL,used Gibbonsia metzi,NA,NA,NA,,
+Gibbonsia sp.,kelp blenny,4.80E-06,3.2364,g,mm,SL,used Gibbonsia elegans,1.1532,-0.03716,REVERSE,used Gibbonsia elegans,TL= 1.1532 *SL + -0.3716
+Gibbonsia Type A,Kelpfish Type A,4.80E-06,3.2364,g,mm,SL,used Gibbonsia elegans,1.1532,-0.03716,REVERSE,used Gibbonsia elegans,TL= 1.1532 *SL + -0.3716
+Gibbonsia Type B,Kelpfish Type B,4.80E-06,3.2364,g,mm,SL,used Gibbonsia elegans,1.1532,-0.03716,REVERSE,used Gibbonsia elegans,TL= 1.1532 *SL + -0.3716
+Gibbonsia Type C,Kelpfish Type C,4.80E-06,3.2364,g,mm,SL,used Gibbonsia elegans,1.1532,-0.03716,REVERSE,used Gibbonsia elegans,TL= 1.1532 *SL + -0.3716
+Gillichthys mirabilis,Longjaw Mudsucker,1.00E-04,2.4415,g,mm,SL,Miller et al. 2008,1.181,0,REVERSE,FishBase,TL=1.181SL
+Girella nigricans,Opaleye,1.45E-05,3.0492,g,mm,TL,RecFIN,NA,NA,NA,,
+Glyptocephalus zachirus,Rex Sole,0.000762,3.6127,g,cm,TL,Abookire 2006,NA,NA,NA,,
+Gobiesocidae,clingfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Gobiesocidae Type A,Clingfish Type A,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Gobiesox maeandricus,Northern Clingfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Gobiesox rhessodon,California Clingfish,2.11E-05,3.035,g,mm,SL,Williams et al. 2013,1.15,0.181,REVERSE,Wells 1979,TL=1.150SL+.181 (cm)
+Gobiidae,gobies,3.20E-06,3.15,g,mm,TL,used Lepidogobius lepidus (RecFIN),NA,NA,NA,,
+Gobiidae Type A/C,Goby Type A/C,3.20E-06,3.15,g,mm,TL,used Lepidogobius lepidus (RecFIN),NA,NA,NA,,
+Gobiidae Type D,Goby Type D,3.20E-06,3.15,g,mm,TL,used Lepidogobius lepidus (RecFIN),NA,NA,NA,,
+Gymnothorax mordax,California Moray,1.12E-06,3.42744,g,mm,SL,Quast 1968,0.983,0,TYPICAL,FishBase,SL=0.983TL
+Gymnura marmorata,California Butterfly Ray,2.74E-06,3.1955,g,mm,DW,Williams et al. 2013,NA,NA,NA,,
+Haemulidae,grunts,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Halichoeres semicinctus,Rock Wrasse,4.50E-06,3.16,g,mm,TL,RecFIN,NA,NA,NA,,
+Hemilepidotus hemilepidotus,Red Irish Lord,3.58E-08,2.896,kg,mm,TL,RecFIN,NA,NA,NA,,
+Hermosilla azurea,Zebraperch,1.14E-05,3.2055,g,mm,SL,Williams et al. 2013,1.145,0,REVERSE,FishBase,TL = 1.145*SL 
+Heterodontus francisci,Horn Shark,1.18E-05,2.9431,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Heterostichus rostratus,Giant Kelpfish,3.97E-06,3.168,g,mm,SL,Williams et al. 2013,1.132,0.12311,REVERSE,Williams et al. 2013,TL= 1.132 *SL + 1.2311
+Hexagrammidae,combfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Hexagrammos decagrammus,Kelp Greenling,3.56E-06,3.221,g,mm,TL,Moulton et al. 1977,NA,NA,NA,,
+Hexagrammos lagocephalus,Rock Greenling,2.60E-08,2.8928,kg,mm,TL,RecFIN,NA,NA,NA,,
+Hexagrammos stelleri,Whitespotted Greenling,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Hexanchus griseus,Bluntnose Sixgill Shark,0.0135,3,g,cm,TL,Crawford 1993,NA,NA,NA,,
+Hippocampus ingens,Pacific Seahorse,0.05748,2.1308,g,cm,TL,Ortega-Salas and Reyes-Bustamante 2006,NA,NA,NA,,
+Hippoglossina stomata,Bigmouth Sole,0.005004,3.187702,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Hippoglossus stenolepis,Pacific Halibut,0.00847,3.08,g,cm,TL,Orlov and Binohlan 2009,NA,NA,NA,,
+Hydrolagus colliei,Spotted Ratfish,2.46E-07,2.755,kg,mm,SVL,Barnett et al. 2009,2.237,0,REVERSE,Barnett et al. 2009,TL=SVL*2.237
+Hyperprosopon anale,Spotfin Surfperch,3.56E-07,3.717,g,mm,TL,RecFIN,NA,NA,NA,,
+Hyperprosopon argenteum,Walleye Surfperch,1.00E-05,3.2295,g,mm,SL,Miller et al. 2008,1.179,0,REVERSE,FishBase,TL=1.179SL
+Hyperprosopon ellipticum,Silver Surfperch,0.000004699,3.227,g,mm,TL,Wydoski and Bennett 1973,NA,NA,NA,,
+Hyporhamphus rosae,California Halfbeak,6.23E-07,3.323,g,mm,SL,Williams et al. 2013,1.128,-0.01745,REVERSE,Williams et al. 2013,TL= 1.128 *SL + -0.1745
+Hypsoblennius gentilis,Bay Blenny,1.58E-05,3.1049,g,mm,SL,Williams et al. 2013,1.1501,0.3994,REVERSE,Williams et al. 2013,TL= 1.1501 *SL + 3.994
+Hypsoblennius gilberti,Rockpool Blenny,6.00E-05,2.7702,g,mm,SL,Miller et al. 2008,0.86,0,TYPICAL,FishBase,
+Hypsoblennius jenkinsi,Mussel Blenny,8.64E-06,3.204,g,mm,SL,Williams et al. 2013,0.86,0,TYPICAL,used Hypsoblennius gilberti,
+Hypsoblennius sp.,blenny,6.00E-05,2.7702,g,mm,SL,used Hypsoblennius gilberti,0.86,0,TYPICAL,used Hypsoblennius gilberti,
+Pleuronichthys guttulatus,Diamond Turbot,5.80E-05,2.8462,g,mm,SL,Williams et al. 2013,1.2108,0.23107,REVERSE,Williams et al. 2013,TL= 1.2108 *SL + 2.3107
+Hypsurus caryi,Rainbow Seaperch,2.00E-05,3.051,g,mm,SL,Miller et al. 2008,1.222,0,REVERSE,FishBase,TL=1.222SL
+Hypsypops rubicundus,Garibaldi,3.07E-05,3.1093,g,mm,SL,Williams et al. 2013,1.213,0,REVERSE,FishBase,TL=1.213SL
+Icelinus burchami,Dusky Sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icelinus filamentosus,Threadfin Sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icelinus quadriseriatus,Yellowchin Sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Icelinus sp.,sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icelinus tenuis,Spotfin Sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icelinus/Chitonotus,sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icelinus/Orthonopias,sculpin,1.74E-05,2.958,g,mm,TL,used Clinocottus analis,NA,NA,NA,,
+Icosteus aenigmaticus,Ragfish,0.00597,3,g,cm,TL,Fitch and Lavenberg 1968,NA,NA,NA,,
+Ilypnus gilberti,Cheekspot Goby,6.28E-06,3.2635,g,mm,SL,used Rhinogobiops nicholsii,0.813,0,TYPICAL,used Rhinogobiops nicholsii,SL=0.813*TL
+Jordania zonope,Longfin Sculpin,6.11E-06,3.022,g,mm,TL,Moulton et al. 1977,NA,NA,NA,,
+Kasatkia seigeli,Six-Spot Prickleback,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Kathetostoma averruncus,Smooth Stargazer,0.004163,3.282277,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Kyphosidae,sea chubs,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Kyphosus analogus,Blue-Bronze Chub,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Kyphosus elegans,Cortez Sea Chub,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Labridae,wrasses,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Nannobranchium ritteri,Broadfin Lanternfish,3.17E-06,3.41,g,mm,SL,Childress et al. 1980,1.186,0,REVERSE,FishBase,TL  = 1.186*SL
+Lampetra tridentata,Pacific Lamprey,0.05,2.738,g,cm,TL,Orlov et al. 2008,NA,NA,NA,,
+larvae not well preserved,larvae not well preserved,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+larval fragments,larval fragments,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Leiocottus hirundo,Lavender Sculpin,3.58E-05,2.9,g,mm,TL,RecFIN,NA,NA,NA,,
+Lepidogobius lepidus,Bay Goby,3.20E-09,3.15,kg,mm,TL,RecFIN,NA,NA,NA,,
+Lepidopsetta bilineata,Rock Sole,2.27E-08,2.88,kg,mm,FL,Wildermuth 1983,1.188,0,REVERSE,FishBase,
+Leptocottus armatus,Pacific Staghorn Sculpin,2.32E-05,2.9773,g,mm,SL,Williams et al. 2013,1.1649,0.06291,REVERSE,Williams et al. 2013,TL= 1.1649 *SL + 0.6291
+Lethops connectens,Halfblind Goby,6.28E-06,3.2635,g,mm,SL,used Rhinogobiops nicholsii,0.8355,-0.0725,TYPICAL,, (SL = aTL+b)cm
+Leuresthes tenuis,California Grunion,8.25E-07,3.5152,g,mm,SL,Williams et al. 2013,1.1537,0.1362,REVERSE,Williams et al. 2013,TL= 1.1537 *SL + 1.362
+Leuroglossus schmidti,Northern Smoothtongue,3.69E-06,3.167,g,mm,SL,Mason and Phillips 1985,1.119,0,REVERSE,FishBase,TL = 1.119*SL 
+Leuroglossus stilbius,California Smoothetongue,4.78E-06,3.15,g,mm,SL,Childress et al. 1980,1.133,0,REVERSE,FishBase,TL  = 1.133*SL
+Liparidae,snailfish,8.16E-06,3.09,g,mm,SL,used Careproctus melanurus,1.126,0,REVERSE,used Careproctus melanurus,TL=1.126SL
+Liparis mucosus,Slimy Snailfish,8.16E-06,3.09,g,mm,SL,used Careproctus melanurus,1.126,0,REVERSE,used Careproctus melanurus,TL=1.126SL
+Lumpenopsis clitella,Saddled Prickleback,0.008303,3.089217,g,cm,TL,used Alloclinus holderi,NA,NA,NA,,
+Lycenchelys crotalinus,Snakehead Eelpout,0.000132,4.211397,g,cm,TL,used Lycodes pacificus,NA,NA,NA,,
+Lycodapus mandibularis,Pallid Eelpout,0.000132,4.211397,g,cm,TL,used Lycodes pacificus,NA,NA,NA,,
+Lycodes cortezianus,Bigfin Eelpout,0.001514,3.308628,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Lycodes diapterus,Black Eelpout,0.000132,4.211397,g,cm,TL,used Lycodes pacificus,NA,NA,NA,,
+Lycodes pacificus,Blackbelly Eelpout,0.000132,4.211397,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Lyconema barbatum,Bearded Eelput,0.000132,4.211397,g,cm,TL,used Lycodes pacificus,NA,NA,NA,,
+Lyopsetta exilis,Slender Sole,0.003374,3.235325,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Lythrypnus dalli,Bluebanded Goby,0.00992,2.97336,g,cm,TL,Balart et al. 2006,NA,NA,NA,,
+Lythrypnus sp.,goby,0.009051,3.101332,g,cm,TL,used Lythrypnus dalli,NA,NA,NA,,
+Lythrypnus zebra,Zebra Goby,0.009051,3.101332,g,cm,TL,used Lythrypnus dalli,NA,NA,NA,,
+Macroramphosus gracilis,Slender Snipefish,0.0157,2.53,g,cm,TL,used Macroramphosus spp. (Christiansen et al. 2009),NA,NA,NA,,
+Macrouridae,grenadiers,4.37E-06,3.096414,g,mm,TL,used Brosmophycis marginata,NA,NA,NA,,
+Medialuna californiensis,Halfmoon,0.019562,2.962829,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Menidia beryllina,Inland Silverside,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Menticirrhus undulatus,California Corbina,2.58E-05,2.9099,g,mm,SL,Williams et al. 2013,1.182,0,REVERSE,FishBase,TL=1.182SL
+Merluccius productus,Pacific Hake,6.33E-09,3.03,kg,mm,TL,RecFIN,NA,NA,NA,,
+Micrometrus minimus,Dwarf Perch,2.91E-05,3.0198,g,mm,SL,Williams et al. 2013,1.1887,0.33526,REVERSE,Williams et al. 2013,TL= 1.1887 *SL + 3.3526
+Microstomus pacificus,Dover Sole,0.00407,3.248,g,cm,TL,Brodziak and Mikus 2000,NA,NA,NA,,
+Mola mola,Ocean Sunfish,0.0454,3.0496,g,cm,TL,Coull et al. 1989,NA,NA,NA,,
+Moridae,codlings,4.37E-06,3.096414,g,mm,TL,used Brosmophycis marginata,NA,NA,NA,,
+Morone saxatilis,Striped Bass,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Mugil cephalus,Flathead Mullet,2.96E-05,2.9301,g,mm,SL,Williams et al. 2013,1.23,0.4,REVERSE,Ruiz-Campos et al. 2006,
+Mustelus californicus,Grey Smooth-Hound,7.27E-07,3.2234,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Mustelus henlei,Brown Smooth-Hound,8.07E-07,3.2089,g,mm,TL,Williams et al. 2013,NA,NA,NA,NA,NA
+Mustelus sp.,smoothhound,7.27E-07,3.2234,g,mm,TL,used Mustelus californicus,NA,NA,NA,,
+Mycteroperca jordani,Gulf Grouper,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Mycteroperca xenarcha,Broomtail Grouper,2.59E-05,2.96,g,mm,TL,RecFIN,NA,NA,NA,,
+Myctophidae,lanternfishes,0.00619,3.05,g,cm,SL,used Triphoturus nigrescens,1.233,0,REVERSE,FishBase,TL=1.233SL
+Myliobatis californica,Batray,2.32E-05,2.9433,g,mm,DW,Williams et al. 2013,NA,NA,NA,,
+Nautichthys oculofasciatus,Sailfin Sculpin,5.00E-06,3.1454,g,mm,TL,used Blepsias cirrhosus (Kolpakov 2006),NA,NA,NA,,
+Nemichthyidae,snipe eels,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,0.93,0,TYPICAL,used Syngnathus leptorhynchus (FishBase),
+Neoclinus blanchardi,Sarcastic Fringehead,0.009,3.003,g,cm,TL,Love unpublished- Love 2011,NA,NA,NA,,
+Neoclinus sp.,fringeheads,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Neoclinus stephensae,Yellowfin Fringehead,0.0095,2.824,g,cm,TL,Love unpublished- Love 2011,NA,NA,NA,,
+Neoclinus uninotatus,Onespot Firngehead,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+net lost,net lost,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Nettastomatidae,duckbill eels,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,0.93,0,TYPICAL,used Syngnathus leptorhynchus (FishBase),
+Nezumia stelgidolepis,California Grenadier,4.37E-06,3.096414,g,mm,TL,used Brosmophycis marginata,NA,NA,NA,,
+Nicholsina denticulata,Loosetooth Parrotfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+No fish,No fish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Notorynchus cepedianus,Broadnose Sevengill Shark,8.61E-07,3.2152,g,mm,TL,Williams et al. 2013,NA,NA,NA,NA,NA
+Odontopyxis trispinosa,Pygmy Poacher,0.00223,3.238,g,cm,TL,Kinnetic Laboratories 1980,NA,NA,NA,,
+Oligocottus rimensis,Saddleback Sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oligocottus snyderi,Fluffy Sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oligocottus/Clinocottus sp.,sculpin,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Oligocottus/Clinocottus Type A,Sculpin Type A,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Oligocottus/Clinocottus Type B,Sculpin Type B,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Oligocottus/Clinocottus Type C,Sculpin Type C,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Oncorhynchus keta,Chum Salmon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oncorhynchus kisutch,Coho Salmon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oncorhynchus nerka,Sockeye Salmon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Oncorhynchus sp.,salmon,9.44E-09,3,kg,mm,TL,used Oncorhynchus tshawytscha,NA,NA,NA,,
+Oncorhynchus tshawytscha,Chinook Salmon,9.44E-09,3,kg,mm,TL,RecFIN,NA,NA,NA,,
+Ophidiidae,cusk-eels,1.11E-05,3.05,g,mm,SL,used Ophidion scrippsae,1,0,REVERSE,FishBase,TL=1.0SL
+Ophidion scrippsae,Basketweave Cusk-Eel,1.11E-05,3.05,g,mm,SL,Gamboa 1991,1,0,REVERSE,FishBase,TL=1.0SL
+Ophiodon elongatus,Lingcod,1.16E-08,2.99,kg,mm,TL,RecFIN,NA,NA,NA,,
+Opisthonema medirastre,Middling Thread Herring,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Orthonopias triacis,Snubnose Sculpin,7.00E-05,2.6479,g,mm,SL,VRG unpublished data,0.8081,-0.00774,TYPICAL,VRG unpublished data,(SL = aTL+b)cm
+Oxyjulis californica,Senorita,4.50E-06,3.16,g,mm,TL,RecFIN,NA,NA,NA,,
+Oxylebius pictus,Painted Greenling,1.52E-05,3.1084,g,mm,SL,Williams et al. 2013,1.16,0,REVERSE,FishBase,TL=1.16SL
+Paraclinus integripinnis,Reef Finspot,1.11E-05,3.0952,g,mm,SL,Williams et al. 2013,1.168,0.13,REVERSE,Ruiz-Campos et al. 2010,TL=1.168*SL+.13
+Paralabrax clathratus,Kelp Bass,2.09E-05,3.0106,g,mm,SL,Williams et al. 2013,1.1946,0.13103,REVERSE,Williams et al. 2013,TL= 1.1946 *SL + 1.3103
+Paralabrax maculatofasciatus,Spotted Sand Bass,2.16E-05,3.0308,g,mm,SL,Williams et al. 2013,1.2152,0.17117,REVERSE,Williams et al. 2013,TL= 1.2152 *SL + 1.7117
+Paralabrax nebulifer,Barred Sand Bass,2.89E-05,2.9522,g,mm,SL,Williams et al. 2013,1.1537,0.47728,REVERSE,Williams et al. 2013,TL= 1.1537 *SL + 4.7728
+Paralabrax sp.,rock bass,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Paralepididae,barracudina,3.83E-06,3.238,g,mm,SL,used Atherinops affinis,1.1934,-0.00192,REVERSE,Used Atherinops affinis,TL= 1.1934 *SL + -0.0192
+Paralichthys californicus,California Halibut,2.55E-05,2.9127,g,mm,SL,Williams et al. 2013,1.1582,0.82566,REVERSE,Williams et al. 2013,TL= 1.1582 *SL + 8.2566
+Paralichthys/Xystreurys,flounder/halibut/sole,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Paranthias colonus,Pacific Creolefish,0.01485,2.86333,g,cm,TL,Balart et al. 2006,NA,NA,NA,,
+Pareques viola,Rock Croaker,0.0000396,2.908,g,mm,SL,used Roncador stearnsii,1.1975,1.18497,REVERSE,used Roncador stearnsii,TL= 1.1975 *SL + 11.8497
+Paricelius hopliticus,Thornback Sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Parophrys vetulus,English Sole,1.17E-05,3.012,g,mm,TL,Holland 1969,NA,NA,NA,,
+Peprilus simillimus,Pacific Pompano,1.00E-05,3.1729,g,mm,SL,Miller et al. 2008,0.8,0,TYPICAL,FishBase,
+Phanerodon atripes,Sharpnose Seaperch,1.37E-05,2.98,g,mm,TL,RecFIN,NA,NA,NA,,
+Phanerodon furcatus,White Seaperch,2.00E-05,3.053,g,mm,SL,Miller et al. 2008,0.7716,-0.122,TYPICAL,Eckmayer 1979,SL=.771605TL-.122222 (cm)
+Phanerodon sp.,seaperch,2.00E-05,3.053,g,mm,SL,Used Phanerodon furcatus,0.7716,-0.122,TYPICAL,used Phanerodon furcatus,SL=.771605TL-.122222
+Pholidae,gunnles,0.0043,3.018,g,cm,TL,used Pholis gunnellus,NA,NA,NA,,
+Pholis gunnellus,Rock Gunnel,0.0043,3.018,g,cm,TL, used as proxy for Pholidae (Coull et al. 1989),NA,NA,NA,,
+Plagiotremus azaleus,Sabertooth Blenny,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Platichthys stellatus,Starry Flounder,1.63E-06,3.34,g,mm,TL,RecFIN,NA,NA,NA,,
+Platyrhinoidis triseriata,Thornback,7.00E-06,2.9774,g,mm,TL,Miller et al. 2008,NA,NA,NA,,
+Plectobranchus evides,Bluebarred Prickleback,0.008303,3.089217,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Pleuronectidae,righteye flounders,1.17E-05,3.012,g,mm,TL,used Parophrys vetulus,NA,NA,NA,,
+Pleuronectiformes,flounders/turbots/soles/tonguefishes,0.00552,3.232454,g,cm,TL,used Citharichthys sordidus,NA,NA,NA,,
+Pleuronichthys coenosus,C-O Sole,5.73E-10,3.5764,kg,mm,TL,RecFIN,NA,NA,NA,,
+Pleuronichthys decurrens,Curlfin Sole,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Pleuronichthys ritteri,Spotted Turbot,2.95E-05,2.9771,g,mm,SL,Williams et al. 2013,1.2461,0.01703,REVERSE,Williams et al. 2013,TL= 1.2461 *SL + 0.1703
+Pleuronichthys verticalis,Hornyhead Turbot,0.009057,3.172961,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Polydactylus approximans,Blue Bobo,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Pomacentridae,damselfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Porichthys myriaster,Specklefin Midshipman,1.38E-05,2.984,g,mm,SL,Williams et al. 2013,1.1606,-0.04427,REVERSE,Williams et al. 2013,TL= 1.1606 *SL + -0.4427
+Porichthys notatus,Plainfin Midshipman,2.21E-05,2.9169,g,mm,SL,Williams et al. 2013,1.09,0,REVERSE,FishBase,TL=1.09SL
+Porichthys sp.,midshipman,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Prionace glauca,Blue Shark,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Pristigenys serrula,Popeye Catalufa,8.00E-06,3.3244,g,mm,SL,used Embiotoca jacksoni,0.799,-0.407,TYPICAL,RecFIN,(SL = aTL+b)cm
+Prognathodes falcifer,Scythe Butterflyfish,0.000004699,3.227,g,mm,TL,used Hyperprosopon ellipticum,NA,NA,NA,,
+Pronotogrammus multifasciatus,Threadfin Bass,6.84E-09,3.1128,kg,mm,TL,used Paralabrax nebulifer,NA,NA,NA,,
+Psettichthys melanostictus,Sand Sole,2.77E-09,3.2648,kg,mm,TL,RecFIN,NA,NA,NA,,
+Pseudupeneus grandisquamis,Bigscale Goatfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Pseudopriacanthus serrula,Popeye Catalufa,2.00E-05,3.149,g,mm,SL,used Embiotoca jacksoni,0.799,-0.407,TYPICAL,RecFIN,
+Quietula y-cauda,Shadow Goby,1.22E-05,3.051,g,mm,SL,Williams et al. 2013,1.1649,0.11657,REVERSE,Williams et al. 2013,TL= 1.1649 *SL + 1.1657
+Radulinus asprellus,Slim Sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Raja binoculata,Big Skate,2.43E-08,2.8549,kg,mm,TL,RecFIN,NA,NA,NA,,
+Raja inornata,California Skate,2.43E-08,2.8549,kg,mm,TL,used Raja binoculata,NA,NA,NA,,
+Raja rhina,Longnose Skate,2.43E-08,2.8549,kg,mm,TL,used Raja binoculata,NA,NA,NA,,
+Raja sp.,skate,2.43E-08,2.8549,kg,mm,TL,used Raja binoculata,NA,NA,NA,,
+Raja stellulata,Starry Skate,2.43E-08,2.8549,kg,mm,TL,used Raja binoculata,NA,NA,NA,,
+Rathbunella alleni,Stripefin Ronquil,1.14E-06,3.442696,g,mm,TL,used Rathbunella hypoplecta,NA,NA,NA,,
+Rathbunella hypoplecta,Bluebanded Ronquil,1.14E-06,3.442696,g,mm,TL,Burge and Schultz 1973,NA,NA,NA,,
+Rathbunella sp.,ronquil,1.14E-06,3.442696,g,mm,TL,used Rathbunella hypoplecta,NA,NA,NA,,
+Rhacochilus toxotes,Rubberlip Seaperch,2.00E-05,3.0787,g,mm,SL,Miller et al. 2008,0.853,0,TYPICAL,FishBase,SL=0.853*TL
+Rhacochilus vacca,Pile Perch,4.00E-05,2.9363,g,mm,SL,Miller et al. 2008,0.838,0,TYPICAL,FishBase,SL=0.838*TL
+Rhamphocottus richardsonii,Grunt Sculpin,3.19E-05,2.8831,g,mm,SL,used Artedius corallinus,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+Rhinobatos productus,Shovelnose Guitarfish,3.43E-06,3.0125,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Rhinogobiops nicholsii,Blackeye Goby,6.28E-06,3.2635,g,mm,SL,Williams et al. 2013,0.813,0,TYPICAL,FishBase,SL=0.813*TL
+Rimicola muscarum,Kelp Clingfish,1.00E-05,3.1621,g,mm,TL,RecFIN,NA,NA,NA,,
+Rimicola sp.,clingfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Roncador stearnsii,Spotfin Croaker,3.96E-05,2.908,g,mm,SL,Williams et al. 2013,1.1975,1.18497,REVERSE,Williams et al. 2013,TL= 1.1975 *SL + 11.8497
+Ronquilus jordani,Northern Ronquil,3.00E-06,3.177,g,mm,TL,Anthony et al. 2000,NA,NA,NA,,
+Ruscarius creaseri,Roughcheek Sculpin,1.49E-05,3.1722,g,mm,SL,Williams et al. 2013,0.8414,-0.10798,TYPICAL,used Artedius corallinus,(SL = aTL+b)cm
+S. atrovirens/carnatus/chrysomelas(YOY),Kelp/Gopher/Black-And-Yellow Rockfish (Yoy),0.0239,2.862,g,cm,TL,used Sebastes atrovirens,NA,NA,NA,,
+S. carnatus/chrysomelas/caurinus(YOY),Gopher/Black-And-Yellow/Copper Rockfish (Yoy),0.000172,2.6801,g,mm,SL,used Sebastes carnatus,1.2,0,REVERSE,FishBase,TL=1.12SL
+S. serranoides/flavidus(YOY),Olive/Yellowtail Rockfish (Yoy),5.21E-06,3.1541,g,mm,TL,used Sebastes serranoides,NA,NA,NA,,
+S. serranoides/mystinus(YOY),Olive/Blue Rockfish (Yoy),5.21E-06,3.1541,g,mm,TL,used Sebastes serranoides,NA,NA,NA,,
+sample lost/jar broken,sample lost/jar broken,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Sarda chiliensis,Pacific Bonito,7.63E-06,3.0896,g,mm,TL,RecFIN,NA,NA,NA,,
+Sardinops sagax,Pacific Sardine,1.19E-05,3.021,g,mm,SL,Williams et al. 2013,0.814,0,TYPICAL,FishBase,SL=0.813TL
+Sciaenidae,drums and croakers,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Sciaenidae Complex 1,Croaker Complex 1,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Sciaenidae Complex 2,Croaker Complex 2,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Scomber japonicus,Pacific Chub Mackerel,1.93E-05,2.9332,g,mm,SL,Williams et al. 2013,1.193,0.0881,REVERSE,van der Elst et al 1991,TL=.0881+1.193*SL
+Scomberomorus sierra,Pacific Sierra,0.00949,2.84,g,mm,FL,Aguirre-Villasenor et al. 2006,0.87,0,TYPICAL,FishBase,SL=0.87TL
+Scorpaena guttata,California Scorpionfish,3.66E-05,2.9831,g,mm,SL,Williams et al. 2013,1.2258,0.11535,REVERSE,Williams et al. 2013,TL= 1.2258 *SL + 1.1535
+Scorpaenichthys marmoratus,Cabezon,5.50E-06,3.185,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Scorpaenidae,scorpionfishes,3.66E-05,2.9831,g,mm,SL,used Scorpaena guttata,1.2258,0.11535,REVERSE,used Scorpaena guttata,TL= 1.2258 *SL + 1.1535
+Scorpaenodes xyris,Rainbow Scorpionfish,1.67E-02,2.9253,g,cm,TL,Balart et al. 2006,NA,NA,NA,,
+Scyliorhinidae,cat sharks,3.68E-07,3.341,g,mm,TL,used Apristurus brunneus,NA,NA,NA,,
+Sebastes aleutianus,Rougheye Rockfish,0.016426,2.978156,g,cm,FL,Shaw et al. 2000,1.014,0,REVERSE,FishBase,TL=1.014FL
+Sebastes alutus,Pacific Ocean Perch,6.55E-09,3.1332,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes atrovirens,Kelp Rockfish,0.0239,2.862,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes auriculatus,Brown Rockfish,0.044,2.74,g,cm,TL,Love and Johnson 1998,NA,NA,NA,,
+Sebastes aurora,Aurora Rockfish,2.44E-05,2.832,g,mm,TL,Wilkins et al. 1998,NA,NA,NA,,
+Sebastes babcocki,Redbanded Rockfish,2.35E-05,2.9431,g,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes brevispinis,Silvergrey Rockfish,5.83E-09,3.09,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes carnatus,Gopher Rockfish,0.000172,2.6801,g,mm,SL,Williams et al. 2013,1.2,0,REVERSE,FishBase,TL=1.12SL
+Sebastes caurinus,Copper Rockfish,8.98E-06,3.132,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes chlorostictus,Greenspotted Rockfish,0.00905,3.16321,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes chrysomelas,Black-And-Yellow Rockfish,1.12E-05,3.114,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes chrysomelas/S. carnatus(YOY),Black-And-Yellow/Gopher Rockfish (YOY),1.12E-05,3.114,g,mm,TL,used Sebastes chrysomelas,NA,NA,NA,,
+Sebastes ciliatus,Dusky Rockfish,9.77E-06,3.09,g,mm,TL,used Sebastes mystinus,NA,NA,NA,,
+Sebastes constellatus,Starry Rockfish,8.54E-06,3.112,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes crameri,Darkblotched Rockfish,2.95E-05,2.824,g,mm,TL,Wilkins et al. 1998,NA,NA,NA,,
+Sebastes dallii,Calico Rockfish,0.00945,3.21542,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes diploproa,Spitnose Rockfish,0.0195,2.927,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes elongatus,Greenstriped Rockfish,0.00793,3.12745,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes emphaeus,Puget Sound Rockfish,1.13E-05,3.023,g,mm,TL,Moulton et al. 1977,NA,NA,NA,,
+Sebastes ensifer,Swordspine Rockfish,0.0132,2.97,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes entomelas,Widow Rockfish,0.0164,2.942,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes eos,Pink Rockfish,2.05E-05,2.9573,g,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes flavidus,Yellowtail Rockfish,0.0287,2.822,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes gilli,Bronzespotted Rockfish,1.85E-08,2.9807,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes goodei,Chilipepper,0.0076,3.12,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes helvomaculatus,Rosethorn Rockfish,0.0166,2.994,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes hopkinsi,Squarespot Rockfish,0.01464,2.96355,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes jordani,Shortbelly Rockfish,0.0056,3.16,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes juv-brown complex,Kelp/Brown/Grass Rockfish juv,0.0239,2.862,g,cm,TL,used Sebastes atrovirens,NA,NA,NA,,
+Sebastes lentiginosus,Freckled Rockfish,5.80E-09,3.1969,kg,mm,TL,used Sebastes umbrosus,NA,NA,NA,,
+Sebastes levis,Cowcod,0.01,3.093,g,cm,TL,Love et al. 2002,NA,NA,NA,,
+Sebastes macdonaldi,Mexican Rockfish,9.66E-08,2.664,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes maliger,Quillback Rockfish,1.26E-05,3.064,g,mm,TL,Moulton et al. 1977,NA,NA,NA,,
+Sebastes melanops,Black Rockfish,5.81E-06,3.187,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes melanosema,Semaphore Rockfish,0.0083272,3.165994,g,cm,FL,Shaw et al. 2000,1.014,0,REVERSE,used Sebastes aleutianus,TL=1.014FL
+Sebastes melanostomus,Blackgill Rockfish,0.0122,3.042,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes miniatus,Vermilion Rockfish,0.02157,2.92339,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes moseri,Whitespotted Rockfish,7.07E-09,3.1201,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes mystinus,Blue Rockfish,9.77E-06,3.09,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes nebulosus,China Rockfish,7.79E-06,3.177,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes nigrocinctus,Tiger Rockfish,8.09E-06,3.147,g,mm,TL,Moulton et al. 1977,NA,NA,NA,,
+Sebastes ovalis,Speckled Rockfish,0.00621,3.21742,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes paucispinis,Bocaccio,5.83E-09,3.0941,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes phillipsi,Chameleon Rockfish,2.84E-09,3.2438,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes pinniger,Canary Rockfish,6.88E-06,3.147,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes proriger,Redstripe Rockfish,2.37E-08,2.9639,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes rastrelliger,Grass Rockfish,0.01,3.05,g,cm,TL,Wilson et al. 2012,NA,NA,NA,,
+Sebastes rosaceus,Rosy Rockfish,9.89E-06,3.068,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes rosenblatti,Greenblotched Rockfish,0.01103,3.10572,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes ruberrimus,Yelloweye Rockfish,4.31E-06,3.228,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes rubrivinctus,Flag Rockfish,2.35E-05,2.9431,g,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes rufinanus,Dwarf-Red Rockfish,0.0083272,3.165994,g,cm,FL,Shaw et al. 2000,1.014,0,REVERSE,used Sebastes aleutianus,TL=1.014FL
+Sebastes rufus,Bank Rockfish,0.00779,3.14685,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes saxicola,Stripetail Rockfish,0.02479,2.8048,g,cm,TL,Love et al. 1990,NA,NA,NA,,
+Sebastes semicinctus,Halfbanded Rockfish,4.43E-09,3.182,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes serranoides,Olive Rockfish,6.31E-06,3.136,g,mm,TL,Lea et al. 1999,NA,NA,NA,,
+Sebastes serranoides/S. flavidus,Olive/Yellowtail Rockfish,6.31E-06,3.136,g,mm,TL,used Sebastes serranoides,NA,NA,NA,,
+Sebastes serranoides/S. flavidus (YOY),Olive/Yellowtail Rockfish (YOYy),6.31E-06,3.136,g,mm,TL,used Sebastes serranoides,NA,NA,NA,,
+Sebastes serriceps,Treefish,0.014,3.081,g,cm,TL,Colton and Larson 2007,NA,NA,NA,,
+Sebastes simulator,Pinkrose Rockfish,0.005639,3.278513,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Sebastes sp.,Rockfish,0.01464,2.96355,g,cm,TL,used Sebastes hopkinsi,NA,NA,NA,,
+Sebastes sp.(YOY),Rockfish YOY,0.01464,2.96355,g,cm,TL,used Sebastes hopkinsi,NA,NA,NA,,
+Sebastes umbrosus,Honeycomb Rockfish,5.80E-09,3.1969,kg,mm,TL,RecFIN,NA,NA,NA,,
+Sebastes wilsoni,Pygmy Rockfish,0.0083272,3.165994,g,cm,FL,used Sebastes zacentrus,1.015,0,REVERSE,used Sebastes zacentrus,TL=1.015FL
+Sebastes zacentrus,Sharpchin Rockfish,0.0083272,3.165994,g,cm,FL,Shaw et al. 2000,1.015,0,REVERSE,FishBase,TL=1.015FL
+Sebastolobus alascanus,Shortspine Thornyhead,2.65E-06,3.264,g,mm,TL,Ianelli et al. 1994,NA,NA,NA,,
+Sebastolobus altivelis,Longspine Thornyhead ,1.79E-06,3.352,g,mm,TL,Ianelli et al. 1994,NA,NA,NA,,
+Sebastolobus sp.,thornyhead,1.79E-06,3.352,g,mm,TL,used Sebastolobus altivelis,NA,NA,NA,,
+Sebastomus,Sebastomus,0.0083272,3.165994,g,cm,FL,used Sebastes zacentrus,1.015,0,REVERSE,FishBase,TL=1.015FL
+Sectator ocyurus,Bluestriped Chub,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Semicossyphus pulcher,California Sheephead,8.45E-05,2.8047,g,mm,SL,Williams et al. 2013,0.8,0.323,TYPICAL,Hamilton et al 2011,SL=0.80TL+0.323
+Semicossyphus pulcher -Female,California Sheephead - female,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Semicossyphus pulcher -Male,California Sheephead - male,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Seriola lalandi,Yellowtail Jack,3.37E-05,2.85,g,mm,TL,RecFIN,NA,NA,NA,,
+Seriphus politus,Queenfish,1.00E-05,3.09,g,mm,SL,Miller et al. 2009,1.1975,1.18497,REVERSE,used Roncador stearnsii,TL= 1.1975 *SL + 11.8497
+Serranidae,sea basses and groupers,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Sphyraena argentea,Pacific Barracuda,2.46E-05,2.7552,g,mm,SL,Williams et al. 2013,1.134,0,REVERSE,FishBase,TL=1.134*SL
+Sphyrna lewini,Scalloped Hammerhead,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+Squalus acanthias,Spiny Dogfish,8.29E-08,3.5747,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Squatina californica,Pacific Angel Shark,7.81E-06,3.0193,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Stegastes sp.,damselfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Stenobrachius leucopsarus,Northern Lampfish,2.21E-06,3.31,g,mm,SL,Childress et al. 1980,1.186,0,REVERSE,FishBase,TL  = 1.186*SL
+Stereolepis gigas,Giant Sea Bass,1.07E-04,2.8032,g,mm,SL,Williams et al. 2013,1.2058,-10.8662,REVERSE,Williams et al. 2013,TL= 1.2058 *SL + -10.8662
+Stichaeidae sp.,pricklebacks,1.45E-06,3.222401,g,mm,TL,used Xiphister mucosus,NA,NA,NA,,
+Stromateidae,butterfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Strongylura exilis,California Needlefish,1.36E-07,3.3855,g,mm,SL,Williams et al. 2013,1.079,0.1224,REVERSE,Williams et al. 2013,TL= 1.079 *SL + 1.224
+Symphurus atricaudus,California Tonguefish,1.07E-05,2.997,g,mm,SL,Williams et al. 2013,1.0762,-0.08815,REVERSE,Williams et al. 2013,TL= 1.0762 *SL + -0.8815
+Synchirus gilli,Manacled Sculpin,7.00E-05,2.6479,g,mm,SL,used Orthonopias triacis,0.8081,-0.00774,TYPICAL,VRG unpublished data,(SL = aTL+b)cm
+Syngnathus auliscus,Barred Pipefish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Syngnathus californiensis,Kelp Pipefish,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,1.0212,0.11986,REVERSE,used Synganthus leptorhynchus,TL= 1.0212 *SL + 1.1986
+Syngnathus exilis,Barcheek Pipefish,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,0.93,0,TYPICAL,FishBase,
+Syngnathus leptorhynchus,Bay Pipefish,8.45E-08,3.3487,g,mm,SL,Williams et al. 2013,1.0212,0.11986,REVERSE,Williams et al. 2013,TL= 1.0212 *SL + 1.1986
+Syngnathus sp.,pipefish,8.45E-08,3.3487,g,mm,SL,used Synganthus leptorhynchus,0.93,0,TYPICAL,FishBase,
+Synodontidae,lizardfishes,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Synodus lucioceps,California Lizardfish,2.12E-06,3.2551,g,mm,SL,Williams et al. 2013,1.147,-0.16583,REVERSE,Williams et al. 2013,TL= 1.147 *SL + -1.6583
+Tarletonbeania crenularis,Blue Lanternfish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Tilapia sp.,Tilapia,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Torpedo californica,Pacific Electric Ray,7.00E-05,2.7748,g,mm,TL,Miller et al. 2008,NA,NA,NA,,
+total eggs,total eggs,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+total juveniles,total juveniles,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+total larvae,total larvae,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+total zooplankton,total zooplankton,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Trachurus symmetricus,Jack Mackerel,7.00E-06,3.1246,g,mm,SL,Miller et al. 2008,0.795,0,TYPICAL,FishBase,SL=0.795*TL
+Triakis semifasciata,Leopard Shark,5.95E-06,2.9511,g,mm,TL,Williams et al. 2013,NA,NA,NA,,
+Trichiuridae,scabbardfishes and cutlassfishes,0.00021,3.192,g,cm,TL,used Trichiurus lepturus (Muto et al. 2000),NA,NA,NA,,
+Trichiurus nitens,Pacific Cutlassfish,0.00021,3.192,g,cm,TL,used Trichiurus lepturus (Muto et al. 2000),NA,NA,NA,,
+Tridentiger trigonocephalus,Chameleon Goby,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Triphoturus mexicanus,Mexican Lampfish,1.31E-05,2.92,g,mm,SL,Childress et al. 1980,1.186,0,REVERSE,FishBase,TL  = 1.186*SL
+Triphoturus nigrescens,Highseas Lampfish,0.00619,3.05,g,cm,SL,De La Cruz Aguero and Cota Gomez 2006,1.233,0,REVERSE,FishBase,TL=1.233SL
+Typhlogobius californiensis,Blind Goby,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Ulvicola sanctaerosae,Kelp Gunnel,0.0043,3.018,g,cm,TL,used Pholis gunnellus,NA,NA,NA,,
+Umbrina roncador,Yellowfin Croaker,3.00E-05,2.9233,g,mm,SL,Miller et al. 2008,1.166,0,REVERSE,FishBase,TL=1.166*SL
+unidentified fish,unidentified fish,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+unidentified larvae,unidentified larvae,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+unknown,unknown,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+unknown yolksac,unknown yolksac,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+unknown yolksac,unknown yolksac,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Urobatis halleri,Round Stingray,5.73E-05,3.0176,g,mm,DW,Williams et al. 2013,NA,NA,NA,,
+volumed unsorted,volumed unsorted,NA,NA,NA,NA,NA,NA,NA,NA,NA,,
+Xeneretmus latifrons,Blacktip Poacher,0.003145,3.030433,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Xeneretmus triacanthus,Bluespotted Poacher,0.001025,3.3283,g,cm,TL,used Sarritor leptorhynchus (Tokranov 1993),NA,NA,NA,,
+Haemulon californiensis,Salema,1.07E-05,2.91,g,mm,TL,RecFIN,NA,NA,NA,,
+Xiphister mucosus,Rock Prickleback,1.45E-06,3.222401,g,mm,TL,Burge and Schultz 1973,NA,NA,NA,,
+Xystreurys liolepis,Fantail Sole,3.07E-06,3.362,g,mm,SL,Williams et al. 2013,1.207,0,REVERSE,FishBase,TL=1.207SL
+Zalembius rosaceus,Pink Seaperch,0.01532,2.927962,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Zaniolepis frenata,Shortspine Combfish,0.003311,3.277154,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Zaniolepis latipinnis,Longspine Combfish,0.002658,3.352655,g,cm,TL,Love unpublished data,NA,NA,NA,,
+Zaniolepis sp.,combfish,0.002658,3.352655,g,cm,TL,used Zaniolepis latipinnis,NA,NA,NA,,
+Zapteryx exasperata,Banded Guitarfish,1.00E-06,3.4226,kg,cm,TL,Blanco-Parra et al. 2009,NA,NA,NA,,
+Zoarcidae,eelpouts,0.000132,4.211397,g,cm,TL,used Lycodes pacificus,NA,NA,NA,,

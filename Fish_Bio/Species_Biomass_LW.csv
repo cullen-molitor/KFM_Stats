@@ -1,0 +1,36 @@
+ScientificName,Database_value,LW_g,Category
+Caulolatilus princeps,TL,(0.005962944)*TL^3.19,Fish
+Chromis punctipinnis,TL,(0.0082)*TL^3.255,Fish
+Embiotoca jacksoni,TL,(0.016884569)*((0.799*TL) - 0.407)^3.3244,Fish
+Embiotoca lateralis,TL,(0.01578712)*TL^3.01,Fish
+Girella nigricans,TL,(0.024045289)*(0.851*TL)^3.08,Fish
+Halichoeres semicinctus,TL,(0.006504479)*TL^3.16,Fish
+Hypsypops rubicundus,TL,(0.039549261)*(TL/1.213)^3.077,Fish
+Medialuna californiensis,TL,(0.008533383)*(0.92*TL)^3.454,Fish
+Ophiodon elongatus,TL,(0.002857)*TL^3.30635,Fish
+Oxyjulis californica,TL,(0.006504479)*TL^3.16,Fish
+Paralabrax clathratus,TL,(0.005064877)*TL^3.27,Fish
+Rhacochilus toxotes,TL,(0.015758712)*TL^3.01,Fish
+Rhacochilus vacca,TL,(0.015758712)*TL^3.01,Fish
+Scorpaena guttata,TL,(0.0201)*TL^3.0074,Fish
+Scorpaenichthys marmoratus,TL,(0.00001612)*TL^3.055,Fish
+Sebastes atrovirens,TL,(0.009348021)*TL^3.172,Fish
+Sebastes chrysomelas,TL,(0.014389747)*TL^3.11,Fish
+Sebastes mystinus,TL,(0.0000162)*TL^2.9884,Fish
+Sebastes serranoides,TL,(0.323)*TL^2.784,Fish
+Sebastes serriceps,TL,(0.041)*TL^3.081,Fish
+Semicossyphus pulcher,TL,(0.0000295)*TL^2.9066,Fish
+Crassedoma giganteum,Size_mm,0.00096*Size_mm^2.733,Invertebrate
+Haliotis rufescens,Size_mm,0.00042*Size_mm^2.797,Invertebrate
+Kelletia kelletii,Size_mm,0.00015*Size_mm^2.932,Invertebrate
+Lithopoma  gibberosa,Size_mm,0.00065*Size_mm^2.823,Invertebrate
+Lytechinus anamesus,Size_mm,0.00032*Size_mm^3.044,Invertebrate
+Megastraea undosa,Size_mm,0.00065*Size_mm^2.823,Invertebrate
+Megathura crenulata,Size_mm,0.025*Size_mm^1.932,Invertebrate
+Patiria miniata,Size_mm,0.00014*(Size_mm*2)^2.712,Invertebrate
+Pisaster giganteus,Size_mm,0.01*(Size_mm*2)^1.773,Invertebrate
+Pycnopodia helianthoides,Size_mm,0.000037*(Size_mm*2)^2.97,Invertebrate
+Strongylocentrotus franciscanus,Size_mm,0.00059*Size_mm^2.917,Invertebrate
+Strongylocentrotus purpuratus,Size_mm,0.00059*Size_mm^2.87,Invertebrate
+Tegula regina,Size_mm,0.004*Size_mm^2.365,Invertebrate
+Tethya aurantia,Size_mm,0.003*Size_mm^2.471,Invertebrate

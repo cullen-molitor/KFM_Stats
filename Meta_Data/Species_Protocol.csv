@@ -1,0 +1,75 @@
+Group,Taxa/Common Name,Scientific Name,1 m,5 m,Bands,RPCs,NHSF,VFT,RDFC
+Algae,Miscellaneous green algae,NA,NA,NA,NA,X,NA,NA,NA
+Algae,Miscellaneous red algae,NA,NA,NA,NA,X,NA,NA,NA
+Algae,Articulated coralline algae,NA,NA,NA,NA,X,NA,NA,NA
+Algae,Encrusting coralline algae,NA,NA,NA,NA,X,NA,NA,NA
+Algae,Agar weed,Gelidium spp.,NA,NA,NA,X,NA,NA,NA
+Algae,Sea tongue,Gigartina spp.,NA,NA,NA,X,NA,NA,NA
+Algae,Miscellaneous brown algae,NA,NA,NA,NA,X,NA,NA,NA
+Algae,Acid weed,Desmarestia spp.,NA,NA,NA,X,NA,NA,NA
+Algae,Oar weed,Laminaria farlowii,X,NA,NA,X,NA,NA,NA
+Algae,Bladder chain kelp,Cystoseira spp.,NA,NA,NA,X,NA,NA,NA
+Algae,Giant kelp,Macrocystis pyrifera,X,X,NA,X,NA,NA,NA
+Algae,California sea palm,Pterygophora californica,X,NA,NA,X,NA,NA,NA
+Algae,Southern sea palm,Eisenia arborea,X,NA,NA,X,NA,NA,NA
+Algae,Devil weed,Sargassum horneri,X,X,X,X,NA,NA,NA
+Algae,Wakame,Undaria pinnatifida,X,X,X,X,NA,NA,NA
+Algae,Miscellaneous plants,NA,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Miscellaneous sponges,NA,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Orange puffball sponge,Tethya aurantia,NA,NA,X,NA,X,NA,NA
+Invertebrates,Southern staghorn bryozoan,Diaperoecia californica,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Miscellaneous bryozoans,NA,NA,NA,NA,X,NA,NA,NA
+Invertebrates,California hydrocoral,Stylaster californica,NA,NA,X,NA,X,NA,NA
+Invertebrates,White-spotted rose anemone,Tealia lofotensis,NA,NA,X,NA,NA,NA,NA
+Invertebrates,Red gorgonian,Lophogorgia chilensis,NA,NA,X,NA,X,NA,NA
+Invertebrates,Brown gorgonian,Muricea fruticosa,NA,NA,X,NA,X,NA,NA
+Invertebrates,Californian golden gorgonian,Muricea californica,NA,NA,X,NA,X,NA,NA
+Invertebrates,Strawberry anemone,Corynactis californica,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Orange cup coral,Balanophyllia elegans,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Cup coral,Astrangia lajollaensis,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Ornate tube worm,Diopatra ornata,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Colonial sand-tube worm,Phragmatopoma californica,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Scaled-tube snail,Serpulorbis s1 m Quadsuamigerus,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Chestnut cowrie,Cypraea spadicea,X,NA,NA,NA,NA,NA,NA
+Invertebrates,Wavy turban snail,Megastraea undosa,X,NA,NA,NA,X,NA,NA
+Invertebrates,Red turban snail,Astraea gibberosa,X,NA,NA,NA,X,NA,NA
+Invertebrates,Bat star,Patiria miniata,X,NA,NA,NA,X,NA,NA
+Invertebrates,Giant-spined sea star,Pisaster giganteus,X,X,X,NA,X,NA,NA
+Invertebrates,Ochre sea star,Pisaster ochraceus,NA,X,X,NA,X,NA,NA
+Invertebrates,Sunflower star,Pycnopodia helianthoides,X,NA,X,NA,X,NA,NA
+Invertebrates,White sea urchin,Lytechinus anamesus,NA,NA,X,NA,X,NA,NA
+Invertebrates,Red sea urchin,Strongylocentrotus franciscanus,X,NA,NA,NA,X,NA,NA
+Invertebrates,Purple sea urchin,Strongylocentrotus purpuratus,X,NA,NA,NA,X,NA,NA
+Invertebrates,Warty sea cucumber,Parastichopus parvimensis,X,NA,NA,NA,NA,NA,NA
+Invertebrates,Aggregated red sea cucumber,Pachythyone rubra,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Red abalone,Haliotis rufescens,NA,NA,X,NA,X,NA,NA
+Invertebrates,Pink abalone,Haliotis corrugata,NA,NA,X,NA,X,NA,NA
+Invertebrates,Green abalone,Haliotis fulgens,NA,NA,X,NA,X,NA,NA
+Invertebrates,Kellett’s whelk,Kelletia kelletii,NA,NA,X,NA,X,NA,NA
+Invertebrates,Giant keyhole limpet,Megathura crenulata,NA,NA,X,NA,X,NA,NA
+Invertebrates,California brown sea hare,Aplysia california,NA,NA,X,NA,NA,NA,NA
+Invertebrates,Rock scallop,Crassedoma giganteum,NA,NA,X,NA,X,NA,NA
+Invertebrates,California spiny lobster,Panulirus interruptus,NA,NA,X,NA,NA,NA,NA
+Invertebrates,Tunicates,NA,NA,NA,NA,X,NA,NA,NA
+Invertebrates,Stalked tunicate,Styela montereyensis,X,NA,NA,NA,NA,NA,NA
+Invertebrates,Miscellaneous invertebrates,NA,NA,NA,NA,X,NA,NA,NA
+Fish,Bluebanded goby,Lythrypnus dalli,X,NA,NA,NA,NA,NA,NA
+Fish,Blackeye goby,Coryphopterus nicholsii,X,NA,NA,NA,NA,NA,NA
+Fish,Island kelpfish,Alloclinus holderi,X,NA,NA,NA,NA,NA,NA
+Fish,Blacksmith,Chromis punctipinnis,NA,NA,NA,NA,NA,X,X
+Fish,Señorita,Oxyjulis californica,NA,NA,NA,NA,NA,X,X
+Fish,Blue rockfish,Sebastes mystinus,NA,NA,NA,NA,NA,X,X
+Fish,Olive rockfish,Sebastes serranoides,NA,NA,NA,NA,NA,X,X
+Fish,Kelp rockfish,Sebastes atrovirens,NA,NA,NA,NA,NA,X,X
+Fish,Kelp bass,Paralabrax clathratus,NA,NA,NA,NA,NA,X,X
+Fish,California sheephead,Semicossyphus pulcher,NA,NA,NA,NA,NA,X,X
+Fish,Black surfperch,Embiotoca jacksoni,NA,NA,NA,NA,NA,X,X
+Fish,Striped surfperch,Embiotoca lateralis,NA,NA,NA,NA,NA,X,X
+Fish,Pile perch,Damalichthys vacca,NA,NA,NA,NA,NA,X,X
+Fish,Garibaldi,Hypsypops rubicundus,NA,NA,NA,NA,NA,X,X
+Fish,Opaleye,Girella nigricans,NA,NA,NA,NA,NA,NA,X
+Fish,Rock Wrasse,Halichoeres semicinctus,NA,NA,NA,NA,NA,X,X
+Substrate,Bare,NA,NA,NA,NA,X,NA,NA,NA
+Substrate,Rock,NA,NA,NA,NA,X,NA,NA,NA
+Substrate,Cobble,NA,NA,NA,NA,X,NA,NA,NA
+Substrate,Sand,NA,NA,NA,NA,X,NA,NA,NA

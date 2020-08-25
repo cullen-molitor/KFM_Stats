@@ -1,0 +1,89 @@
+ScientificName,CommonName,Independent_variable,Range,a,b,LW_Equation,r2,p,N,RMSE,Smearing_estimate,Source
+$Acarnus\text{ }sp.$,NA,percent cover,$5 - 90$,$.$,$0.803$,$C*0.803$,$0.94$,$<.001$,$10$,$.$,$.$,Reed 2016
+$Cliona\text{ }celata$,NA,percent cover,$5 - 55$,$.$,$0.918$,$C*0.918$,$0.98$,$<.001$,$10$,$.$,$.$,Reed 2016
+$Halichondria\text{ }panicea$,NA,percent cover,$5 - 100$,$.$,$2.335$,$C*2.335$,$0.96$,$<.001$,$10$,$.$,$.$,Reed 2016
+$Leucilla\text{ }nuttingi$,NA,percent cover,$5 - 90$,$.$,$0.193$,$C*0.193$,$0.96$,$<.001$,$21$,$.$,$.$,Reed 2016
+$Tethya\text{ }aurantia$,orange puffball sponge,diameter,$12-81$,$3.0 x 10-3$,$2.471$,$3.0 x 10-3*L^2.471$,$0.97$,$<.001$,$14$,$0.2068$,$1.02$,Reed 2016
+$Abietinaria\text{ }sp.$,NA,percent cover,$5 - 100$,$.$,$0.049$,$C*0.049$,$0.98$,$<.001$,$30$,$.$,$.$,Reed 2016
+$Aglaophenia\text{ }sp.$,NA,percent cover,$5 - 100$,$.$,$0.217$,$C*0.217$,$0.91$,$<.001$,$37$,$.$,$.$,Reed 2016
+$Anthopleura\text{ }artemisia$,NA,disc diameter,$7 - 19$,$2.7 x 10-2$,$1.492$,$2.7 x 10-2*L^1.492$,$0.79$,$0.008$,$7$,$0.2348$,$1.03$,Reed 2016
+$Astrangia\text{ }lajollaensis$,La Jolla cup coral,percent cover,$5 - 100$,$.$,$0.048$,$C*0.048$,$0.87$,$<.001$,$10$,$.$,$.$,Reed 2016
+$Balanophyllia\text{ }elegans$,orange cup coral,disc diameter,$6 - 13$,$6.0 x 10-3$,$2.001$,$6.0 x 10-3*L^2.001$,$0.72$,$<.001$,$28$,$0.238$,$1.03$,Reed 2016
+$Corynactis\text{ }californicus$,club-tipped anemone,percent cover,$5 - 100$,$.$,$0.284$,$C*0.284$,$0.8$,$<.001$,$24$,$.$,$.$,Reed 2016
+$Epiactis\text{ }prolifera$,NA,percent cover,$5 - 75$,$.$,$0.349$,$C*0.349$,$0.99$,$<.001$,$15$,$.$,$.$,Reed 2016
+$Hydractinia\text{ }milleri$,NA,percent cover,$5 - 100$,$.$,$0.030$,$C*0.030$,$0.93$,$<.001$,$19$,$.$,$.$,Reed 2016
+$Lophogorgia\text{ }chilensis$,red gorgonian,colony width,$70 - 410$,$1.8 x 10-2$,$1.529$,$1.8 x 10-2*L^1.529$,$0.71$,$<.001$,$25$,$0.4641$,$1.12$,Reed 2016
+$Muricea\text{ }californica$,California golden gorgonian,colony width,$8 - 327$,$2.0 x 10-3$,$2.001$,$2.0 x 10-3*L^2.001$,$0.68$,$0.003$,$10$,$0.4755$,$1.11$,Reed 2016
+$Pachycerianthus\text{ }fimbriatus$,NA,disc diameter,$14 - 37$,$1.1 x 10-1$,$1.597$,$1.1 x 10-1*L^1.597$,$0.9$,$<.001$,$15$,$0.132$,$1.01$,Reed 2016
+$Paracyathus\text{ }stearnsii$,NA,percent cover,$5 - 100$,$.$,$0.545$,$C*0.545$,$0.99$,$<.001$,$28$,$.$,$.$,Reed 2016
+$Phyllactis\text{ }spp.$,NA,disc diameter,$6 - 15$,$6.0 x 10-3$,$1.799$,$6.0 x 10-3*L^1.799$,$0.46$,$<.001$,$25$,$0.4115$,$1.10$,Reed 2016
+$Plumularia\text{ }sp.$,NA,percent cover,$5 - 100$,$.$,$0.012$,$C*0.012$,$0.95$,$<.001$,$14$,$.$,$.$,Reed 2016
+$Urticina\text{ }lofotensis$,white-spotted rose anemone,disc diameter,$40 - 186$,$3.9 x 10-1$,$1.040$,$3.9 x 10-1*L^1.040$,$0.74$,$0.001$,$10$,$0.273$,$1.04$,Reed 2016
+$Cirriformia\text{ }luxuriosa$,NA,percent cover,$5 - 90$,$.$,$0.195$,$C*0.195$,$0.99$,$<.001$,$15$,$.$,$.$,Reed 2016
+$Dodecaceria\text{ }fewkesi$,NA,percent cover,$5 - 100$,$.$,$0.322$,$C*0.322$,$0.7$,$<.001$,$21$,$.$,$.$,Reed 2016
+$Eudistylia\text{ }polymorpha$,NA,body diameter,$3-10$,$2.3 x 10-1$,$1.426$,$2.3 x 10-1*(L*2)^1.426$,$0.34$,$0.007$,$20$,$0.5313$,$1.15$,Reed 2016
+$Phragmatopoma\text{ }californica$,colonial sand-tube worm,percent cover,$5 - 100$,$.$,$0.014$,$C*0.014$,$0.72$,$<.001$,$22$,$.$,$.$,Reed 2016
+$Salmacina\text{ }tribranchiata$,NA,percent cover,$5 - 100$,$.$,$2.307$,$C*2.307$,$0.96$,$<.001$,$30$,$.$,$.$,Reed 2016
+$Aplysia\text{ }californica$,California brown sea hare,retracted length,$70 - 280$,$1.9 x 10-1$,$1.575$,$1.9 x 10-1*L^1.575$,$0.51$,$<.001$,$30$,$0.5659$,$1.16$,Reed 2016
+$Calliostoma\text{ }tricolor$,NA,shell length,$12-17$,$1.3 x 10-4$,$3.360$,$1.3 x 10-4*L^3.360$,$0.99$,$<.001$,$6$,$0.0459$,$1.00$,Reed 2016
+$Chaceia\text{ }ovoidea$,NA,siphon diameter,$16 - 35$,$5.9$,$1.058$,$5.9*L^1.058$,$0.99$,$<.001$,$6$,$0.0256$,$1.00$,Reed 2016
+$Conus\text{ }californicus$,NA,shell length,$8-27$,$7.5 x 10-4$,$2.578$,$7.5 x 10-4*L^2.578$,$0.97$,$<.001$,$80$,$0.1225$,$1.01$,Reed 2016
+$Crassedoma\text{ }giganteum$,rock scallop,shell length,$68 - 190$,$9.6 x 10-4$,$2.733$,$9.6 x 10-4*L^2.733$,$0.85$,$<.001$,$15$,$0.3917$,$1.08$,Reed 2016
+$Cypraea\text{ }spadicea$,chestnut cowrie,shell length,$33 - 50$,$6.0 x 10-3$,$2.114$,$6.0 x 10-3*L^2.114$,$0.76$,$<.001$,$27$,$0.1104$,$1.01$,Reed 2016
+$Doriopsilla\text{ }albopunctata$,NA,retracted length,$14 -112$,$1.3 x 10-4$,$2.801$,$1.3 x 10-4*L^2.801$,$0.97$,$<.001$,$14$,$0.3618$,$1.07$,Reed 2016
+$Haliotis\text{ }rufescens$,red abalone,shell length,$30 - 171$,$4.2 x 10-4$,$2.797$,$4.2 x 10-4*L^2.797$,$0.95$,$<.001$,$25$,$0.2401$,$1.03$,Reed 2016
+$Haliotis\text{ }rufescens$,"red abalone,  aquacultured",shell length,$30 - 171$,$4.2 x 10-4$,$2.797$,$4.2 x 10-4*L^2.797$,$0.95$,$<.001$,$25$,$0.2401$,$1.03$,Reed 2016
+$Kelletia\text{ }kelletii$,Kellet's whelk,shell length,$14 - 135$,$1.5 x 10-4$,$2.932$,$1.5 x 10-4*L^2.932$,$0.99$,$<.001$,$49$,$0.1455$,$1.01$,Reed 2016
+$Lithophaga\text{ }plumula$,NA,siphon diameter,$1 - 5$,$8.9 x 10-1$,$1.031$,$8.9 x 10-1*L^1.031$,$0.33$,$0.004$,$23$,$0.7054$,$1.25$,Reed 2016
+$Lithopoma\text{ }gibberosa$,red turban snail,shell length,$19 - 127$,$6.5 x 10-4$,$2.823$,$6.5 x 10-4*L^2.823$,$0.97$,$<.001$,$97$,$0.2954$,$1.05$,Reed 2016
+$Megathura\text{ }crenulata$,giant keyhole limpet,body length,$79 - 126$,$2.5 x 10-2$,$1.932$,$2.5 x 10-2*L^1.932$,$0.76$,$<.001$,$26$,$0.1439$,$1.01$,Reed 2016
+$Mitra\text{ }idae$,NA,shell length,$9 - 65$,$9.7 x 10-4$,$2.377$,$9.7 x 10-4*L^2.377$,$0.99$,$<.001$,$34$,$0.1196$,$1.01$,Reed 2016
+$Mytilus\text{ }californianus$,NA,shell length,$31 - 143$,$2.0 x 10-3$,$2.078$,$2.0 x 10-3*L^2.078$,$0.61$,$<.001$,$19$,$0.6731$,$1.26$,Reed 2016
+$Mytilus\text{ }galloprovincialis$,NA,shell length,$26 - 86$,$1.2 x 10-5$,$3.382$,$1.2 x 10-5*L^3.382$,$0.7$,$<.001$,$20$,$0.6494$,$1.22$,Reed 2016
+$Norrisia\text{ }norrisi$,NA,shell length,$21 - 67$,$1.0 x 10-3$,$2.676$,$1.0 x 10-3*L^2.676$,$0.82$,$<.001$,$33$,$0.3269$,$1.06$,Reed 2016
+$Octopus\text{ }bimaculoides$,NA,arm length,$150 - 450$,$2.3 x 10-2$,$1.631$,$2.3 x 10-2*L^1.631$,$0.83$,$<.001$,$10$,$0.2592$,$1.03$,Reed 2016
+$Parapholas\text{ }californica$,NA,siphon diameter,$0.9 - 19$,$4.4$,$0.919$,$4.4*L^0.919$,$0.51$,$<.001$,$38$,$0.8697$,$1.34$,Reed 2016
+$Peltodoris\text{ }nobilis$,NA,retracted length,$24 - 74$,$2.0 x 10-3$,$2.267$,$2.0 x 10-3*L^2.267$,$0.60$,$<.001$,$24$,$0.6023$,$1.17$,Reed 2016
+$Pteropurpura\text{ }trialata$,NA,shell length,$15 - 40$,$8.2 x 10-4$,$2.366$,$8.2 x 10-4*L^2.366$,$0.94$,$<.001$,$10$,$0.199$,$1.02$,Reed 2016
+$Serpulorbis\text{ }squamiger$,NA,percent cover,$5 - 100$,$.$,$0.571$,$C*0.571$,$0.91$,$<.001$,$25$,$.$,$.$,Reed 2016
+$Tegula\text{ }brunnea$,NA,shell length,$10 - 35$,$4.0 x 10-3$,$2.365$,$4.0 x 10-3*L^2.365$,$0.72$,$<.001$,$39$,$0.4584$,$1.12$,Reed 2016
+$Balanus\text{ }glandula$,NA,percent cover,$5 - 100$,$.$,$0.685$,$C*0.685$,$0.8$,$<.001$,$30$,$.$,$.$,Reed 2016
+$Loxorhynchus\text{ }grandis\text{ }carapace$,NA,diameter,$77 - 270$,$8.0 x 10-2$,$1.973$,$8.0 x 10-2*L^1.973$,$0.76$,$<.001$,$11$,$0.4751$,$1.12$,Reed 2016
+$Panulirus\text{ }interruptus$,California spiny lobster,carapace length,$33 - 157$,$1.0 x 10-3$,$2.914$,$1.0 x 10-3*L^2.914$,$0.97$,$<.001$,$207$,$0.0782$,$1.00$,Reed 2016
+$Pugettia\text{ }producta\text{ }carapace$,NA,diameter,$13 - 104$,$1.0 x 10-3$,$2.510$,$1.0 x 10-3*L^2.510$,$0.95$,$<.001$,$13$,$0.3445$,$1.06$,Reed 2016
+$Bugula\text{ }californica$,NA,percent cover,$5 - 100$,$.$,$0.392$,$C*0.392$,$0.99$,$<.001$,$27$,$.$,$.$,Reed 2016
+$Bugula\text{ }neritina$,NA,percent cover,$5 - 100$,$.$,$0.189$,$C*0.189$,$0.82$,$<.001$,$40$,$.$,$.$,Reed 2016
+$Cellaria\text{ }sp.$,NA,percent cover,$5 - 100$,$.$,$0.164$,$C*0.164$,$0.95$,$<.001$,$27$,$.$,$.$,Reed 2016
+$Diaperoecia\text{ }californica$,Southern staghorn bryozoan,percent cover,$5 - 100$,$.$,$0.893$,$C*0.893$,$0.96$,$<.001$,$29$,$.$,$.$,Reed 2016
+$Thalamoporella\text{ }californica$,NA,percent cover,$5 - 100$,$.$,$0.594$,$C*0.594$,$0.95$,$<.001$,$30$,$.$,$.$,Reed 2016
+$Cucumaria\text{ }piperata$,NA,retracted length,$13 - 77$,$1.0 x 10-3$,$2.180$,$1.0 x 10-3*L^2.180$,$0.87$,$<.001$,$49$,$0.3412$,$1.06$,Reed 2016
+$Cucumaria\text{ }salma$,NA,tentacle diameter,$12 - 55$,$3.6 x 10-1$,$1.017$,$3.6 x 10-1*L^1.017$,$0.9$,$<.001$,$15$,$0.1555$,$1.01$,Reed 2016
+$Dermasterias\text{ }imbricata$,NA,body diameter,$40 - 370$,$7.7$,$0.701$,$7.7*(L*2)^0.701$,$0.67$,$<.001$,$28$,$0.3194$,$1.05$,Reed 2016
+$Eupentacta\text{ }quinquesemita$,NA,retracted length,$27 - 100$,$7.8 x 10-4$,$2.235$,$7.8 x 10-4*L^2.235$,$0.8$,$<.001$,$36$,$0.4085$,$1.14$,Reed 2016
+$Lissothuria\text{ }nutriens$,NA,retracted length,$8 - 14$,$2.0 x 10-3$,$2.196$,$2.0 x 10-3*L^2.196$,$0.6$,$0.001$,$14$,$0.3014$,$1.05$,Reed 2016
+$Lytechinus\text{ }anamesus$,white sea urchin,test diameter,$10 - 27$,$3.2 x 10-4$,$3.044$,$3.2 x 10-4*L^3.044$,$0.9$,$<.001$,$14$,$0.2783$,$1.04$,Reed 2016
+$Ophioplocus\text{ }esmarki$,NA,disc diameter,$11 - 24$,$4.0 x 10-3$,$2.253$,$4.0 x 10-3*L^2.253$,$0.94$,$<.001$,$58$,$0.1023$,$1.01$,Reed 2016
+$Ophiothrix\text{ }spiculata$,spiny brittle star,disc diameter,$4 - 15$,$5.0 x 10-3$,$2.318$,$5.0 x 10-3*L^2.318$,$0.91$,$<.001$,$42$,$0.1971$,$1.02$,Reed 2016
+$Pachythyone\text{ }rubra$,aggregated red sea cucumber,retracted length,$5 - 24$,$8.2 x 10-4$,$2.136$,$8.2 x 10-4*L^2.136$,$0.82$,$<.001$,$49$,$0.313$,$1.05$,Reed 2016
+$Parastichopus\text{ }californicus$,NA,retracted length,$41 - 215$,$8.2 x 10-2$,$1.539$,$8.2 x 10-2*L^1.539$,$0.3$,$0.003$,$26$,$0.7747$,$1.28$,Reed 2016
+$Parastichopus\text{ }parvimensis$,warty sea cucumber,retracted length,$70 - 240$,$9.0 x 10-3$,$2.123$,$9.0 x 10-3*L^2.123$,$0.85$,$<.001$,$47$,$0.2977$,$1.04$,Reed 2016
+$Patiria\text{ }miniata$,bat star,body diameter,$32 - 210$,$1.4 x 10-4$,$2.712$,$1.4 x 10-4*(L*2)^2.712$,$0.98$,$<.001$,$51$,$0.1284$,$1.01$,Reed 2016
+$Pisaster\text{ }brevispinus$,NA,body diameter,$144 - 534$,$2.0 x 10-3$,$2.147$,$2.0 x 10-3*(L*2)^2.147$,$0.8$,$<.001$,$20$,$0.3178$,$1.06$,Reed 2016
+$Pisaster\text{ }giganteus$,giant-spined sea star,body diameter,$17 - 290$,$1.0 x 10-2$,$1.773$,$1.0 x 10-2*(L*2)^1.773$,$0.95$,$<.001$,$37$,$0.1809$,$1.02$,Reed 2016
+$Pisaster\text{ }ochraceus$,ochre sea star,body diameter,$206 - 326$,$2.2 x 10-4$,$2.592$,$2.2 x 10-4*(L*2)^2.592$,$0.8$,$<.001$,$12$,$0.1917$,$1.02$,Reed 2016
+$Pycnopodia\text{ }helianthoides$,sunflower star,body diameter,$104 - 545$,$3.7 x 10-5$,$2.970$,$3.7 x 10-5*(L*2)^2.970$,$0.9$,$<.001$,$14$,$0.5218$,$1.14$,Reed 2016
+$Strongylocentrotus\text{ }franciscanus$,red sea urchin,test diameter,$28 - 85$,$5.9 x 10-4$,$2.917$,$5.9 x 10-4*L^2.917$,$0.94$,$<.001$,$35$,$0.194$,$1.02$,Reed 2016
+$Strongylocentrotus\text{ }purpuratus$,purple sea urchin,test diameter,$19 - 74$,$5.9 x 10-4$,$2.870$,$5.9 x 10-4*L^2.870$,$0.99$,$<.001$,$21$,$0.112$,$1.04$,Reed 2016
+$Archidistoma\text{ }psammion$,NA,percent cover,$5 - 100$,$.$,$1.370$,$C*1.370$,$0.95$,$<.001$,$37$,$.$,$.$,Reed 2016
+$Chelyosoma\text{ }productum$,NA,percent cover,$5 - 100$,$.$,$0.718$,$C*0.718$,$0.99$,$<.001$,$20$,$.$,$.$,Reed 2016
+$Clavelina\text{ }huntsmani$,NA,percent cover,$10 - 100$,$.$,$0.379$,$C*0.379$,$0.93$,$<.001$,$30$,$.$,$.$,Reed 2016
+$Cystodytes\text{ }lobatus$,NA,percent cover,$5 - 100$,$.$,$0.922$,$C*0.922$,$0.9$,$<.001$,$9$,$.$,$.$,Reed 2016
+$Euherdmania\text{ }claviformis$,NA,percent cover,$5 - 95$,$.$,$0.792$,$C*0.792$,$0.98$,$<.001$,$18$,$.$,$.$,Reed 2016
+$Polyclinum\text{ }planum$,NA,body length,$21 - 210$,$2.0 x 10-3$,$2.224$,$2.0 x 10-3*L^2.224$,$0.92$,$<.001$,$14$,$0.4496$,$1.10$,Reed 2016
+$Pycnoclavella\text{ }stanleyi$,NA,percent cover,$5 - 95$,$.$,$0.449$,$C*0.449$,$0.96$,$<.001$,$28$,$.$,$.$,Reed 2016
+$Ritterella\text{ }aequalisiphonis$,NA,percent cover,$5 - 75$,$.$,$1.423$,$C*1.423$,$0.98$,$<.001$,$11$,$.$,$.$,Reed 2016
+$Styela\text{ }montereyensis$,stalked tunicate,siphon diameter,$4 - 25 2.9$,$x 10-2$,$2.211$,$x 10-2*L^2.211$,$0.85$,$<.001$,$61$,$0.3846$,$1.09$,Reed 2016
+$Trididemnun\text{ }opacum$,NA,percent cover,$5 - 65$,$.$,$0.423$,$C*0.423$,$0.95$,$<.001$,$22$,$.$,$.$,Reed 2016
+$Megastraea\text{ }undosa$,wavy turban snail,shell length,$.$,$.00065$,$2.823$,$.00065*L^2.823$,$.$,$.$,$.$,$.$,$.$,See L. Gibberosa
+$Tegula\text{ }regina$,queen tegula,shell length,$.$,$.00065$,$2.823$,$.00065*L^2.823$,$.$,$.$,$.$,$.$,$.$,See L. Gibberosa
+$Macrocystis\text{ }pyrifera$,giant kelp,stipe density,$.$,$.$,$84.77333$,$.*L^84.77333$,$.$,$.$,$.$,$.$,$.$,Rassweiler 2018

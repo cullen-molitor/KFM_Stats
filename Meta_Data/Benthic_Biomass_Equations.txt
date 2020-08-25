@@ -1,0 +1,89 @@
+ScientificName, Independent_variable, Range, a, b, r2, p, N, RMSE, Smearing_estimate
+Acarnus sp., percent cover, 5 - 90, ., 0.803, 0.94, <.001, 10, ., .
+Cliona celata, percent cover, 5 - 55, ., 0.918, 0.98, <.001, 10, ., .
+Halichondria panicea, percent cover, 5 - 100, ., 2.335, 0.96, <.001, 10, ., .
+Leucilla nuttingi, percent cover, 5 - 90, ., 0.193, 0.96, <.001, 21, ., .
+Tethya aurantia, diameter, 12-81, 3.0 x 10-3, 2.471, 0.97, <.001, 14, 0.2068, 1.02
+Abietinaria sp., percent cover, 5 - 100, ., 0.049, 0.98, <.001, 30, ., .
+Aglaophenia sp., percent cover, 5 - 100, ., 0.217, 0.91, <.001, 37, ., .
+Anthopleura artemisia, disc diameter, 7 - 19, 2.7 x 10-2, 1.492, 0.79, 0.008, 7, 0.2348, 1.03
+Astrangia lajollaensis, percent cover, 5 - 100, ., 0.048, 0.87, <.001, 10, ., . 
+Balanophyllia elegans, disc diameter, 6 - 13, 6.0 x 10-3, 2.001, 0.72, <.001, 28, 0.238, 1.03
+Corynactis californicus, percent cover, 5 - 100, ., 0.284, 0.8, <.001, 24, ., .
+Epiactis prolifera, percent cover, 5 - 75, ., 0.349, 0.99, <.001, 15, ., . 
+Hydractinia milleri, percent cover, 5 - 100, ., 0.030, 0.93, <.001, 19, ., .
+Lophogorgia chilensis, colony width, 70 - 410, 1.8 x 10-2, 1.529, 0.71, <.001, 25, 0.4641, 1.12
+Muricea californica, colony width, 8 - 327, 2.0 x 10-3, 2.001, 0.68, 0.003, 10, 0.4755, 1.11
+Pachycerianthus fimbriatus, disc diameter, 14 - 37, 1.1 x 10-1, 1.597, 0.9, <.001, 15, 0.132, 1.01
+Paracyathus stearnsii, percent cover, 5 - 100, ., 0.545, 0.99, <.001, 28, ., .
+Phyllactis spp., disc diameter, 6 - 15, 6.0 x 10-3, 1.799, 0.46, <.001, 25, 0.4115, 1.10
+Plumularia sp., percent cover, 5 - 100, ., 0.012, 0.95, <.001, 14, ., .
+Urticina lofotensis, disc diameter, 40 - 186, 3.9 x 10-1, 1.040, 0.74, 0.001, 10, 0.273, 1.04
+Cirriformia luxuriosa, percent cover, 5 - 90, ., 0.195, 0.99, <.001, 15, ., .
+Dodecaceria fewkesi, percent cover, 5 - 100, ., 0.322, 0.7, <.001, 21, ., .
+Eudistylia polymorpha, body diameter, 3-10, 2.3 x 10-1, 1.426, 0.34, 0.007, 20, 0.5313, 1.15
+Phragmatopoma californica, percent cover, 5 - 100, ., 0.014, 0.72, <.001, 22, ., .
+Salmacina tribranchiata, percent cover, 5 - 100, ., 2.307, 0.96, <.001, 30, ., .
+Aplysia californica, retracted length, 70 - 280, 1.9 x 10-1, 1.575, 0.51, <.001, 30, 0.5659, 1.16
+Calliostoma tricolor, shell length, 12-17, 1.3 x 10-4, 3.360, 0.99, <.001, 6, 0.0459, 1.00
+Chaceia ovoidea, siphon diameter, 16 - 35, 5.9, 1.058, 0.99, <.001, 6, 0.0256, 1.00
+Conus californicus, shell length, 8-27, 7.5 x 10-4, 2.578, 0.97, <.001, 80, 0.1225, 1.01
+Crassedoma giganteum, shell length, 68 - 190, 9.6 x 10-4, 2.733, 0.85, <.001, 15, 0.3917, 1.08
+Cypraea spadicea, shell length, 33 - 50, 6.0 x 10-3, 2.114, 0.76, <.001, 27, 0.1104, 1.01
+Doriopsilla albopunctata, retracted length, 14 -112, 1.3 x 10-4, 2.801, 0.97, <.001, 14, 0.3618, 1.07
+Haliotis rufescens, shell length, 30 - 171, 4.2 x 10-4, 2.797, 0.95, <.001, 25, 0.2401, 1.03
+Kelletia kelletii, shell length, 14 - 135, 1.5 x 10-4, 2.932, 0.99, <.001, 49, 0.1455, 1.01
+Lithophaga plumula, siphon diameter, 1 - 5, 8.9 x 10-1, 1.031, 0.33, 0.004, 23, 0.7054, 1.25
+Lithopoma gibberosa, shell length, 19 - 127, 6.5 x 10-4, 2.823, 0.97, <.001, 97, 0.2954, 1.05
+Megathura crenulata, body length, 79 - 126, 2.5 x 10-2, 1.932, 0.76, <.001, 26, 0.1439, 1.01
+Mitra idae, shell length, 9 - 65, 9.7 x 10-4, 2.377, 0.99, <.001, 34, 0.1196, 1.01
+Mytilus californianus, shell length, 31 - 143, 2.0 x 10-3, 2.078, 0.61, <.001, 19, 0.6731, 1.26
+Mytilus galloprovincialis, shell length, 26 - 86, 1.2 x 10-5, 3.382, 0.7, <.001, 20, 0.6494, 1.22
+Norrisia norrisi, shell length, 21 - 67, 1.0 x 10-3, 2.676, 0.82, <.001, 33, 0.3269, 1.06
+Octopus bimaculoides, arm length, 150 - 450, 2.3 x 10-2, 1.631, 0.83, <.001, 10, 0.2592, 1.03
+Parapholas californica, siphon diameter, 0.9 - 19, 4.4, 0.919, 0.51, <.001, 38, 0.8697, 1.34
+Peltodoris nobilis, retracted length, 24 - 74, 2.0 x 10-3, 2.267, 0.60, <.001, 24, 0.6023, 1.17
+Pteropurpura trialata, shell length, 15 - 40, 8.2 x 10-4, 2.366, 0.94, <.001, 10, 0.199, 1.02
+Serpulorbis squamiger, percent cover, 5 - 100, ., 0.571, 0.91, <.001, 25, ., .
+Tegula brunnea, shell length, 10 - 35, 4.0 x 10-3, 2.365, 0.72, <.001, 39, 0.4584, 1.12
+Balanus glandula, percent cover, 5 - 100, ., 0.685, 0.8, <.001, 30, ., .
+Loxorhynchus grandis carapace, diameter, 77 - 270, 8.0 x 10-2, 1.973, 0.76, <.001, 11, 0.4751, 1.12
+Panulirus interruptus, carapace length, 33 - 157, 1.0 x 10-3, 2.914, 0.97, <.001, 207, 0.0782, 1.00
+Pugettia producta carapace, diameter, 13 - 104, 1.0 x 10-3, 2.510, 0.95, <.001, 13, 0.3445, 1.06
+Bugula californica, percent cover, 5 - 100, ., 0.392, 0.99, <.001, 27, ., .
+Bugula neritina, percent cover, 5 - 100, ., 0.189, 0.82, <.001, 40, ., .
+Cellaria sp., percent cover, 5 - 100, ., 0.164, 0.95, <.001, 27, ., .
+Diaperoecia californica, percent cover, 5 - 100, ., 0.893, 0.96, <.001, 29, ., .
+Thalamoporella californica, percent cover, 5 - 100, ., 0.594, 0.95, <.001, 30, ., .
+Cucumaria piperata, retracted length, 13 - 77, 1.0 x 10-3, 2.180, 0.87, <.001, 49, 0.3412, 1.06
+Cucumaria salma, tentacle diameter, 12 - 55, 3.6 x 10-1, 1.017, 0.9, <.001, 15, 0.1555, 1.01
+Dermasterias imbricata, body diameter, 40 - 370, 7.7, 0.701, 0.67, <.001, 28, 0.3194, 1.05
+Eupentacta quinquesemita, retracted length, 27 - 100, 7.8 x 10-4, 2.235, 0.8, <.001, 36, 0.4085, 1.14
+Lissothuria nutriens, retracted length, 8 - 14, 2.0 x 10-3, 2.196, 0.6, 0.001, 14, 0.3014, 1.05
+Lytechinus anamesus, test diameter, 10 - 27, 3.2 x 10-4, 3.044, 0.9, <.001, 14, 0.2783, 1.04
+Ophioplocus esmarki, disc diameter, 11 - 24, 4.0 x 10-3, 2.253, 0.94, <.001, 58, 0.1023, 1.01
+Ophiothrix spiculata, disc diameter, 4 - 15, 5.0 x 10-3, 2.318, 0.91, <.001, 42, 0.1971, 1.02
+Pachythyone rubra, retracted length, 5 - 24, 8.2 x 10-4, 2.136, 0.82, <.001, 49, 0.313, 1.05
+Parastichopus californicus, retracted length, 41 - 215, 8.2 x 10-2, 1.539, 0.3, 0.003, 26, 0.7747, 1.28
+Parastichopus parvimensis, retracted length, 70 - 240, 9.0 x 10-3, 2.123, 0.85, <.001, 47, 0.2977, 1.04
+Patiria miniata, body diameter, 32 - 210, 1.4 x 10-4, 2.712, 0.98, <.001, 51, 0.1284, 1.01
+Pisaster brevispinus, body diameter, 144 - 534, 2.0 x 10-3, 2.147, 0.8, <.001, 20, 0.3178, 1.06
+Pisaster giganteus, body diameter, 17 - 290, 1.0 x 10-2, 1.773, 0.95, <.001, 37, 0.1809, 1.02
+Pisaster ochraceus, body diameter, 206 - 326, 2.2 x 10-4, 2.592, 0.8, <.001, 12, 0.1917, 1.02
+Pycnopodia helianthoides, body diameter, 104 - 545, 3.7 x 10-5, 2.970, 0.9, <.001, 14, 0.5218, 1.14
+Strongylocentrotus franciscanus, test diameter, 28 - 85, 5.9 x 10-4, 2.917, 0.94, <.001, 35, 0.194, 1.02
+Strongylocentrotus purpuratus, test diameter, 19 - 74, 5.9 x 10-4, 2.870, 0.99, <.001, 21, 0.112, 1.04
+Archidistoma psammion, percent cover, 5 - 100, ., 1.370, 0.95, <.001, 37, ., .
+Chelyosoma productum, percent cover, 5 - 100, ., 0.718, 0.99, <.001, 20, ., .
+Clavelina huntsmani, percent cover, 10 - 100, ., 0.379, 0.93, <.001, 30, ., .
+Cystodytes lobatus, percent cover, 5 - 100, ., 0.922, 0.9, <.001, 9, ., .
+Euherdmania claviformis, percent cover, 5 - 95, ., 0.792, 0.98, <.001, 18, ., .
+Polyclinum planum, body length, 21 - 210, 2.0 x 10-3, 2.224, 0.92, <.001, 14, 0.4496, 1.10
+Pycnoclavella stanleyi, percent cover, 5 - 95, ., 0.449, 0.96, <.001, 28, ., .
+Ritterella aequalisiphonis, percent cover, 5 - 75, ., 1.423, 0.98, <.001, 11, ., .
+Styela montereyensis, siphon diameter, 4 - 25 2.9, x 10-2, 2.211, 0.85, <.001, 61, 0.3846, 1.09
+Trididemnun opacum, percent cover, 5 - 65, ., 0.423, 0.95, <.001, 22, ., .
+
+
+
+
