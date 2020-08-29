@@ -4,7 +4,6 @@ output: word_document
 ```{r tables, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
-
 # Methods
 ## Sampling Locations
 
