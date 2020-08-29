@@ -3,7 +3,6 @@ output: word_document
 ---
 ```{r tables, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-# source("global_markdown.R") # Un-comment to run independently
 ```
 
 # Methods
@@ -13,9 +12,9 @@ The 16 sites established in 2005 were located inside or adjacent to the followin
 
 In special cases, data from the original 16 sites is used to compare trends inside the old Anacapa island reserve established in 1978 (Source here...) to sites which became protected in 2003 (Source MLPA here...) and to sites which have never been protected. This provides a pseudo before after control impact (BACI) analysis for certain important species. It is also important to note that the old Anacapa island reserve was expanded from BLANK acres to BLANK acres in 2003 along with the implementation of the MPAs established in 2003. 
 
-![SR MPA Map](Report_Maps/MPA_Inset.png)
-
-Fig 2. South Point SMR at Santa Rosa Island (top left), Scorpion SMR at Santa Cruz Island (top right), Anacapa Island SMR at Anacapa Island (bottom left), and Santa Barbara Island SMR at Santa Barbara Island (bottom right). Within-MPA sites indicated with green points, and outside-MPA sites indicated with red points. Locations of SMRs relative to the Channel Islands indicated in insets. For a complete list of KFM sites see Appendix BLANK, table BLANK.
+![](Report_Maps/MPA_Inset.png)
+`r fig <- fig + 1`
+Fig `r fig`. South Point SMR at Santa Rosa Island (top left), Scorpion SMR at Santa Cruz Island (top right), Anacapa Island SMR at Anacapa Island (bottom left), and Santa Barbara Island SMR at Santa Barbara Island (bottom right). Within-MPA sites indicated with green points, and outside-MPA sites indicated with red points. Locations of SMRs relative to the Channel Islands indicated in insets. For a complete list of KFM sites see Appendix BLANK, table BLANK.
 
 ## Survey Methods
 
@@ -41,7 +40,7 @@ In NHSF, any number of divers sample randomly within transect footprint of 2,000
 
 Some species are counted on multiple sampling protocols. Typically these species are added to a new protocol to better asses their density based on an evaluation of the previous methods ability to detect changes for those species as well as to select the "best" protocol to effectively search their habitat. These species continue to be counted on the previous protocol to provide consistency. For this analysis we selected the "best" survey method for each species for each year to include in our count data. The species which are also counted on RPCs were left in for the Simpson index calculation, but were not used for the random forest model.
 
-Table XX. Protocols used for species monitored on more than one protocol.
+Table `r table`. Protocols used for species monitored on more than one protocol.
 ```{r Best Protocol, results="asis"}
 knitr::kable(Best_Protocol_Table)
 ```
@@ -94,4 +93,6 @@ Where
 + $c$ is the total stipe count at a given size
 + $n$ is the total stipe count
 + $d$ is the density in #/$m^{2}$ for a given site, species, and year
+
+MODELS section ---- See package "equatiomatic" for doing this automatically
 

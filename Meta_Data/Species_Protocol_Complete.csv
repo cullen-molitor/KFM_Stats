@@ -1,0 +1,79 @@
+Group,Taxa/Common Name,Scientific Name,1 m,5 m,Bands,RPCs,NHSF,VFT,RDFC
+Algae,Miscellaneous green algae,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Miscellaneous red algae,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Articulated coralline algae,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Encrusting coralline algae,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Agar weed,Gelidium spp.,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Sea tongue,Gigartina spp.,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Miscellaneous brown algae,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Acid weed,Desmarestia spp.,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Oar weed,Laminaria farlowii,1996-present,NA,NA,1982-present ,NA,NA,NA
+Algae,Bladder chain kelp,Cystoseira spp.,NA,NA,NA,1982-present ,NA,NA,NA
+Algae,Giant kelp,Macrocystis pyrifera,1983-present,1996-present,NA,1993-present,NA,NA,NA
+Algae,California sea palm,Pterygophora californica,1996-present,NA,NA,1993-present,NA,NA,NA
+Algae,Southern sea palm,Eisenia arborea,1996-present,NA,NA,1993-present ,NA,NA,NA
+Algae,Devil weed,Sargassum horneri,2010-present,2010-present,2010-present,2010-present ,NA,NA,NA
+Algae,Wakame,Undaria pinnatifida,2016-present,2016-present,2016-present,N/A,NA,NA,NA
+Algae,Miscellaneous plants,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Miscellaneous sponges,NA,NA,NA,NA,1985-present ,NA,NA,NA
+Invertebrates,Orange puffball sponge,Tethya aurantia,NA,NA,1983-present,NA,X,NA,NA
+Invertebrates,Southern staghorn bryozoan,Diaperoecia californica,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Miscellaneous bryozoans,NA,NA,NA,NA,1985-present ,NA,NA,NA
+Invertebrates,California hydrocoral,Stylaster californica,NA,NA,1983-present,NA,X,NA,NA
+Invertebrates,White-spotted rose anemone,Tealia lofotensis,NA,NA,1983-present,NA,NA,NA,NA
+Invertebrates,Red gorgonian,Lophogorgia chilensis,NA,NA,1983-present,NA,X,NA,NA
+Invertebrates,Brown gorgonian,Muricea fruticosa,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Californian golden gorgonian,Muricea californica,NA,NA,"sporadically 1988-1990, continuously 1991-present ",NA,X,NA,NA
+Invertebrates,Strawberry anemone,Corynactis californica,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Orange cup coral,Balanophyllia elegans,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Cup coral,Astrangia lajollaensis,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Ornate tube worm,Diopatra ornata,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Colonial sand-tube worm,Phragmatopoma californica,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Scaled-tube snail,Serpulorbis s1 m Quadsuamigerus,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Chestnut cowrie,Cypraea spadicea,"1983-present, except for ANAR and SRRR 1982-present",NA,NA,NA,NA,NA,NA
+Invertebrates,Wavy turban snail,Megastraea undosa,1982-present ,NA,NA,NA,1985-present ,NA,NA
+Invertebrates,Red turban snail,Astraea gibberosa,1985-present,NA,NA,NA,X,NA,NA
+Invertebrates,Queen Tegula,Tegula Regina,2006-present,NA,NA,NA,2006-present,NA,NA
+Invertebrates,Bat star,Patiria miniata,1982-present ,NA,NA,NA,X,NA,NA
+Invertebrates,Giant-spined sea star,Pisaster giganteus,1982-present ,1996-present,2014-present,NA,X,NA,NA
+Invertebrates,Ochre sea star,Pisaster ochraceus,NA,2012-present,2014-present,NA,X,NA,NA
+Invertebrates,Sunflower star,Pycnopodia helianthoides,X,NA,1983-present,NA,X,NA,NA
+Invertebrates,White sea urchin,Lytechinus anamesus,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Red sea urchin,Strongylocentrotus franciscanus,1982-present ,NA,NA,NA,X,NA,NA
+Invertebrates,Purple sea urchin,Strongylocentrotus purpuratus,1982-present ,NA,NA,NA,X,NA,NA
+Invertebrates,Warty sea cucumber,Parastichopus parvimensis,1982-present (except for no data SCPB in 1988),NA,NA,NA,NA,NA,NA
+Invertebrates,Aggregated red sea cucumber,Pachythyone rubra,NA,NA,NA,"continuously 1982-1984, sporadically 1984-1990, continuously 1991-present",NA,NA,NA
+Invertebrates,Red abalone,Haliotis rufescens,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Pink abalone,Haliotis corrugata,NA,NA,1983-present,NA,X,NA,NA
+Invertebrates,Green abalone,Haliotis fulgens,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Kellett’s whelk,Kelletia kelletii,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Giant keyhole limpet,Megathura crenulata,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,Gumboot Chiton,Cryptochiton stelleri,NA,NA,2012-present,NA,NA,NA,NA
+Invertebrates,California brown sea hare,Aplysia california,NA,NA,1983-present,NA,NA,NA,NA
+Invertebrates,Rock scallop,Crassedoma giganteum,NA,NA,1983-present ,NA,X,NA,NA
+Invertebrates,California spiny lobster,Panulirus interruptus,NA,NA,1983-present ,NA,NA,NA,NA
+Invertebrates,Tunicates,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Invertebrates,Stalked tunicate,Styela montereyensis,1982-present ,NA,NA,NA,NA,NA,NA
+Invertebrates,Miscellaneous invertebrates,NA,NA,NA,NA,"Including O. spiculata 1983-2002, excluding O. spiculata 2003-present",NA,NA,NA
+Fish,Bluebanded goby,Lythrypnus dalli,1985-present,NA,NA,NA,NA,NA,NA
+Fish,Blackeye goby,Coryphopterus nicholsii,1985-present,NA,NA,NA,NA,NA,NA
+Fish,Island kelpfish,Alloclinus holderi,1985-present,NA,NA,NA,NA,NA,NA
+Fish,Blacksmith,Chromis punctipinnis,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Señorita,Oxyjulis californica,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Blue rockfish,Sebastes mystinus,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Olive rockfish,Sebastes serranoides,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Kelp rockfish,Sebastes atrovirens,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Kelp bass,Paralabrax clathratus,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,California sheephead,Semicossyphus pulcher,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Black surfperch,Embiotoca jacksoni,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Striped surfperch,Embiotoca lateralis,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Pile perch,Damalichthys vacca,NA,NA,NA,NA,NA,1985-present ,1996-present 
+Fish,Garibaldi,Hypsypops rubicundus,NA,NA,NA,NA,NA,", subadult category 2018-present",1996-present 
+Fish,Opaleye,Girella nigricans,NA,NA,NA,NA,NA,NA,1996-present 
+Fish,Rock Wrasse,Halichoeres semicinctus,NA,NA,NA,NA,NA,1993-present,1996-present 
+Substrate,Bare,NA,NA,NA,NA,1985-present ,NA,NA,NA
+Substrate,Rock,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Substrate,Cobble,NA,NA,NA,NA,1982-present ,NA,NA,NA
+Substrate,Sand,NA,NA,NA,NA,1982-present ,NA,NA,NA
+,,,,,,,,,
+Algae,,Dictyoneuropsis reticulata/Agarum fimbriatum,2003-present,NA,NA,NA,NA,NA,NA

@@ -14,6 +14,7 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
   # ALT + O will collapse all chunks
   
   # install.packages('tidyverse')
+  # install.packages('tidymodels')
   # install.packages('ggpubr')
   # install.packages('glue')
   # install.packages('lubridate')
@@ -31,9 +32,10 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
   # install.packages('randomForest')
   # install.packages('pdp')
   # install.packages('broom')
-  # install.packages('purrr')
+  # install.packages('equatiomatic')
   
   library(tidyverse)
+  # library(tidymodels)
   library(ggpubr)
   library(glue)
   library(lubridate)
@@ -51,7 +53,7 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
   library(randomForest)
   library(pdp)
   library(broom)
-  library(purrr)
+  # library(equatiomatic)
   
 }
 
@@ -235,7 +237,10 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
     'Megathura crenulata' = "aquamarine2", 
     'Pycnopodia helianthoides' = "aquamarine2",       
     'Tethya aurantia' = "gold1", 
-    'Macrocystis pyrifera' = "forestgreen")
+    'Macrocystis pyrifera' = "forestgreen", 
+    'Lophogorgia chilensis' = "red",       
+    'Muricea californica' = "gold4", 
+    'Muricea fruticosa' = "brown")
   
   oneM_Biomass_Species <- c(
     "Megastraea undosa",  #  All years
@@ -273,12 +278,19 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
                   `Percent Sand` = Sand,
                   `Site Code` = SiteCode)
   
-  Site_Lat_Lon <- dplyr::select(siteInfo1, SiteCode, Latitude, Longitude) %>% 
+  Site_Lat_Lon <- dplyr::select(siteInfo1, SiteCode, Latitude, Longitude, Reference, MeanDepth) %>% 
     dplyr::rename(`Site Code` = SiteCode)
   
   Site_Table <- readr::read_csv("Meta_Data/Site_Table.csv") %>% 
     dplyr::left_join(Site_Lat_Lon) %>% 
-    dplyr::left_join(Substrate)
+    dplyr::left_join(Substrate) %>% 
+    dplyr::select(
+      `Site Number`, `Island Name`, `Site Name`, `Depth Range`, `Year Established`, 
+      `Year MPA Established`, Reference, `Depth Range`, Latitude, Longitude, 
+      `Percent Rock`, `Percent Cobble`, `Percent Sand`) %>% 
+    dplyr::rename(`Site #` = `Site Number`,
+                  `Est.` = `Year Established`,
+                  `MPA Est.` = `Year MPA Established`)
   
   Island_Colors <- c("San Miguel" = "darkmagenta", "SM" = "darkmagenta", 
                      "Santa Rosa" = "dodgerblue4", "SR" = "dodgerblue4", 
@@ -296,16 +308,20 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
   
   SiteLevels <- c(
     # San Miguel
-    "Wyckoff Ledge", "Miracle Mile", "Hare Rock",
+    "Wyckoff Ledge", "Miracle Mile", # Out
+    "Hare Rock", # In
     # Santa Rosa
-    "Johnson's Lee North", "Johnson's Lee South", "Rodes Reef", "Cluster Point", "Trancion Canyon", "Chickasaw", "South Point",
+    "Johnson's Lee North", "Johnson's Lee South", "Rodes Reef", "Cluster Point", # Out
+    "Trancion Canyon", "Chickasaw", "South Point", # In
     # Santa Cruz
-    "Fry's Harbor", "Pelican Bay", "Yellow Banks", "Devil's Peak Member", "Pedro Reef", "Little Scorpion",
-    "Gull Island South", "Scorpion Anchorage", "Potato Pasture", "Cavern Point", 
+    "Fry's Harbor", "Pelican Bay", "Yellow Banks", "Devil's Peak Member", "Pedro Reef", "Little Scorpion", # Out
+    "Gull Island South", "Scorpion Anchorage", "Potato Pasture", "Cavern Point",  # In
     # Anacapa
-    "Admiral's Reef", "East Fish Camp", "Lighthouse", "Cathedral Cove" , "Landing Cove", "Black Sea Bass Reef", "Keyhole", 
+    "Admiral's Reef", "East Fish Camp", "Lighthouse",  # Out
+    "Cathedral Cove" , "Landing Cove", "Black Sea Bass Reef", "Keyhole",  # In
     # Santa Barbara
-    "Arch Point", "Cat Canyon", "Webster's Arch", "SE Sea Lion Rookery", "Graveyard Canyon", "Southeast Reef")
+    "Arch Point", "Cat Canyon", "Webster's Arch",  # Out
+    "SE Sea Lion Rookery", "Graveyard Canyon", "Southeast Reef") # In
   
   SiteColor <- as.character(siteInfo1$Color)
   names(SiteColor) <- siteInfo1$SiteName
@@ -315,7 +331,7 @@ Export_END_Year <- 2019 # <== CHANGE ME TO REFLECT ENDING YEAR OF DATA TEXT FILE
 }
 
 { # Protocol Tables  ----
-  Species_Protocol_Table <- readr::read_csv("Meta_Data/Species_Protocol.csv")
+  Species_Protocol_Table <- readr::read_csv("Meta_Data/Species_Protocol_Complete.csv")
   
   Best_Protocol_Table <- readr::read_csv("Meta_Data/Species_Best_Protocol.csv")
   
