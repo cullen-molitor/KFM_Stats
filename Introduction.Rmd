@@ -8,7 +8,7 @@ Kelp forests constitute one of the largest, most complex, and most threatened ec
 The park boundary extends one nautical mile around each of the five islands, including the waters and submerged lands therein. These waters constitute less than 3% of California’s coastal zone, yet they are responsible for about 15% of the State’s coastal fishery harvests (source*). Despite defined fishing seasons, individual size and bag limits, and restricted uses in some areas, there are still no limits on total harvest of fish, lobster, algae, and other marine organisms from park waters. With the impact of harvesting and the threat of chronic and acute pollution from mainland waste disposal and adjacent offshore petroleum development, the potential for major anthropogenic disturbances exacerbated by overfishing of these ecosystems is of great concern. Natural disturbances also play an important role in the park, yet very little information on the long-term dynamics of the system is available. Providing the information required to manage these resources effectively is a challenge, but without the knowledge, there is a risk of losing these resources. Managing and conserving kelp forests requires innovative approaches and a better understanding of the long term dynamics of the ecosystem than currently exists. The KFM Program now monitors 33 sites annually, providing the longest set of fishery independent data along the west coast. A subset of 24 sites can be used to make direct comparisons of SMRs (inside vs. outside) at four of the five islands in CINP. See figure 1 for a full map of CINP and all of the KFMP sites. Please see Appendix B table XX for detailed information on site locations metadata.
 
 ![](Report_Maps/KFM_Site_Map.jpg)
-Fig `r fig`. Channel Islands National Park Kelp Forest Monitoring Program sites.
+Fig `r CHIS_map_fig`. Channel Islands National Park Kelp Forest Monitoring Program sites.
 
 Within each site, there are various protocols to collect abundance, size frequency distribution, percent cover, and presence/absence data on all species of fish and select indicator species for invertebrates and algae. Certain species have been labeled as “indicator species” based on the following criteria, at the discretion of the program managers:
 
@@ -86,8 +86,7 @@ ggplot(oni, aes(x = Date, y = ONI_ANOM, fill = ONI_ANOM)) +
         panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"))
 ```
-`r fig <- fig + 1`
-Fig `r fig`. Oceanic Nino Index (ONI) data provided by the Climate Prediction Center at NOAA
+`r ONI_fig` Oceanic Nino Index (ONI) data provided by the Climate Prediction Center at NOAA
 
 Small explanation of HPDO index and effectsw on species...
 ```{r PDO plot, message=FALSE, warning=FALSE, fig.height=4, fig.width=8.5}
@@ -142,5 +141,4 @@ ggplot(pdo, aes(x = Date, y = PDO_ANOM, fill = PDO_ANOM)) +
         panel.grid.minor = element_blank(),
         axis.line = element_line(colour = "black"))
 ```
-`r fig <- fig + 1`
-Fig `r fig`. H300 based Pacific Decadal Oscillation (HPDO) data provided by the Climate Prediction Center at NOAA
+`r PDO_fig` H300 based Pacific Decadal Oscillation (HPDO) data provided by the Climate Prediction Center at NOAA
