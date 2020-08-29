@@ -3,7 +3,7 @@ Repository used to build the KFM MPA community Trend Report.
 
 ## Usage
 
-In order to use this script, it is necessary to download or have the raw text files from the Kelp Forest Monitoring access database. View the Database Management SOP in the Kelp Forest Monitoring Handbook for instructions on how to create an export database with the correct tables. With the export databsae setup, the tables should be exported as text files. Only export raw data.
+In order to use this script, it is necessary to download or have the raw text files from the Kelp Forest Monitoring access database. View the Database Management SOP in the Kelp Forest Monitoring Handbook for instructions on how to create an export database with the correct tables. With the export databsae setup, the tables should be exported as text files. Only export raw data. Data exports stored in this respository are current as of 2019.
 
 ### Export Data
 The files needed are:

@@ -83,7 +83,3 @@ Pycnoclavella stanleyi, percent cover, 5 - 95, ., 0.449, 0.96, <.001, 28, ., .
 Ritterella aequalisiphonis, percent cover, 5 - 75, ., 1.423, 0.98, <.001, 11, ., .
 Styela montereyensis, siphon diameter, 4 - 25 2.9, x 10-2, 2.211, 0.85, <.001, 61, 0.3846, 1.09
 Trididemnun opacum, percent cover, 5 - 65, ., 0.423, 0.95, <.001, 22, ., .
-
-
-
-

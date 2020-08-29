@@ -654,7 +654,7 @@ source("global_markdown.R")
       base::rbind(Kelp_Biomass, Gorgo_Biomass_Long) %>%
       dplyr::mutate(Date = base::as.Date(base::ISOdate(SurveyYear, 1, 1)),
                     IslandName = gsub(" Island", "", IslandName)) %>%
-      readr::write_csv("Tidy_Data_Dont_Touch2/Benthic_Biomass_Long.csv")
+      readr::write_csv("Tidy_Data_Dont_Touch/Benthic_Biomass_Long.csv")
   }
   
   { # Benthic Biomass Wide   ----
@@ -670,7 +670,7 @@ source("global_markdown.R")
       dplyr::left_join(annual_mean_oni, by = c("SurveyYear")) %>% 
       dplyr::rename_with(~ base::gsub(",", "", .)) %>% 
       dplyr::rename_with(~ base::gsub(" ", "_", .)) %>%
-      readr::write_csv("Tidy_Data_Dont_Touch2/Benthic_Biomass_Wide.csv") 
+      readr::write_csv("Tidy_Data_Dont_Touch/Benthic_Biomass_Wide.csv") 
   }
   
 }
