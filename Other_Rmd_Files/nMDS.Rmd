@@ -1,0 +1,571 @@
+---
+output: html_document
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding,
+  output_dir = "Output_Documents") })
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("global_markdown.R")
+library(gganimate)
+library(gifski)
+library(av)
+library(magick)
+Benthic_Data <- readr::read_csv("Tidy_Data_Dont_Touch/Benthic_Diversity_Table.csv")
+Benthic_Biomass <- readr::read_csv("Tidy_Data_Dont_Touch/Benthic_Biomass_Table.csv")
+oni <- read.table("https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt", header = T) 
+oni <- oni %>% 
+  dplyr::mutate(Date = as.Date(ISOdate(oni$YR, oni$MON, 1))) %>% 
+  dplyr::filter(YR %in% 2005:Year_to_Filter_Data_by)
+oni$DateStart <- as.Date(ISOdate(oni$YR, oni$MON, 1))
+oni$DateEnd <- ceiling_date(oni$DateStart, "month")
+# write_csv(oni, path = "nino34.csv")
+```
+```{r Benthic Community nMDS Calculations, warning= FALSE, message= FALSE, include=FALSE, fig.keep='none'}
+for (k in unique(Benthic_Data$SurveyYear)) {
+  Benthic_nMDS_Table <- Benthic_Data %>%
+    filter(SurveyYear %in% k)  %>%
+    arrange(IslandName)
+  
+  Benthic_nMDS <- Benthic_nMDS_Table %>%
+    dplyr::select(-IslandCode, - IslandName, -SiteCode, -SiteName, - SurveyYear, - ReserveStatus) %>%
+    metaMDS(k=2, trymax=100)
+  stress_score <- Benthic_nMDS$stress
+  
+  data_scores <- as.data.frame(scores(Benthic_nMDS))
+  data_scores$site <- Benthic_nMDS_Table$SiteCode
+  data_scores$island <- Benthic_nMDS_Table$IslandCode
+  data_scores$reserve <- Benthic_nMDS_Table$ReserveStatus
+  
+  plot.new() 
+  ellipses <- ordiellipse(Benthic_nMDS, Benthic_nMDS_Table$IslandCode, display = "sites", kind = "sd", conf = 0.95, label = T)
+  
+  df_ellipse <- data.frame()
+  veganCovEllipse <- function (cov, center = c(0, 0), scale = 1, npoints = 100) 
+  {
+    theta <- (0:npoints) * 2 * pi/npoints
+    Circle <- cbind(cos(theta), sin(theta))
+    t(center + scale * t(Circle %*% chol(cov)))
+  }
+  
+  for(g in unique(Benthic_nMDS_Table$IslandCode)){
+    df_ellipse <- rbind(df_ellipse, 
+                        cbind(as.data.frame(with(
+                          Benthic_nMDS_Table[Benthic_nMDS_Table$IslandCode == g,],
+                          veganCovEllipse(ellipses[[g]]$cov, ellipses[[g]]$center, ellipses[[g]]$scale))),
+                          IslandCode=g))
+  }
+  
+  nMDS.plot <- ggplot() + 
+    geom_path(data = df_ellipse, aes(x = NMDS1, y = NMDS2, color = IslandCode), size = 1) +
+    geom_point(data = data_scores, aes(x = NMDS1, y = NMDS2, shape = reserve, colour = island), size = 2) + 
+    geom_text(data = data_scores, aes(x = NMDS1, y = NMDS2, label = site), size = 3, vjust = 1.5) +  
+    scale_colour_manual(values = c("SR" = "purple", "SC" = "blue", "AN" = "green", "SB" = "red")) +
+    coord_fixed() +
+    theme_bw() + 
+    labs(title = glue("Survey Year: {k}"), 
+         caption = glue::glue("Stress Score: {round(stress_score, 3)}"),
+         color = "Island Code",
+         shape = "Reserve Status") +
+    theme(plot.title = element_text(size = 16, hjust = 0.5),
+          axis.text.x = element_blank(), 
+          axis.text.y = element_blank(), 
+          axis.ticks = element_blank(), 
+          axis.title.x = element_text(size=12), 
+          axis.title.y = element_text(size=12), 
+          panel.background = element_blank(), 
+          panel.grid.major = element_blank(),  
+          panel.grid.minor = element_blank(),  
+          plot.background = element_blank(),
+          plot.caption = element_text(size=10, hjust = 0))
+  print(nMDS.plot)
+  unique_plotname <- paste("nMDS.plot.", k, sep = "")
+  assign(unique_plotname, nMDS.plot)
+}
+```
+
+```{r Benthic Community nMDS Plots, warning=FALSE, message=FALSE, fig.width=12, fig.height=12}
+
+Benthic_nMDS_Plot1 <- ggpubr::ggarrange(
+  nMDS.plot.2005, nMDS.plot.2006, nMDS.plot.2007, nMDS.plot.2008,
+  ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom", align = "hv")
+
+Benthic_nMDS_Plot2 <- ggpubr::ggarrange(
+  nMDS.plot.2009, nMDS.plot.2010, nMDS.plot.2011, nMDS.plot.2012,
+  ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom", align = "hv")
+
+Benthic_nMDS_Plot3 <- ggpubr::ggarrange(
+  nMDS.plot.2013, nMDS.plot.2014, nMDS.plot.2015, nMDS.plot.2016,
+  ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom", align = "hv")
+
+Benthic_nMDS_Plot4 <- ggpubr::ggarrange(
+  nMDS.plot.2017, nMDS.plot.2018, nMDS.plot.2019,
+  ncol = 2, nrow = 2, common.legend = TRUE, legend = "bottom", align = "hv")
+
+Benthic_nMDS_annotated1 <- ggpubr::annotate_figure(
+  Benthic_nMDS_Plot1, 
+  top = ggpubr::text_grob(
+    "Non-metric Multidimensional Scaling (nMDS) at Select MPA Reference Sites",
+    color = "black", size = 20),
+  bottom = ggpubr::text_grob(
+    paste(" Fig . nMDS plots for benthic community similarity from 2005-2019, grouped by island.",
+          "\n",
+          "        Symbols represent MPA protection status, ellipses represent 95% confidence regions"),
+    color = "black", size = 12, hjust = 0, x = 0))
+
+Benthic_nMDS_annotated2 <- ggpubr::annotate_figure(
+  Benthic_nMDS_Plot2, 
+  top = ggpubr::text_grob(
+    "Non-metric Multidimensional Scaling (nMDS) at Select MPA Reference Sites",
+    color = "black", size = 20),
+  bottom = ggpubr::text_grob(
+    paste(" Fig . nMDS plots for benthic community similarity from 2005-2019, grouped by island.",
+          "\n",
+          "        Symbols represent MPA protection status, ellipses represent 95% confidence regions"),
+    color = "black", size = 12, hjust = 0, x = 0))
+
+Benthic_nMDS_annotated3 <- ggpubr::annotate_figure(
+  Benthic_nMDS_Plot3, 
+  top = ggpubr::text_grob(
+    "Non-metric Multidimensional Scaling (nMDS) at Select MPA Reference Sites",
+    color = "black", size = 20),
+  bottom = ggpubr::text_grob(
+    paste(" Fig . nMDS plots for benthic community similarity from 2005-2019, grouped by island.",
+          "\n",
+          "        Symbols represent MPA protection status, ellipses represent 95% confidence regions"),
+    color = "black", size = 12, hjust = 0, x = 0))
+
+Benthic_nMDS_annotated4 <- ggpubr::annotate_figure(
+  Benthic_nMDS_Plot4, 
+  top = ggpubr::text_grob(
+    "Non-metric Multidimensional Scaling (nMDS) at Select MPA Reference Sites",
+    color = "black", size = 20),
+  bottom = ggpubr::text_grob(
+    paste(" Fig . nMDS plots for benthic community similarity from 2005-2019, grouped by island.",
+          "\n",
+          "        Symbols represent MPA protection status, ellipses represent 95% confidence regions"),
+    color = "black", size = 12, hjust = 0, x = 0))
+
+print(Benthic_nMDS_annotated1)
+print(Benthic_nMDS_annotated2)
+print(Benthic_nMDS_annotated3)
+print(Benthic_nMDS_annotated4)
+```
+
+```{r nMDS animated graphic}
+Benthic_nMDS_Table <- Benthic_Data %>%
+  dplyr::filter(SurveyYear == 2005) %>% 
+  dplyr::arrange(IslandName) 
+
+Benthic_nMDS <- Benthic_nMDS_Table %>%
+  dplyr::select(-IslandCode, - IslandName, -SiteCode, -SiteName, - SurveyYear, - ReserveStatus) %>%
+  metaMDS(k = 2, trymax = 100)
+stress_score <- Benthic_nMDS$stress
+data_scores <- as.data.frame(scores(Benthic_nMDS))
+data_scores$site <- Benthic_nMDS_Table$SiteCode
+data_scores$island <- Benthic_nMDS_Table$IslandCode
+data_scores$SurveyYear <- Benthic_nMDS_Table$SurveyYear
+data_scores$reserve <- Benthic_nMDS_Table$ReserveStatus
+data_scores <- mutate(data_scores, Stress_Scores = stress_score)
+
+for (k in 2006:2019){
+Benthic_nMDS_Table <- Benthic_Data %>%
+  dplyr::filter(SurveyYear == k) %>% 
+  dplyr::arrange(IslandName)
+
+  Benthic_nMDS <- Benthic_nMDS_Table %>%
+    dplyr::select(-IslandCode, - IslandName, -SiteCode, -SiteName, - SurveyYear, - ReserveStatus) %>%
+    metaMDS(k = 2, trymax = 100)
+  stress_score2 <- Benthic_nMDS$stress
+  data_scores2 <- as.data.frame(scores(Benthic_nMDS))
+  data_scores2$site <- Benthic_nMDS_Table$SiteCode
+  data_scores2$island <- Benthic_nMDS_Table$IslandCode
+  data_scores2$SurveyYear <- Benthic_nMDS_Table$SurveyYear
+  data_scores2$reserve <- Benthic_nMDS_Table$ReserveStatus
+  data_scores2 <- mutate(data_scores2, Stress_Scores = stress_score2)
+  data_scores <- rbind(data_scores, data_scores2)
+}
+data_scores <- dplyr::mutate(data_scores, Date = as.Date(ISOdate(data_scores$SurveyYear, 7, 1)))
+  
+nMDS.plot <- ggplot() +
+  geom_rect(data = oni, aes(xmin = -1.6, xmax = 1.6, ymin = -1.6, ymax = -1.3, fill = ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                     guide = guide_colorbar(order = 3)) +
+  geom_point(data = data_scores, aes(x = NMDS1, y = NMDS2, shape = reserve, color = island), size = 3) + 
+  geom_text(data = data_scores, aes(x = NMDS1, y = NMDS2, label = site), size = 4, vjust = 1.5) +  
+  scale_color_manual(values = c("SR" = "purple", "SC" = "blue", "AN" = "green", "SB" = "red"),
+                     guide = guide_legend(order = 2)) +
+  scale_shape_manual(values = c("Inside" = 19, "Outside" = 17),
+                     guide = guide_legend(order = 2)) +
+  geom_label(data = data_scores, aes(x = -1.5, y = -1.5, hjust = 0, vjust = 0,
+                label = paste("Stress Score:", round(Stress_Scores, 3)))) +
+  coord_equal() +
+  facet_wrap(facets = vars(island), nrow = 2) +
+  transition_time(Date) + 
+  # view_follow() +
+  stat_ellipse(data = data_scores, aes(x = NMDS1, y = NMDS2, colour = island), type = "t", level = .92 ) +
+  theme_bw() +
+  labs(title = "Year: {frame_time}",
+       caption = "Non-metric Multidimensional Scaling (nMDS) at Select MPA Reference Sites",
+       fill = "Oceanic Nino Index\nSST Anomaly",
+       color = "Island Code",
+       shape = "Reserve Status") +
+  theme(plot.title = element_text(size = 24, hjust = .5),
+        legend.position = "bottom",
+        legend.title = element_text(size = 14),
+        legend.text = element_text(size = 12),
+        axis.text.x = element_blank(),  
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank(),  
+        axis.title = element_text(size = 20), 
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),  
+        plot.background = element_blank(),
+        plot.caption = element_text(size = 12, hjust = 0))
+
+animate(nMDS.plot, width = 1000, height = 800, nframes = 600, fps = 10)
+
+anim_save(filename = "Animations/nMDs_oni_facet.gif", animation = last_animation())
+
+# anim_save(filename = "Animations/nMDs_oni.gif", animation = last_animation())
+
+# animate(nMDS.plot, 
+#  #width = 1000, height = 800,
+# nframes = 600, fps = 10, renderer = av_renderer())
+# 
+# anim_save(filename = "Animations/nMDs_oni.mp4", animation = last_animation())
+
+```
+
+
+
+
+```{r Benthic Biomass Ratio Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+
+boot_ratio = function(data, indices){
+  sample = data[indices, ]
+  ratio = (mean(sample$Mean_Biomass[sample$ReserveStatus == "Inside"])/
+                 mean(sample$Mean_Biomass[sample$ReserveStatus == "Outside"]))
+  return(ratio)
+}
+Benthic_Booted_Ratios <- tibble(ScientificName = character(), SurveyYear = integer(), 
+                        Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
+
+Benthic_Biomass_Boot <- Benthic_Biomass_Long %>%
+  dplyr::group_by(SiteName, IslandName, ScientificName, ReserveStatus) %>% 
+  # dplyr::mutate(Mean_Biomass = Mean_Biomass + mean(runif(1000, min = 0, max = 10^-100))) %>%
+  dplyr::summarise(Mean_Biomass = zoo::rollmean(Mean_Biomass, k = 3, na.pad = TRUE, align = "right"),
+                   SurveyYear = SurveyYear) %>%
+  # ^^^^^^^^ this calculates a three year rolling mean
+  dplyr::mutate(Mean_Biomass = Mean_Biomass + mean(runif(1000, min = 0, max = 10^-100))) %>%
+  dplyr::ungroup() 
+# %>% 
+#   dplyr::filter(ScientificName != "Lithopoma gibberosa" | SurveyYear != 2005)
+
+Benthic_Biomass_Boot$ScientificName <- factor(Benthic_Biomass_Boot$ScientificName,
+                                              levels = unique(Benthic_Biomass_Boot$ScientificName))
+
+for(y in 2008:2019){
+  d <- Benthic_Biomass_Boot %>%
+      dplyr::filter(SurveyYear == y) %>%
+    droplevels()
+  for(s in levels(d$ScientificName)){
+    d2 <- d  %>%
+      dplyr::filter(ScientificName == s)
+    output <- boot::boot(data = d2, statistic = boot_ratio, R = 1000)
+    ci_boot <- boot::boot.ci(boot.out = output, conf = 0.95, type = "perc")
+    Benthic_Booted_Ratios <- Benthic_Booted_Ratios %>%
+      add_row(ScientificName = s, SurveyYear = y,
+              Mean_Ratio = ci_boot$t0,
+              CI_minus = ci_boot$percent[4],
+              CI_plus = ci_boot$percent[5])
+  }
+}
+
+Benthic_Targets <- Species_Info %>% 
+  dplyr::select(ScientificName, Targeted_Broad, Commercially_Targeted, Recreationally_Targetted) %>% 
+  dplyr::filter(ScientificName %in% unique(Benthic_Biomass_Boot$ScientificName)) %>% 
+  dplyr::distinct(ScientificName, .keep_all = TRUE)
+
+Benthic_Booted_Ratios2 <- Benthic_Booted_Ratios %>%
+  dplyr::left_join(Benthic_Targets, by = "ScientificName")
+
+for (year in 2005:2019) {
+  Benthic_Ratios <- Benthic_Booted_Ratios2 %>% 
+    dplyr::filter(SurveyYear == year) %>%
+    dplyr::arrange(Mean_Ratio) 
+  
+  Benthic_Ratios$Targeted_Broad <- factor(
+    Benthic_Ratios$Targeted_Broad, levels = c("Targeted", "Non-targeted"))
+  
+  Benthic_Ratios$ScientificName <- factor(
+    Benthic_Ratios$ScientificName, levels = unique(Benthic_Ratios$ScientificName))
+  
+  p1 <- ggplot2::ggplot(data = Benthic_Ratios,
+                        aes(x = Mean_Ratio, y = ScientificName, color = Targeted_Broad)) +
+    geom_vline(aes(xintercept = 1)) +
+    geom_point(size = 5, stroke = 2, aes(shape = Targeted_Broad), fill = "blue") +
+    # geom_errorbar(aes(y = ScientificName, width = 1,
+    #                   xmin = Mean_Ratio - CI_minus,
+    #                   xmax = Mean_Ratio + CI_plus)) +
+    coord_cartesian(xlim = c(-1, 10)) +
+    scale_shape_manual(values = c("Targeted" = 10, "Non-targeted" = 5)) +
+    # facet_grid(rows = vars(Broad_Trophic_Level), space = "free", scales = "free") +
+    labs(title = year, color = NULL, shape = NULL,
+         x = "Biomass Ratio",
+         y = "Common Name",
+         x = NULL,
+         y = NULL) +
+    theme_classic2() +
+    theme(plot.title = element_text(hjust = 0.5, size = 22),
+          plot.subtitle = element_text(hjust = 0.5, size = 16),
+          legend.position = "right",
+          panel.grid.major = element_line(),
+          legend.justification = c(0,0.5),
+          legend.key.width = unit(.75, "cm"),
+          legend.background = element_rect(size = unit(5, "cm")),
+          legend.title = element_text(size = 14, color = "black"),
+          legend.text = element_text(size = 13, colour = "black"),
+          axis.title = element_text(hjust = .5, size = 18),
+          axis.text = element_text(size = 12),
+          strip.text = element_text(size = 14, colour = "black", angle = 90))
+  print(p1)
+}
+```
+
+```{r Fish Biomass Ratio Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11, fig.keep=none}
+
+boot_ratio = function(data, indices){
+  sample = data[indices, ]
+  ratio = (mean(sample$Mean_Biomass[sample$ReserveStatus == "Inside"])/mean(sample$Mean_Biomass[sample$ReserveStatus == "Outside"]))
+  return(ratio)
+}
+Booted_Ratios <- tibble(ScientificName = character(), SurveyYear = integer(), Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
+
+Fish_Biomass_Boot <- Fish_Biomass_Long %>%
+  dplyr::mutate(Mean_Biomass = Mean_Biomass + 10 ^ -100) %>% 
+  dplyr::group_by(SiteName, IslandName, ScientificName, SurveyYear, ReserveStatus) %>% 
+  dplyr::summarise(Mean_Biomass = sum(Mean_Biomass)) %>%
+  dplyr::ungroup() 
+
+# Fish_Biomass_Boot <- Fish_Biomass_Boot[!(Fish_Biomass_Boot$ScientificName == "Ophiodon elongatus" & Fish_Biomass_Boot$SurveyYear == 2019), ]
+
+Fish_Biomass_Boot$ScientificName <- factor(
+    Fish_Biomass_Boot$ScientificName, levels = unique(Fish_Biomass_Boot$ScientificName))
+
+for(y in unique(Fish_Biomass_Long$SurveyYear)){
+  Fish_Biomass_Boot <- droplevels(Fish_Biomass_Boot)
+  for(s in levels(Fish_Biomass_Boot$ScientificName)){
+    d <- Fish_Biomass_Boot %>%
+      filter(ScientificName %in% s, SurveyYear %in% y)
+    output <- boot::boot(data = d, statistic= boot_ratio, R = 2000)
+    ci_boot <- boot::boot.ci(boot.out = output, conf = 0.95, type = "perc")
+    Booted_Ratios <- add_row(Booted_Ratios, ScientificName = s, SurveyYear = y,
+                             Mean_Ratio = ci_boot$t0, CI_minus = ci_boot$percent[4],
+                             CI_plus = ci_boot$percent[5])
+  }
+}
+Fish_Trophic_Levels_Short <- Fish_Trophic_Levels %>%
+    dplyr::select(ScientificName, CommonName, Broad_Trophic_Level, Targeted) %>%
+    dplyr::mutate(CommonName = gsub(", male", "", CommonName),
+                  CommonName = gsub(", female", "", CommonName),
+                  CommonName = gsub(", juvenile", "", CommonName)) %>%
+    dplyr::distinct()
+
+Booted_Ratios <- Booted_Ratios %>%
+  dplyr::left_join(Fish_Trophic_Levels_Short, by = "ScientificName")
+
+for (year in 2007:2019) {
+  Fish_Ratios <- Booted_Ratios %>% 
+    dplyr::filter(SurveyYear == year) %>%
+    dplyr::arrange(Mean_Ratio) 
+  
+  Fish_Ratios$Targeted <- factor(
+    Fish_Ratios$Targeted, levels = c("Targeted", "Non-targeted"))
+  
+  Fish_Ratios$CommonName <- factor(
+    Fish_Ratios$CommonName, levels = unique(Fish_Ratios$CommonName))
+  
+  p1 <- ggplot2::ggplot(data = Fish_Ratios,
+                        aes(x = Mean_Ratio, y = CommonName, color = Targeted)) +
+    geom_vline(aes(xintercept = 1)) +
+    geom_point(size = 5, stroke = 2, aes(shape = Targeted), fill = "blue") +
+    geom_errorbar(aes(y = CommonName, width = 0,
+                      xmin = Mean_Ratio - CI_minus,
+                      xmax = Mean_Ratio + CI_plus)) +
+    scale_shape_manual(values = c("Targeted" = 10, "Non-targeted" = 5)) +
+    # facet_grid(rows = vars(Broad_Trophic_Level), space = "free", scales = "free") +
+    labs(title = year, color = NULL, shape = NULL,
+         # x = "Biomass Ratio",
+         # y = "Common Name",
+         x = NULL,
+         y = NULL) +
+    theme_classic2() +
+    theme(plot.title = element_text(hjust = 0.5, size = 22),
+          plot.subtitle = element_text(hjust = 0.5, size = 16),
+          legend.position = "right",
+          panel.grid.major = element_line(),
+          legend.justification = c(0,0.5),
+          legend.key.width = unit(.75, "cm"),
+          legend.background = element_rect(size = unit(5, "cm")),
+          legend.title = element_text(size = 14, color = "black"),
+          legend.text = element_text(size = 13, colour = "black"),
+          axis.title = element_text(hjust = .5, size = 18),
+          axis.text = element_text(size = 12),
+          strip.text = element_text(size = 14, colour = "black", angle = 90))
+  print(p1)
+  unique_plotname <- paste("Fish.Ratio.", year, sep = "")
+  assign(unique_plotname, p1)
+}
+```
+```{r, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+FR_Plot1 <- ggpubr::ggarrange(
+  Fish.Ratio.2007, Fish.Ratio.2008, 
+  # Fish.Ratio.2009, Fish.Ratio.2010, 
+  # Fish.Ratio.2011, Fish.Ratio.2012, Fish.Ratio.2013, Fish.Ratio.2014,
+  # Fish.Ratio.2015, Fish.Ratio.2016, Fish.Ratio.2017, Fish.Ratio.2018, Fish.Ratio.2019,
+  ncol = 2,
+  # nrow = 2,
+  common.legend = TRUE, legend = "bottom", align = "hv")
+
+FR_annotated1 <- ggpubr::annotate_figure(
+  FR_Plot1, 
+  bottom = ggpubr::text_grob(
+    paste(" nMDS plots for community similarity from 2005-2019, grouped by island. Symbols represent reserve status, ellipses represent 95% confidence regions,",
+          "\n",
+          "ANOSIM R statistics and P-values are shown."),
+    color = "black", size = 11, hjust = 0, x = 0))
+
+print(FR_annotated1)
+```
+
+```{r Biomass Ratio Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+
+Fish_Trophic_Levels_Short <- Fish_Trophic_Levels %>% 
+    dplyr::select(ScientificName, CommonName) %>% 
+    dplyr::mutate(CommonName = gsub(", male", "", CommonName),
+                  CommonName = gsub(", female", "", CommonName),
+                  CommonName = gsub(", juvenile", "", CommonName)) %>% 
+    dplyr::distinct()
+
+Fish_Biomass_Ratios <- Fish_Biomass_Long %>% 
+  dplyr::mutate(Mean_Biomass = Mean_Biomass + 10 ^ -100) %>% 
+  dplyr::group_by(IslandName, ScientificName, SurveyYear, 
+                  ReserveStatus, Broad_Trophic_Level, Targeted) %>% 
+  dplyr::summarise(Mean_Biomass = mean(Mean_Biomass)) %>% 
+  tidyr::pivot_wider(names_from = ReserveStatus,  
+                     values_from = Mean_Biomass) %>% 
+  dplyr::ungroup() %>%
+  dplyr::group_by(ScientificName, SurveyYear, 
+                  Broad_Trophic_Level, Targeted) %>% 
+  dplyr::mutate(Ratio = log(Inside / Outside)) %>% 
+  dplyr::summarise(Mean_Ratio = mean(Ratio),
+                   SD = stats::sd(Ratio),
+                   CI = stats::qt(0.975, df = n() - 1) * (SD / base::sqrt(n()))) %>% 
+  dplyr::mutate(Mean_plus_CI = Mean_Ratio + CI,
+                Mean_minus_CI = Mean_Ratio - CI) %>%
+  dplyr::ungroup() %>% 
+  dplyr::left_join(Fish_Trophic_Levels_Short) 
+
+                                                                             
+for (year in 2007:2019) {
+  Fish_Ratios <- Fish_Biomass_Ratios %>% 
+    dplyr::filter(SurveyYear == year) %>%
+    dplyr::arrange(Mean_Ratio) 
+  
+  Fish_Ratios$Targeted <- factor(
+    Fish_Ratios$Targeted, levels = c("Targeted", "Non-targeted"))
+  
+  Fish_Ratios$CommonName <- factor(
+    Fish_Ratios$CommonName, levels = unique(Fish_Ratios$CommonName))
+  
+  p1 <- ggplot2::ggplot(data = Fish_Ratios,
+                        aes(x = Mean_Ratio, y = CommonName, color = Targeted)) +
+    geom_vline(aes(xintercept = 0)) +
+    geom_point(size = 5, stroke = 2, aes(shape = Targeted), fill = "blue") +
+    geom_errorbar(width = 0, # color = "black",
+                  size = 1,
+                  aes(y = CommonName, 
+                      xmin = Mean_minus_CI,
+                      xmax = Mean_plus_CI)) +
+    scale_shape_manual(values = c("Targeted" = 10, "Non-targeted" = 5)) +
+    # facet_grid(rows = vars(Targeted), space = "free", scales = "free") +
+    labs(title = year, color = NULL, shape = NULL,
+         x = "Biomass Ratio",
+         y = "Common Name") +
+    theme_classic2() +
+    theme(plot.title = element_text(hjust = 0.5, size = 22),
+          plot.subtitle = element_text(hjust = 0.5, size = 16),
+          legend.position = "right",
+          panel.grid.major = element_line(),
+          legend.justification = c(0,0.5),
+          legend.key.width = unit(.75, "cm"),
+          legend.background = element_rect(size = unit(5, "cm")),
+          legend.title = element_text(size = 14, color = "black"),
+          legend.text = element_text(size = 13, colour = "black"),
+          axis.title = element_text(hjust = .5, size = 18),
+          axis.text = element_text(size = 12),
+          strip.text = element_text(size = 14, colour = "black", angle = 90))
+  print(p1)
+}
+
+```
+```{r}
+
+library(gganimate)
+library(gifski)
+
+ Fish_Biomass_Ratios <- Fish_Biomass_Ratios %>%
+    dplyr::arrange(Mean_Ratio) 
+  
+  Fish_Biomass_Ratios$Targeted <- factor( 
+    Fish_Biomass_Ratios$Targeted, levels = c("Targeted", "Non-targeted"))
+  
+  Fish_Biomass_Ratios$CommonName <- factor( 
+    Fish_Biomass_Ratios$CommonName, levels = unique(Fish_Biomass_Ratios$CommonName))
+  
+p1 <- ggplot2::ggplot(data = Fish_Biomass_Ratios,
+                      aes(x = Mean_Ratio, y = CommonName, color = Targeted)) +
+  geom_rect(data = SST_Anomaly_Index, aes(xmin = -10, xmax = 10, ymin = -Inf, ymax = Inf, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                     guide = guide_colorbar(order = 3)) +
+  geom_vline(aes(xintercept = 0)) +
+  geom_point(size = 5, stroke = 2, aes(shape = Targeted), fill = "blue") +
+  geom_errorbar(aes(y = CommonName,
+                    xmin = Mean_minus_CI,
+                    xmax = Mean_plus_CI)) +
+  scale_shape_manual(values = c("Targeted" = 10, "Non-targeted" = 5)) +
+  facet_grid(rows = vars(Targeted), space = "free", scales = "free") +
+  labs(title = "{frame_time}", 
+       color = NULL, shape = NULL,
+       x = "Biomass Ratio",
+       y = "Common Name") +
+  theme_classic2() +
+  theme(plot.title = element_text(hjust = 0.5, size = 22),
+        plot.subtitle = element_text(hjust = 0.5, size = 16),
+        legend.position = "right",
+        panel.grid.major = element_line(),
+        legend.justification = c(0,0.5),
+        legend.key.width = unit(.75, "cm"),
+        legend.background = element_rect(size = unit(5, "cm")),
+        legend.title = element_text(size = 14, color = "black"),
+        legend.text = element_text(size = 13, colour = "black"),
+        axis.title = element_text(hjust = .5, size = 18),
+        axis.text = element_text(size = 12),
+        strip.text = element_text(size = 14, colour = "black", angle = 90)) +
+  # gganimate::view_follow() +
+  gganimate::transition_time(SurveyYear)
+
+animate(p1, width = 1000, height = 800, nframes = 300, fps = 10)
+anim_save(filename = "Animations/Fish_Ratios.gif", animation = last_animation())
+```
+
+
+
+
+
+
+
+
+

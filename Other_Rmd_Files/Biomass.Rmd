@@ -1,0 +1,213 @@
+---
+output:
+  word_document:
+    reference_docx: Meta_Data/template.docx
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding,
+  output_dir = "Output_Documents") })
+---
+# Appendix ?. MPA Biomass
+
+The following graphs are organized by longitude. From top to bottom the graphs descend longitudinally (west to east going down). This stratifies the islands by typical water temperatures and puts the coldest water at the top and progressively warmer water towards the bottom. These water temperatures fluctuate and this stratification does not always hold true, but it is meant to represent the general trend. Because of this stratification of the study sites, the kelp forest communities vary widely from island to island. The y-axis is fixed by the highest density of a given species to show relative abundance. 
+
+The data plotted here is summarized from a subset that includes the KFM MPA reference sites. There are six reference sites at each of the four islands that were chosen for comparing the effectiveness of State Marine Reserves (SMRs). Those SMRs are South Point SMR at Santa Rosa Island, Scorpion Anchorage SMR at Santa Cruz Island, Anacapa Island SMR, and Santa Barbara Island SMR. There are three sites inside each SMR and three outside. The sites that lay outside the SMRs are relatively adjacent. This allows for direct comparisons for inside vs. outside each SMR.
+
+```{r Biomass Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("global_markdown.R")
+
+Benthic_Biomass_Long <- readr::read_csv("Tidy_Data_Dont_Touch/Benthic_Biomass_Long.csv") %>% 
+  dplyr::mutate(IsalandName = factor(IslandName, levels = MPA_Levels))
+Fish_Biomass_Long <- readr::read_csv("Tidy_Data_Dont_Touch/Fish_Biomass_Long.csv") %>% 
+  dplyr::mutate(IsalandName = factor(IslandName, levels = MPA_Levels))
+
+
+```
+
+```{r Benthic Biomass Summary, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+ggplot2::ggplot(Benthic_Biomass_Long, aes(x = SurveyYear, y = Mean_Biomass, fill = ScientificName)) +
+  ggplot2::geom_area(position = "stack", stat = "smooth") + # <=== Stat can be "identity" too
+  ggplot2::scale_x_continuous(breaks = 2005:Year_to_Filter_Data_by) +
+  ggplot2::scale_fill_manual(values = BenthicBiomassColor, 
+                             guide = guide_legend(ncol = 4, title.hjust = .5, title.position = "top")) +
+  ggplot2::facet_grid(rows= vars(IslandName), cols = vars(ReserveStatus), scales = "fixed") +
+  ggplot2::labs(title = "Benthic Biomass Summary",
+                x = "Survey Year",
+                y = "Biomass (g/m²)",
+                fill = "Scientific Name") +
+  ggplot2::theme_classic() +
+  ggplot2::theme(plot.title = element_text(hjust = 0.5, size = 18),
+                 plot.subtitle = element_text(hjust = 0.5, size = 16),
+                 legend.position = "bottom",
+                 plot.caption = element_text(hjust = 0),
+                 panel.border = element_rect(fill = FALSE),
+                 legend.justification = c(0, 0.5),
+                 legend.title = element_text(size = 12, color = "black"),
+                 legend.text = element_text(size = 11, color = "black"),
+                 axis.title = element_text(size = 16),
+                 axis.text.y = element_text(size = 12), 
+                 axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12),
+                 strip.text = element_text(size = 10, colour = "black"))
+```
+```{r Fish Biomass Summary, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=11}
+ggplot2::theme_set(
+  ggplot2::theme_classic() +
+  ggplot2::theme(plot.title = element_text(hjust = 0.5, size = 18),
+                 plot.subtitle = element_text(hjust = 0.5, size = 16),
+                 plot.caption = element_text(hjust = 0),
+                 panel.border = element_rect(fill = FALSE),
+                 legend.position = "bottom",
+                 legend.justification = c(0.5, 0.5),
+                 legend.title = element_text(size = 12, color = "black"),
+                 legend.text = element_text(size = 9, color = "black"),
+                 axis.title = element_text(size = 16),
+                 axis.text.y = element_text(size = 12), 
+                 axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12),
+                 strip.text = element_text(size = 10, colour = "black")))
+p1 <- ggplot2::ggplot(Fish_Biomass_Long, 
+                      aes(x = SurveyYear, y = Mean_Biomass, fill = CommonName)) +
+  ggplot2::geom_area(position = "stack", stat = "smooth") + # <=== Stat can be "identity" too
+  ggplot2::scale_x_continuous(breaks = 2005:Year_to_Filter_Data_by) +
+  ggplot2::scale_y_continuous(limits = c(0, NA)) +
+  ggplot2::scale_fill_manual(values = Fish_Colors,
+                             guide = guide_legend(ncol = 6, title.hjust = .5, 
+                                                  title.position = "top")) +
+  ggplot2::facet_grid(rows= vars(IslandName), cols = vars(ReserveStatus), scales = "free") +
+  ggplot2::labs(title = "Fish Biomass Summary", subtitle = "All Species",
+                x = "Survey Year", y = "Biomass (g)",
+                fill = "Common Name") +
+  ggplot2::theme_get()
+p2 <- ggplot2::ggplot(filter(Fish_Biomass_Long, Targeted == "Non-targeted"), 
+                      aes(x = SurveyYear, y = Mean_Biomass, fill = CommonName)) +
+  ggplot2::geom_area(position = "stack", stat = "smooth") + # <=== Stat can be "identity" too
+  ggplot2::scale_x_continuous(breaks = 2005:Year_to_Filter_Data_by) +
+  ggplot2::scale_y_continuous(limits = c(0, NA)) +
+  ggplot2::scale_fill_manual(values = Fish_Colors,
+                             guide = guide_legend(ncol = 6, title.hjust = .5,
+                                                  title.position = "top")) +
+  ggplot2::facet_grid(rows= vars(IslandName), cols = vars(ReserveStatus), scales = "free") +
+  ggplot2::labs(title = "Fish Biomass Summary", subtitle = "Non-targeted",
+                x = "Survey Year", y = "Biomass (g)",
+                fill = "Common Name") +
+  ggplot2::theme_get()
+p3 <- ggplot2::ggplot(filter(Fish_Biomass_Long, Targeted == "Targeted"), 
+                      aes(x = SurveyYear, y = Mean_Biomass, fill = CommonName)) +
+  ggplot2::geom_area(position = "stack", stat = "smooth") + # <=== Stat can be "identity" too
+  ggplot2::scale_x_continuous(breaks = 2005:Year_to_Filter_Data_by) +
+  ggplot2::scale_y_continuous(limits = c(0, NA)) +
+  ggplot2::scale_fill_manual(values = Fish_Colors,
+                             guide = guide_legend(ncol = 6, title.hjust = .5, 
+                                                  title.position = "top")) +
+  ggplot2::facet_grid(rows= vars(IslandName), cols = vars(ReserveStatus), scales = "free") +
+  ggplot2::labs(title = "Fish Biomass Summary", subtitle = "Targeted",
+                x = "Survey Year", y = "Biomass (g)",
+                fill = "Common Name") +
+  ggplot2::theme_get()
+print(p1)
+print(p2)
+print(p3)
+```
+## Benthic
+```{r Benthic Biomass Plots, warning = FALSE, message = FALSE, echo=FALSE, fig.width=12, fig.height=15}
+for (i in levels(Benthic_Biomass_Long$ScientificName)) {
+  biomass_filtered_data <- Benthic_Biomass_Long %>%
+    dplyr::filter(ScientificName == i)  %>% 
+    dplyr::mutate(Max_Mean = base::max(Mean_Biomass)) 
+  biomass <- base::split(biomass_filtered_data, f = biomass_filtered_data$IslandName) 
+  p1 <- ggplot(data = biomass$`Santa Rosa Island`,
+               aes(x = SurveyYear, y = Mean_Biomass, color = ReserveStatus, fill = ReserveStatus)) + 
+    # geom_line(size = 1) +
+    geom_smooth(size = 1, se = FALSE) +
+    # ggplot2::geom_area(stat = "identity", position = position_stack()) +
+    scale_x_continuous(breaks = 2005:as.numeric(Year_to_Filter_Data_by),
+                       expand = expansion(mult = c(0.01, .01))) +
+    scale_y_continuous(limits = c(0, biomass$`Santa Rosa Island`$Max_Mean), 
+                       expand = expansion(mult = c(0, .2))) +
+    labs(title = biomass$`Santa Rosa Island`$ScientificName,  
+         # subtitle = biomass$`Santa Rosa Island`$CommonName,
+         color = "Reserve Status", fill = "Reserve Status",
+         x = NULL, y = NULL) +
+    facet_grid(rows = vars(IslandName), scales = "fixed") +
+    scale_color_manual(values = c("Inside" = "green", "Outside" = "red")) +
+    scale_fill_manual(values = c("Inside" = "green", "Outside" = "red")) +
+    theme_classic2() +
+    theme(plot.title = element_text(hjust = 0.5, size = 22, face = "bold.italic"),
+          # plot.subtitle = element_text(hjust = 0.5, size = 16, face = "bold"),
+          legend.position = "bototm",
+          # panel.grid.major = element_line(),
+          legend.justification = c(0.5,0.5),
+          legend.key.width = unit(.75, "cm"),
+          legend.background = element_rect(size = unit(5, "cm")),
+          legend.title = element_text(size = 12, color = "black"),
+          legend.text = element_text(size = 11, colour = "black"),
+          axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 12, face = "bold"),
+          strip.text.x = element_text(size = 12, colour = "black", angle = 0),
+          strip.text.y = element_text(size = 12, colour = "black", angle = 270))
+  p2 <- p1 %+% biomass$`Santa Cruz Island` +
+    labs(title = NULL, subtitle = NULL)
+  p3 <- p1 %+% biomass$`Anacapa Island` +
+    labs(title = NULL, subtitle = NULL)
+  p4 <- p1 %+% biomass$`Santa Barbara Island`  +
+    labs(title = NULL, subtitle = NULL, x = "Year") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12, face = "bold"),
+          axis.title.x = element_text(hjust = .5, vjust = .5, size = 18, face = "bold"))
+  plot <- ggpubr::ggarrange(p1, p2, p3, p4, ncol = 1, align = "v", common.legend = TRUE, legend = "bottom")
+  a <- ggpubr::annotate_figure(plot,
+    left = text_grob("Mean Biomass (g/m²)", color = "black", rot = 90, face = "bold", size = 18)
+  )
+  print(a)
+}
+```
+## Fish
+```{r Fish Biomass Plots, warning = FALSE, message = FALSE, echo=FALSE, fig.width=12, fig.height=15}
+
+for (i in levels(Fish_Biomass_Long$CommonName)) {
+  biomass_filtered_data <- Fish_Biomass_Long %>%
+    dplyr::filter(CommonName == i)  %>% 
+    dplyr::mutate(Max_Mean = base::max(Mean_Biomass)) 
+  biomass <- base::split(biomass_filtered_data, f = biomass_filtered_data$IslandName) 
+  p1 <- ggplot(data = biomass$`Santa Rosa Island`,
+               aes(x = SurveyYear, y = Mean_Biomass, color = ReserveStatus, fill = ReserveStatus)) + 
+    geom_smooth(size = 1, se = F) +
+    scale_x_continuous(breaks = 2005:as.numeric(Year_to_Filter_Data_by),
+                       expand = expansion(mult = c(0.01, .01))) +
+    scale_y_continuous(limits = c(NA, biomass$`Santa Rosa Island`$Max_Mean),
+                       expand = expansion(mult = c(0, 0.2))) +
+    labs(title = biomass$`Santa Rosa Island`$ScientificName,  
+         subtitle = biomass$`Santa Rosa Island`$CommonName,
+         color = "Reserve Status", fill = "Reserve Status",
+         x = NULL, y = NULL) +
+    facet_grid(rows = vars(IslandName), scales = "fixed") +
+    scale_color_manual(values = c("Inside" = "green", "Outside" = "red")) +
+    scale_fill_manual(values = c("Inside" = "green", "Outside" = "red")) +
+    theme_classic2() +
+    theme(plot.title = element_text(hjust = 0.5, size = 22, face = "bold.italic"),
+          plot.subtitle = element_text(hjust = 0.5, size = 16, face = "bold"),
+          legend.position = "bototm",
+          panel.grid.major = element_line(),
+          legend.justification = c(0.5,0.5),
+          legend.key.width = unit(.75, "cm"),
+          legend.background = element_rect(size = unit(5, "cm")),
+          legend.title = element_text(size = 12, color = "black"),
+          legend.text = element_text(size = 11, colour = "black"),
+          axis.text.x = element_blank(),
+          axis.text.y = element_text(size = 12, face = "bold"),
+          strip.text.x = element_text(size = 12, colour = "black", angle = 0),
+          strip.text.y = element_text(size = 12, colour = "black", angle = 270))
+  p2 <- p1 %+% biomass$`Santa Cruz Island` +
+    labs(title = NULL, subtitle = NULL)
+  p3 <- p1 %+% biomass$`Anacapa Island` +
+    labs(title = NULL, subtitle = NULL)
+  p4 <- p1 %+% biomass$`Santa Barbara Island`  +
+    labs(title = NULL, subtitle = NULL, x = "Year") +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1, size = 12, face = "bold"),
+          axis.title.x = element_text(hjust = .5, vjust = .5, size = 18, face = "bold"))
+  plot <- ggpubr::ggarrange(p1, p2, p3, p4, ncol = 1, align = "v", common.legend = TRUE, legend = "bottom")
+  a <- ggpubr::annotate_figure(plot,
+    left = text_grob("Mean Biomass (g/m²)", color = "black", rot = 90, face = "bold", size = 18)
+  )
+  print(a)
+}
+
+```
+

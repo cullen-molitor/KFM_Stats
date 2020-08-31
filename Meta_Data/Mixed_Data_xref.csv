@@ -1,166 +1,154 @@
-Scientific_Name,Data_Type,ScientificName,CommonName,Classification,Trophic_Broad,Targeted_Broad
-Parastichopus_parvimensis,Count,Parastichopus parvimensis,warty sea cucumber,Invertebrates,detritivore,Targeted
-Panulirus_interruptus,Count,Panulirus interruptus,California spiny lobster,Invertebrates,carnivore,Targeted
-Kelletia_kelletii,Biomass,Kelletia kelletii,Kellet's whelk,Invertebrates,carnivore,Targeted
-Hypsypops_rubicundus,Biomass,Hypsypops rubicundus,"garibaldi, adult",Fish,carnivore,Non-targeted
-Simpson_Index,Index,Simpson Index,Simpson Index,Calculated Value,Calculated Value,Calculated Value
-Cystoseira,Percent,Cystoseira,bladder chain kelp,Algae,producer,Non-targeted
-Strongylocentrotus_franciscanus,Biomass,Strongylocentrotus franciscanus,red sea urchin,Invertebrates,herbivore,Targeted
-Tethya_aurantia,Biomass,Tethya aurantia,orange puffball sponge,Invertebrates,planktivore,Non-targeted
-Strongylocentrotus_purpuratus,Biomass,Strongylocentrotus purpuratus,purple sea urchin,Invertebrates,herbivore,Non-targeted
-articulated_coralline_algae,Percent,articulated coralline algae,articulated coralline algae,Algae,producer,Non-targeted
-Macrocystis_pyrifera,Biomass,Macrocystis pyrifera,"giant kelp, adult (>1m)",Algae,producer,Targeted
-Aplysia_californica,Count,Aplysia californica,California brown sea hare,Invertebrates,herbivore,Non-targeted
-Lytechinus_anamesus,Biomass,Lytechinus anamesus,white sea urchin,Invertebrates,herbivore,Non-targeted
-Patiria_miniata,Biomass,Patiria miniata,bat star,Invertebrates,carnivore,Non-targeted
-Laminaria_farlowii,Count,Laminaria farlowii,"oar weed, adult (>10cm wide)",Algae,producer,Non-targeted
-Corynactis_californicus,Percent,Corynactis californicus,club-tipped anemone,Invertebrates,planktivore,Non-targeted
-Brachyistius_frenatus,Count,Brachyistius frenatus,kelp surfperch,Fish,carnivore,Non-targeted
-Crassedoma_giganteum,Biomass,Crassedoma giganteum,rock scallop,Invertebrates,planktivore,Targeted
-Muricea_californica,Count,Muricea californica,California golden gorgonian,Invertebrates,planktivore,Non-targeted
-Rhodophyta,Percent,Rhodophyta,red algae (miscellaneous),Algae,producer,Non-targeted
-Tunicata,Percent,Tunicata,tunicates,Invertebrates,planktivore,Non-targeted
-Phaeophyta,Percent,Phaeophyta,brown algae (miscellaneous),Algae,producer,Non-targeted
-Paralabrax_clathratus,Biomass,Paralabrax clathratus,"kelp bass, adult",Fish,piscivore,Targeted
-Ophiothrix_spiculata,Percent,Ophiothrix spiculata,spiny brittle star,Invertebrates,detritivore,Non-targeted
-Lophogorgia_chilensis,Count,Lophogorgia chilensis,red gorgonian,Invertebrates,planktivore,Non-targeted
-Oxylebius_pictus,Count,Oxylebius pictus,painted greenling,Fish,carnivore,Non-targeted
-Pycnopodia_helianthoides,Biomass,Pycnopodia helianthoides,sunflower star,Invertebrates,carnivore,Non-targeted
-Megastraea_undosa,Biomass,Megastraea undosa,wavy turban snail,Invertebrates,herbivore,Targeted
-Megathura_crenulata,Biomass,Megathura crenulata,giant keyhole limpet,Invertebrates,herbivore,Non-targeted
-Porifera,Percent,Porifera,sponges,Invertebrates,planktivore,Non-targeted
-Sebastes_serriceps,Count,Sebastes serriceps,treefish,Fish,piscivore,Targeted
-Eisenia_arborea,Count,Eisenia arborea,"Southern sea palm, adult",Algae,producer,Non-targeted
-Shannon_Index,Index,Shannon Index,Shannon Index,Calculated Value,Calculated Value,Calculated Value
-Cypraea_spadicea,Biomass,Cypraea spadicea,chestnut cowrie,Invertebrates,carnivore,Non-targeted
-Chromis_punctipinnis,Biomass,Chromis punctipinnis,"blacksmith, adult",Fish,planktivore,Non-targeted
-Coryphopterus_nicholsi,Count,Coryphopterus nicholsi,blackeye goby,Fish,planktivore,Non-targeted
-Haliotis_rufescens,Biomass,Haliotis rufescens,red abalone,Invertebrates,herbivore,Targeted
-Styela_montereyensis,Count,Styela montereyensis,stalked tunicate,Invertebrates,planktivore,Non-targeted
-Gelidium,Percent,Gelidium,agar weed,Algae,producer,Non-targeted
-Sebastes_atrovirens,Biomass,Sebastes atrovirens,"kelp rockfish, adult",Fish,piscivore,Targeted
-Embiotoca_jacksoni,Biomass,Embiotoca jacksoni,"black surfperch, adult",Fish,carnivore,Non-targeted
-Bryozoa,Percent,Bryozoa,bryozoans (miscellaneous),Invertebrates,planktivore,Non-targeted
-Diopatra_ornata,Percent,Diopatra ornata,ornate tube worm,Invertebrates,planktivore,Non-targeted
-Sebastes_chrysomelas,Biomass,Sebastes chrysomelas,black and yellow rockfish,Fish,piscivore,Targeted
-IslandName,Categorical,Island Name,Island Name,Category,Category,Category
-Girella_nigricans,Biomass,Girella nigricans,"opaleye, adult",Fish,herbivore,Non-targeted
-Astrangia_lajollaensis,Percent,Astrangia lajollaensis,La Jolla cup coral,Invertebrates,planktivore,Non-targeted
-encrusting_coralline_algae,Percent,encrusting coralline algae,encrusting coralline algae,Algae,producer,Non-targeted
-Pisaster_giganteus,Biomass,Pisaster giganteus,giant-spined sea star,Invertebrates,carnivore,Non-targeted
-Rhacochilus_vacca,Biomass,Rhacochilus vacca,"pile perch, adult",Fish,carnivore,Non-targeted
-Balanophyllia_elegans,Percent,Balanophyllia elegans,orange cup coral,Invertebrates,planktivore,Non-targeted
-Urticina_lofotensis,Count,Urticina lofotensis,white-spotted rose anemone,Invertebrates,carnivore,Non-targeted
-Semicossyphus_pulcher,Biomass,Semicossyphus pulcher,"California sheephead, male",Fish,carnivore,Targeted
-Medialuna_californiensis,Biomass,Medialuna californiensis,halfmoon,Fish,herbivore,Non-targeted
-Rhacochilus_toxotes,Biomass,Rhacochilus toxotes,rubberlip surfperch,Fish,carnivore,Non-targeted
-Centrostephanus_coronatus,Count,Centrostephanus coronatus,Coronado urchin,Invertebrates,herbivore,Non-targeted
-Caulolatilus_princeps,Biomass,Caulolatilus princeps,ocean whitefish,Fish,carnivore,Targeted
-Halichoeres_semicinctus,Biomass,Halichoeres semicinctus,"rock wrasse, male",Fish,carnivore,Non-targeted
-Sebastes_serranoides,Biomass,Sebastes serranoides,"olive rockfish, adult",Fish,piscivore,Targeted
-Sebastes_mystinus,Biomass,Sebastes mystinus,"blue rockfish, adult",Fish,planktivore,Targeted
-Serpulorbis_squamigerus,Percent,Serpulorbis squamigerus,scaled wormsnail,Invertebrates,planktivore,Non-targeted
-Chlorophyta,Percent,Chlorophyta,green algae,Algae,producer,Non-targeted
-Diaperoecia_californica,Percent,Diaperoecia californica,Southern staghorn bryozoan,Invertebrates,planktivore,Non-targeted
-Pterygophora_californica,Count,Pterygophora californica,"California sea palm, adult",Algae,producer,Non-targeted
-Heterostichus_rostratus,Count,Heterostichus rostratus,giant kelpfish,Fish,carnivore,Non-targeted
-Gigartina,Percent,Gigartina,sea tongue,Algae,producer,Non-targeted
-Embiotoca_lateralis,Biomass,Embiotoca lateralis,"striped surfperch, adult",Fish,carnivore,Non-targeted
-Tegula_regina,Biomass,Tegula regina,queen tegula,Invertebrates,herbivore,Non-targeted
-SurveyYear,Categorical,Survey Year,Survey Year,Category,Category,Category
-Citharichthys_stigmaeus,Count,Citharichthys stigmaeus,speckled sanddab,Fish,carnivore,Targeted
-Scorpaenichthys_marmoratus,Biomass,Scorpaenichthys marmoratus,cabezon,Fish,piscivore,Targeted
-Sebastes_miniatus,Count,Sebastes miniatus,vermilion rockfish,Fish,piscivore,Targeted
-Orthonopias_triacis,Count,Orthonopias triacis,snubnose sculpin,Fish,piscivore,Non-targeted
-Alloclinus_holderi,Count,Alloclinus holderi,island kelpfish,Fish,carnivore,Non-targeted
-Muricea_fruticosa,Count,Muricea fruticosa,brown gorgonian,Invertebrates,planktivore,Non-targeted
-Anarrhichthys_ocellatus,Count,Anarrhichthys ocellatus,wolf eel,Fish,carnivore,Non-targeted
-Sebastes_caurinus,Count,Sebastes caurinus,copper rockfish,Fish,piscivore,Targeted
-KGBC_YOY,Count,KGBC YOY,KGBC YOY,Fish,piscivore,Targeted
-Ophiodon_elongatus,Biomass,Ophiodon elongatus,lingcod,Fish,piscivore,Targeted
-Sargassum_horneri,Count,Sargassum horneri,"Sargassum horneri, adult (>50cm or recepticles present)",Algae,producer,Non-targeted
-Sebastes_paucispinis,Count,Sebastes paucispinis,bocaccio,Fish,piscivore,Targeted
-Sebastes_carnatus,Count,Sebastes carnatus,gopher rockfish,Fish,piscivore,Targeted
-Desmarestia,Percent,Desmarestia,acid weed,Algae,producer,Non-targeted
-Gymnothorax_mordax,Count,Gymnothorax mordax,California moray,Fish,piscivore,Non-targeted
-Phragmatopoma_californica,Percent,Phragmatopoma californica,colonial sand-tube worm,Invertebrates,planktivore,Non-targeted
-Scorpaena_guttata,Biomass,Scorpaena guttata,California scorpionfish,Fish,piscivore,Targeted
-Sebastes_rastrelliger,Count,Sebastes rastrelliger,grass rockfish,Fish,piscivore,Targeted
-OY_YOY,Count,OY YOY,OY YOY,Fish,Fish,Fish
-Leiocottus_hirundo,Count,Leiocottus hirundo,lavender sculpin,Fish,carnivore,Non-targeted
-Pleuronichthys_coenosus,Count,Pleuronichthys coenosus,C-O turbot,Fish,carnivore,Targeted
-Cymatogaster_aggregata,Count,Cymatogaster aggregata,shiner surfperch,Fish,carnivore,Non-targeted
-Aulorhynchus_flavidus,Count,Aulorhynchus flavidus,tubesnout,Fish,planktivore,Non-targeted
-Hypsurus_caryi,Count,Hypsurus caryi,rainbow surfperch,Fish,carnivore,Non-targeted
-Plantae,Percent,Plantae,miscellaneous plants (ie: diatoms),Algae,producer,Non-targeted
-Heterodontus_francisci,Count,Heterodontus francisci,horn shark,Fish,carnivore,Non-targeted
-Lythrypnus_dalli,Count,Lythrypnus dalli,blue-banded goby,Fish,planktivore,Non-targeted
-Sebastes_auriculatus_,Count,Sebastes auriculatus,brown rockfish,Fish,piscivore,Targeted
-Haliotis_corrugata,Count,Haliotis corrugata,pink abalone,Invertebrates,herbivore,Targeted
-Lithopoma_gibberosa,Biomass,Lithopoma gibberosa,red turban snail,Invertebrates,herbivore,Targeted
-Misc_Invert,Percent,Misc Invert,Misc Invert,Invertebrates,Category,Category
-Sebastes_melanops,Count,Sebastes melanops,black rockfish,Fish,piscivore,Targeted
-Cottidae,Count,Cottidae,Sculpins,Fish,Category,Category
-Lythrypnus_zebra,Count,Lythrypnus zebra,zebra goby,Fish,carnivore,Non-targeted
-Neoclinus_uninotatus,Count,Neoclinus uninotatus,onespot fringehead,Fish,carnivore,Non-targeted
-Oxyjulis_californica,Biomass,Oxyjulis californica,"senorita, adult",Fish,planktivore,Non-targeted
-Pachythyone_rubra,Percent,Pachythyone rubra,aggregated red sea cucumber,Invertebrates,detritivore,Non-targeted
-Sphyraena_argentea,Count,Sphyraena argentea,california barracuda,Fish,piscivore,Targeted
-Sebastes_saxicola,Count,Sebastes saxicola,Stripetail rockfish,Fish,piscivore,Targeted
-Squatina_californica,Count,Squatina californica,pacific angel shark,Fish,piscivore,Targeted
-Gibbonsia_montereyensis,Count,Gibbonsia montereyensis,kelpfish,Fish,carnivore,Non-targeted
-Trachurus_symmetricus,Count,Trachurus symmetricus,jack mackerel,Fish,planktivore,Non-targeted
-Stereolepis_gigas,Count,Stereolepis gigas,giant sea bass,Fish,piscivore,Non-targeted
-Azurina_hirundo,Count,Azurina hirundo,swallow damsel,Fish,planktivore,Non-targeted
-Pisaster_ochraceus,Count,Pisaster ochraceus,ochre sea star,Invertebrates,carnivore,Non-targeted
-Anisotremus_davidsonii,Count,Anisotremus davidsonii,sargo,Fish,carnivore,Non-targeted
-BG_YOY,Count,BG YOY,BG YOY,Fish,piscivore,Targeted
-Porichthys_notatus,Count,Porichthys notatus,NA,NA,NA,NA
-Phanerodon_furcatus,Count,Phanerodon furcatus,white surfperch,Fish,carnivore,Non-targeted
-Artedius_corallinus,Count,Artedius corallinus,coralline sculpin,Fish,carnivore,Non-targeted
-Hermosilla_azurea,Count,Hermosilla azurea,NA,NA,NA,NA
-Sebastes_dallii,Count,Sebastes dallii,NA,NA,NA,NA
-Atherinops_affinis,Count,Atherinops affinis,topsmelt,Fish,planktivore,Non-targeted
-Gibbonsia,Count,Gibbonsia,kelpfish,Fish,carnivore,Non-targeted
-Embiotocidae,Count,Embiotocidae,NA,NA,NA,NA
-Sebastes_pinniger,Count,Sebastes pinniger,canary rockfish,Fish,piscivore,Targeted
-Haliotis_assimilis,Count,Haliotis assimilis,threaded abalone,Invertebrates,herbivore,Targeted
-Haliotis_sorenseni,Count,Haliotis sorenseni,white abalone,Invertebrates,herbivore,Targeted
-Stylaster_californicus,Count,Stylaster californicus,California hydrocoral,Invertebrates,planktivore,Non-targeted
-Undaria_pinnatifida,Count,Undaria pinnatifida,"wakame, adult",Algae,producer,Non-targeted
-Scomber_japonicus,Count,Scomber japonicus,"pacific mackerel, greenback mackerel",Fish,piscivore,Targeted
-Mola_mola,Count,Mola mola,NA,NA,NA,NA
-Atractoscion_nobilis,Count,Atractoscion nobilis,NA,NA,NA,NA
-Phanerodon_spp.,Count,Phanerodon spp.,NA,NA,NA,NA
-Sebastes_diploproa,Count,Sebastes diploproa,NA,NA,NA,NA
-Apogon_atricaudus,Count,Apogon atricaudus,NA,NA,NA,NA
-Rathbunella_hypoplecta,Count,Rathbunella hypoplecta,smooth ronquil,Fish,carnivore,Non-targeted
-Triakis_semifasciata,Count,Triakis semifasciata,leopard shark,Fish,carnivore,Targeted
-Hyperprosopon_argenteum,Count,Hyperprosopon argenteum,walleye surfperch,Fish,carnivore,Non-targeted
-Neoclinus_blanchardi,Count,Neoclinus blanchardi,NA,NA,NA,NA
-Sarda_chiliensis,Count,Sarda chiliensis,eastern pacific bonito,Fish,piscivore,Targeted
-Platyrhinoidis_triseriata,Count,Platyrhinoidis triseriata,NA,NA,NA,NA
-Gobiesox,Count,Gobiesox,NA,NA,NA,NA
-Notorynchus_cepedianus,Count,Notorynchus cepedianus,NA,NA,NA,NA
-Sebastes_rosaceus,Count,Sebastes rosaceus,NA,NA,NA,NA
-Stichaeidae,Count,Stichaeidae,NA,NA,NA,NA
-Citharichthys,Count,Citharichthys,NA,NA,NA,NA
-Gibbonsia_elegans,Count,Gibbonsia elegans,NA,NA,NA,NA
-Haliotis_fulgens,Count,Haliotis fulgens,green abalone,Invertebrates,herbivore,Targeted
-Paralichthys_californicus,Count,Paralichthys californicus,California halibut,Fish,piscivore,Targeted
-Cephaloscyllium_ventriosum,Count,Cephaloscyllium ventriosum,swell shark,Fish,piscivore,Non-targeted
-larval_fish_spp.,Count,larval fish spp.,NA,NA,NA,NA
-Sardinops_sagax,Count,Sardinops sagax,pacific sardine,Fish,planktivore,Targeted
-Paralabrax_nebulifer,Count,Paralabrax nebulifer,barred sandbass,Fish,carnivore,Targeted
-Phanerodon_atripes,Count,Phanerodon atripes,sharpnose surfperch,Fish,planktivore,Non-targeted
-Cryptochiton_stelleri,Count,Cryptochiton stelleri,gumboot chiton,Invertebrates,herbivore,Non-targeted
-Neoclinus_stephensae,Count,Neoclinus stephensae,yellowfin fringehead,Fish,carnivore,Non-targeted
-baitfish_unidentified,Count,baitfish unidentified,NA,NA,NA,NA
-Myliobatis_californica,Count,Myliobatis californica,bat ray,Fish,carnivore,Non-targeted
-Hexagrammos_decagrammus,Count,Hexagrammos decagrammus,kelp greenling,Fish,carnivore,Targeted
-Galeorhinus_galeus,Count,Galeorhinus galeus,tope shark,Fish,piscivore,Non-targeted
-Neoclinus,Count,Neoclinus,fringehead spp.,Fish,carnivore,Non-targeted
-Artedius_harringtoni,Count,Artedius harringtoni,NA,NA,NA,NA
-Bathymasteridae,Count,Bathymasteridae,NA,NA,NA,NA
-Seriola_lalandi,Count,Seriola lalandi,yellowtail,Fish,piscivore,Targeted
-Sebastes_semicinctus,Count,Sebastes semicinctus,NA,NA,NA,NA
+Scientific_Name,ScientificName,CommonName,Data_Type,Classification,Targeted_Broad
+IslandName,Island Name,Island Name,Categorical,Categorical,Categorical
+SurveyYear,Survey Year,Survey Year,Categorical,Categorical,Categorical
+island_kelpfish,island kelpfish,island kelpfish,Count,Fish,Non-targeted
+Aplysia_californica,Aplysia californica,California brown sea hare,Count,Invertebrates,Non-targeted
+articulated_coralline_algae,articulated coralline algae,articulated coralline algae,Percent Cover,Algae,Non-targeted
+Astrangia_lajollaensis,Astrangia lajollaensis,La Jolla cup coral,Percent Cover,Invertebrates,Non-targeted
+Balanophyllia_elegans,Balanophyllia elegans,orange cup coral,Percent Cover,Invertebrates,Non-targeted
+Bryozoa,Bryozoa,bryozoans,Count,Invertebrates,Non-targeted
+Centrostephanus_coronatus,Centrostephanus coronatus,Coronado urchin,Count,Invertebrates,Non-targeted
+Chlorophyta,Chlorophyta,green algae,Percent Cover,Algae,Non-targeted
+Corynactis_californicus,Corynactis californicus,club-tipped anemone,Percent Cover,Invertebrates,Non-targeted
+blackeye_goby,blackeye goby,blackeye goby,Count,Fish,Non-targeted
+Cryptochiton_stelleri,Cryptochiton stelleri,gumboot chiton,Count,Invertebrates,Non-targeted
+Cypraea_spadicea,Cypraea spadicea,chestnut cowrie,Count,Invertebrates,Non-targeted
+Cystoseira,Cystoseira,bladder chain kelp,Percent Cover,Algae,Non-targeted
+Desmarestia,Desmarestia,acid weed,Percent Cover,Algae,Non-targeted
+Diaperoecia_californica,Diaperoecia californica,Southern staghorn bryozoan,Percent Cover,Invertebrates,Non-targeted
+Diopatra_ornata,Diopatra ornata,ornate tube worm,Percent Cover,Invertebrates,Non-targeted
+Eisenia_arborea,Eisenia arborea,Southern sea palm,Count,Algae,Non-targeted
+encrusting_coralline_algae,encrusting coralline algae,encrusting coralline algae,Percent Cover,Algae,Non-targeted
+Gelidium,Gelidium,agar weed,Percent Cover,Algae,Non-targeted
+Gigartina,Gigartina,sea tongue,Percent Cover,Algae,Non-targeted
+Haliotis_assimilis,Haliotis assimilis,threaded abalone,Count,Invertebrates,Non-targeted
+Haliotis_corrugata,Haliotis corrugata,pink abalone,Count,Invertebrates,Non-targeted
+Haliotis_fulgens,Haliotis fulgens,green abalone,Count,Invertebrates,Non-targeted
+Haliotis_sorenseni,Haliotis sorenseni,white abalone,Count,Invertebrates,Non-targeted
+Laminaria_farlowii,Laminaria farlowii,oar weed,Count,Algae,Non-targeted
+blue_banded_goby,blue banded goby,blue banded goby,Count,Fish,Non-targeted
+Misc_Invert,Misc Invert,Misc Invert,Percent Cover,Misc Invert,Non-targeted
+Ophiothrix_spiculata,Ophiothrix spiculata,spiny brittle star,Percent Cover,Invertebrates,Non-targeted
+Pachythyone_rubra,Pachythyone rubra,aggregated red sea cucumber,Percent Cover,Invertebrates,Non-targeted
+Panulirus_interruptus,Panulirus interruptus,California spiny lobster,Count,Invertebrates,Targeted
+Parastichopus_parvimensis,Parastichopus parvimensis,warty sea cucumber,Count,Invertebrates,Targeted
+Phaeophyta,Phaeophyta,brown algae,Percent Cover,Algae,Non-targeted
+Phragmatopoma_californica,Phragmatopoma californica,colonial sand-tube worm,Percent Cover,Invertebrates,Non-targeted
+Pisaster_ochraceus,Pisaster ochraceus,ochre sea star,Count,Invertebrates,Non-targeted
+Plantae,Plantae,miscellaneous plants,Percent Cover,Algae,Non-targeted
+Porifera,Porifera,sponges,Percent Cover,Invertebrates,Non-targeted
+Pterygophora_californica,Pterygophora californica,California sea palm,Count,Algae,Non-targeted
+Rhodophyta,Rhodophyta,red algae,Percent Cover,Algae,Non-targeted
+Sargassum_horneri,Sargassum horneri,Sargassum horneri,Count,Algae,Non-targeted
+Serpulorbis_squamigerus,Serpulorbis squamigerus,scaled wormsnail,Percent Cover,Invertebrates,Non-targeted
+Styela_montereyensis,Styela montereyensis,stalked tunicate,Count,Invertebrates,Non-targeted
+Stylaster_californicus,Stylaster californicus,California hydrocoral,Count,Invertebrates,Non-targeted
+Tunicata,Tunicata,tunicates,Percent Cover,Invertebrates,Non-targeted
+Urticina_lofotensis,Urticina lofotensis,white-spotted rose anemone,Count,Invertebrates,Non-targeted
+Undaria_pinnatifida,Undaria pinnatifida,"wakame, adult",Count,Algae,Non-targeted
+bat_ray,bat ray,bat ray,Count,Fish,Non-targeted
+brown_rockfish,brown rockfish,brown rockfish,Count,Fish,Targeted
+c_o_turbot,c o turbot,c o turbot,Count,Fish,Targeted
+copper_rockfish,copper rockfish,copper rockfish,Count,Fish,Targeted
+coralline_sculpin,coralline sculpin,coralline sculpin,Count,Fish,Non-targeted
+crevice_kelpfish,crevice kelpfish,crevice kelpfish,Count,Fish,Non-targeted
+fringehead_spp.,fringehead spp.,fringehead spp.,Count,Fish,Non-targeted
+giant_kelpfish,giant kelpfish,giant kelpfish,Count,Fish,Non-targeted
+gopher_rockfish,gopher rockfish,gopher rockfish,Count,Fish,Targeted
+jack_mackerel,jack mackerel,jack mackerel,Count,Fish,Targeted
+kelp_surfperch,kelp surfperch,kelp surfperch,Count,Fish,Non-targeted
+kelpfish_spp.,kelpfish spp.,kelpfish spp.,Count,Fish,Non-targeted
+larval_fish_spp.,larval fish spp.,larval fish spp.,Count,Fish,Non-targeted
+sculpin_spp.,sculpin spp.,sculpin spp.,Count,Fish,Non-targeted
+painted_greenling,painted greenling,painted greenling,Count,Fish,Non-targeted
+rainbow_surfperch,rainbow surfperch,rainbow surfperch,Count,Fish,Targeted
+Rockfish_YOY,Rockfish YOY,Rockfish YOY,Count,Fish,Targeted
+surfperch_spp.,surfperch spp.,surfperch spp.,Count,Fish,Non-targeted
+shiner_surfperch,shiner surfperch,shiner surfperch,Count,Fish,Non-targeted
+soupfin_shark,soupfin shark,soupfin shark,Count,Fish,Targeted
+speckled_sanddab,speckled sanddab,speckled sanddab,Count,Fish,Targeted
+swell_shark,swell shark,swell shark,Count,Fish,Non-targeted
+top_smelt,top smelt,top smelt,Count,Fish,Non-targeted
+tubesnout,tubesnout,tubesnout,Count,Fish,Non-targeted
+zebra_perch,zebra perch,zebra perch,Count,Fish,Non-targeted
+black_rockfish,black rockfish,black rockfish,Count,Fish,Targeted
+bocaccio,bocaccio,bocaccio,Count,Fish,Targeted
+kelp_greenling,kelp greenling,kelp greenling,Count,Fish,Targeted
+prickleback_spp.,prickleback spp.,prickleback spp.,Count,Fish,Non-targeted
+spotted_kelpfish,spotted kelpfish,spotted kelpfish,Count,Fish,Non-targeted
+yellowtail,yellowtail,yellowtail,Count,Fish,Targeted
+barred_sand_bass,barred sand bass,barred sand bass,Count,Fish,Targeted
+California_moray_eel,California moray eel,California moray eel,Count,Fish,Non-targeted
+grass_rockfish,grass rockfish,grass rockfish,Count,Fish,Targeted
+horn_shark,horn shark,horn shark,Count,Fish,Non-targeted
+onespot_fringehead,onespot fringehead,onespot fringehead,Count,Fish,Non-targeted
+Pacific_barracuda,Pacific barracuda,Pacific barracuda,Count,Fish,Targeted
+sargo,sargo,sargo,Count,Fish,Targeted
+thornback_ray,thornback ray,thornback ray,Count,Fish,Non-targeted
+yellowfin_fringehead,yellowfin fringehead,yellowfin fringehead,Count,Fish,Non-targeted
+zebra_goby,zebra goby,zebra goby,Count,Fish,Non-targeted
+baitfish_spp.,baitfish spp.,baitfish spp.,Count,Fish,Targeted
+Pacific_mackerel,Pacific mackerel,Pacific mackerel,Count,Fish,Targeted
+halfbanded_rockfish,halfbanded rockfish,halfbanded rockfish,Count,Fish,Targeted
+white_seabass,white seabass,white seabass,Count,Fish,Targeted
+plain_cardinalfish,plain cardinalfish,plain cardinalfish,Count,Fish,Non-targeted
+giant_black_sea_bass,giant black sea bass,giant black sea bass,Count,Fish,Non-targeted
+leopard_shark,leopard shark,leopard shark,Count,Fish,Targeted
+Pacific_angel_shark,Pacific angel shark,Pacific angel shark,Count,Fish,Targeted
+ronquil_spp.,ronquil spp.,ronquil spp.,Count,Fish,Non-targeted
+California_halibut,California halibut,California halibut,Count,Fish,Targeted
+stripedfin_ronquil,stripedfin ronquil,stripedfin ronquil,Count,Fish,Non-targeted
+swallowtail_damselfish,swallowtail damselfish,swallowtail damselfish,Count,Fish,Non-targeted
+clingfish_spp.,clingfish spp.,clingfish spp.,Count,Fish,Non-targeted
+vermillion_rockfish,vermillion rockfish,vermillion rockfish,Count,Fish,Targeted
+wolf_eel,wolf eel,wolf eel,Count,Fish,Targeted
+broadnose_sevengill_shark,broadnose sevengill shark,broadnose sevengill shark,Count,Fish,Non-targeted
+sanddab_spp.,sanddab spp.,sanddab spp.,Count,Fish,Targeted
+Pacific_bonito,Pacific bonito,Pacific bonito,Count,Fish,Targeted
+plainfin_midshipman,plainfin midshipman,plainfin midshipman,Count,Fish,Non-targeted
+sarcastic_fringehead,sarcastic fringehead,sarcastic fringehead,Count,Fish,Non-targeted
+walleye_surfperch,walleye surfperch,walleye surfperch,Count,Fish,Non-targeted
+ocean_sunfish,ocean sunfish,ocean sunfish,Count,Fish,Non-targeted
+Crassedoma_giganteum,Crassedoma giganteum,rock scallop,Biomass,Invertebrates,Targeted
+Haliotis_rufescens,Haliotis rufescens,red abalone,Biomass,Invertebrates,Targeted
+Kelletia_kelletii,Kelletia kelletii,Kellet's whelk,Biomass,Invertebrates,Targeted
+Lithopoma_gibberosa,Lithopoma gibberosa,red turban snail,Biomass,Invertebrates,Targeted
+Lophogorgia_chilensis,Lophogorgia chilensis,red gorgonian,Biomass,Invertebrates,Non-targeted
+Lytechinus_anamesus,Lytechinus anamesus,white sea urchin,Biomass,Invertebrates,Non-targeted
+Macrocystis_pyrifera,Macrocystis pyrifera,giant kelp,Biomass,Algae,Targeted
+Megastraea_undosa,Megastraea undosa,wavy turban snail,Biomass,Invertebrates,Targeted
+Megathura_crenulata,Megathura crenulata,giant keyhole limpet,Biomass,Invertebrates,Non-targeted
+Muricea_californica,Muricea californica,California golden gorgonian,Biomass,Invertebrates,Non-targeted
+Muricea_fruticosa,Muricea fruticosa,brown gorgonian,Biomass,Invertebrates,Non-targeted
+Patiria_miniata,Patiria miniata,bat star,Biomass,Invertebrates,Non-targeted
+Pisaster_giganteus,Pisaster giganteus,giant-spined sea star,Biomass,Invertebrates,Non-targeted
+Pycnopodia_helianthoides,Pycnopodia helianthoides,sunflower star,Biomass,Invertebrates,Non-targeted
+Strongylocentrotus_franciscanus,Strongylocentrotus franciscanus,red sea urchin,Biomass,Invertebrates,Targeted
+Strongylocentrotus_purpuratus,Strongylocentrotus purpuratus,purple sea urchin,Biomass,Invertebrates,Non-targeted
+Tegula_regina,Tegula regina,queen tegula,Biomass,Invertebrates,Non-targeted
+Tethya_aurantia,Tethya aurantia,orange puffball sponge,Biomass,Invertebrates,Non-targeted
+black_and_yellow_rockfish,black and yellow rockfish,black and yellow rockfish,Biomass,Fish,Targeted
+black_surfperch,black surfperch,black surfperch,Biomass,Fish,Non-targeted
+blacksmith,blacksmith,blacksmith,Biomass,Fish,Non-targeted
+blue_rockfish,blue rockfish,blue rockfish,Biomass,Fish,Targeted
+cabezon,cabezon,cabezon,Biomass,Fish,Targeted
+California_scorpionfish,California scorpionfish,California scorpionfish,Biomass,Fish,Non-targeted
+California_sheephead_female,California sheephead female,California sheephead female,Biomass,Fish,Targeted
+California_sheephead_male,California sheephead male,California sheephead male,Biomass,Fish,Targeted
+garibaldi,garibaldi,garibaldi,Biomass,Fish,Non-targeted
+halfmoon,halfmoon,halfmoon,Biomass,Fish,Non-targeted
+kelp_bass,kelp bass,kelp bass,Biomass,Fish,Targeted
+kelp_rockfish,kelp rockfish,kelp rockfish,Biomass,Fish,Targeted
+lingcod,lingcod,lingcod,Biomass,Fish,Targeted
+ocean_whitefish,ocean whitefish,ocean whitefish,Biomass,Fish,Targeted
+olive_rockfish,olive rockfish,olive rockfish,Biomass,Fish,Targeted
+opaleye,opaleye,opaleye,Biomass,Fish,Non-targeted
+pile_perch,pile perch,pile perch,Biomass,Fish,Targeted
+rock_wrasse_female,rock wrasse female,rock wrasse female,Biomass,Fish,Non-targeted
+rock_wrasse_male,rock wrasse male,rock wrasse male,Biomass,Fish,Non-targeted
+rubberlip_surfperch,rubberlip surfperch,rubberlip surfperch,Biomass,Fish,Non-targeted
+senorita,senorita,senorita,Biomass,Fish,Non-targeted
+striped_surfperch,striped surfperch,striped surfperch,Biomass,Fish,Targeted
+treefish,treefish,treefish,Biomass,Fish,Targeted
+Shannon_Index,Shannon Index,Shannon Index,Index,Calculated Value,Calculated Value
+Simpson_Index,Simpson Index,Simpson Index,Index,Calculated Value,Calculated Value
