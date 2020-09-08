@@ -1,0 +1,13 @@
+---
+output: word_document
+---
+```{r App B Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# Appendix C. KFMP Metadata
+
+`r Site_table` Kelp Forest Monitoring Program sampling sites information.
+```{r Sites, results="asis", fig.width=5}
+knitr::kable(Site_Table)
+```
+

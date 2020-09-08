@@ -1,0 +1,6 @@
+---
+output: word_document
+bibliography: Publications/KFM_Stats.bib
+nocite: '@*'
+---
+# Literature Cited

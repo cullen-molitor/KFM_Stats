@@ -1,0 +1,55 @@
+---
+title: "Channel Islands National Park Kelp Forest Monitoring Program"
+subtitle: "Kelp Forest Community Trend Report 2005-2019"
+output:
+  word_document:
+    toc: yes
+    reference_docx: Meta_Data/template.docx
+knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = encoding,
+  output_dir = "Output_Documents") })
+---
+
+```{r Data and Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+source("01_global.R")
+```
+
+```{r Executive Summary, child="02_Executive_Summary.Rmd", eval=TRUE}
+```
+
+```{r Introduction, child="03_Introduction.Rmd", eval=TRUE}
+```
+
+```{r Methods, child="04_Methods.Rmd", eval=TRUE}
+```
+
+```{r Results, child="05_Results.Rmd", eval=TRUE}
+```
+
+```{r Discussion, child="06_Discussion.Rmd", eval=TRUE}
+```
+
+```{r Literature Cited, child="07_Lit_Cited.Rmd", eval=TRUE}
+```
+
+```{r Appendix A, child="08_Appendix_A.Rmd", eval=TRUE}
+```
+
+```{r Appendix B, child="09_Appendix_B.Rmd", eval=TRUE}
+```
+
+```{r Appendix C, child="10_Appendix_C.Rmd", eval=TRUE}
+```
+
+```{r Appendix D, child="11_Appendix_D.Rmd", eval=TRUE}
+```
+
+```{r Appendix E, child="12_Appendix_E.Rmd", eval=TRUE}
+```
+
+```{r Appendix F, child="13_Appendix_F.Rmd", eval=TRUE}
+```
+
+```{r Appendix g, child="14_Appendix_G.Rmd", eval=TRUE}
+```
+

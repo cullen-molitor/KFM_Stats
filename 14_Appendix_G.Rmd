@@ -1,0 +1,42 @@
+---
+output: word_document
+---
+```{r App F Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# Appendix G. Special areas of interest for further study
+
+The KFMP has collected an extensive and complicated dataset. There are many challenges to working with this data, which greatly limits the speed at which analysis can be conducted. While doing the analysis for this report, it became apparent that there is simply too much data to include everything. This is one of the reasons we choose to make our primary content the 24 SMR reference sites from 2005 to 2019. 
+
+We would like to take this opportunity to point out some of the many special cases and potential areas of further study. These topics are split into two categories, those which can be completed using our current data set, and those which would require outside data, or data that would need to collected to be used as a covariate.
+
+## With KFMP data
+
+Artificial recruitment module (ARM) analysis.
+
+Benthic water temperatures (KFMP data is available for all reference site) and sea surface temperatures for local waters (buoy data).
+
+Kelp canopy coverage (Need to make a table of site coverage estimates)
+
+Species list (2008-2009 not conducted) to provide presence/absence data for those species which are not included as indicators. This could provide further insight into true species richness, and would also be approrpirate for use in studies focused specifically on species diversity in the Park. 
+
+Comparing differences or similiarities in trends between a given species' biomass and density on original 16 data - do we see MPA effects on biomass in a before/after control/impact type analysis? Perhaps urchin species, or other benthic invertebrates - effects of fisheries or/and lobster predation?
+
+## With outside data or with further data collection
+
+ONI lag effect
+
+Detailed bathymetry maps would give better estimates of available habitat and could be used to study effective reserve size. Maps of sufficient detail are limited in near coastal waters and in kelp forests.
+
+General rugosity data
+
+Water flow through kelp forests and in particular in the areas of KFMP sites. Currents could be an important covariate.
+
+Benthic water temperatures (Data is available for all reference site) and sea surface temperatures for local waters.
+
+Lobster sizes for biomass estimates (see US Virgin Islands lobster size protocol and study)
+
+Cucumber sizes (see CDFW data) for biomass estimates
+
+Observer bias study
+

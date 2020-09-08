@@ -1,0 +1,14 @@
+---
+output: word_document
+---
+```{r App D Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Appendix E. Protocol Metadata
+
+`r Protocol_table` Protocol survey area and minimum number of divers.
+```{r Protocols, results="asis", fig.width=7}
+knitr::kable(Protocol_Table)
+```
+

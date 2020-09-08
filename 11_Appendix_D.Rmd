@@ -1,0 +1,14 @@
+---
+output: word_document
+---
+```{r App C Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# Appendix D. Species Metadata
+
+`r Species_table` Regularly monitored species, substrate, and associated monitoring technique(s).
+```{r Species on Protocols, results="asis"}
+knitr::kable(Species_Protocol_Table)
+```
+
+

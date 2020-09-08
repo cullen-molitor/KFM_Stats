@@ -1,0 +1,71 @@
+---
+output: word_document
+---
+```{r App E Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# Appendix F. Length to Weight Conversion Information for Biomass Calculations
+
+Fish length to weight (LW) equation and conversion tables are provided to show how estimated fish sizes are converted into estimated biomasses. The estimated biomasses are later corrected by the  estimated densities and summed to provide a site level biomass estimate per species per site per year. 
+
+The general equation for length to weight conversion is $W=a*L^b$. The equation coefficients vary by species and some require either $cm$ or $mm$, either standard length ($SL$) or total lenght ($TL$), and will output in either $kg$ or $g$. All KFMP fish size data is collected as $TL$ in $cm$. For those equations requiring $SL$ and/or $mm$, conversions are given in `r Fish_LW_full_table` For any equation whose output is $kg$, the output is converted back to $g$. For the equations which require $mm$ the general conversion is $a_{cm}=a_{mm}^b$ (Kramp personal communication).  
+
+`r Fish_LW_Summary_table` Fish length ($cm$) to weight ($g$) summary equations
+```{r Fish Biomass Summary Equations, results="asis"}
+Fish_Biomass_Coversions_Latex %>% 
+  dplyr::select(ScientificName, CommonName, WL_Equation) %>% 
+  knitr::kable()
+```
+
+`r Fish_LW_full_table` Fish length to weight coefficients, conversions, and sources
+```{r Fish Biomass Conversions, results="asis"}
+Fish_Biomass_Coversions_Latex %>% 
+  dplyr::select(ScientificName, CommonName, WL_a, WL_a_conversion, WL_b,
+                WL_L_units_conversion, WL_Equation, WL_Reference, 
+                WL_L_units_conversion_reference)  %>% 
+  knitr::kable()
+```
+
+The following table includes the statistics for our linear models which predict a sites mean biomass for a given species of fish at their respective islands. We used these values to back-fill missing biomass data where count data were available. This includes all of 2005 and 2006 because fish size frequencies was not yet implemented as a protocol, as well as any other values which had a positive count, yet no size data. We chose island groupings rather than site level groupings due to the lack of sufficient data for certain species at certain sites. Island groupings allowed us to get more complete results. There are not many missing values between 2007 and 2019 so bias from such groupings are minimal for those years. All 2005 and 2006 data were filled the same way so any bias should still convey the trend in the biomass estimates.
+
+`r Fish_Regressiom_table` Fish regression table per species and island groupings. Mean biomass ~ mean count  
+```{r Fish regression table, results="asis"}
+knitr::kable(Fish_Regression_Table)
+```
+
+Benthic length to weight (LW) equation and conversion tables are provided to show how invertebrate sizes and stipe densities of *Macrocystis pyrifera* are converted into estimated biomasses. The estimated biomasses are later corrected by the  estimated densities and summed to provide a site level biomass estimate per species per site per year. 
+
+The general equation for length to weight conversion is $W=a*L^b$. The equation coefficients vary by species. Invertebrate equations require size inputs in $mm$ and *M. pyrifera* in stipe density ($SD$). Outputs for invertebrates are given in $g$ and *M. pyrifera* in $kg$. Gorgonian sizes are recorded to the nearest $cm$, while all other species of invertebrates are measured to the nearest $mm$. *M. pyrifera* stipes are counted at 1 m above the holdfast and the stipe counts are divided by the total stipe count for the site, and multiplied by the density and summed to get stipe density. Sea star sizes are measured from the center of the body to the tip of longest ray.
+
+Gorgonian coefficient $a$ must be converted to take an input in $cm$. The conversion is $a_{cm}=a_{mm}^b$. Sea stars require body diameter and so KFMP sizes must be multiplied by to 2 to estimate the body diameter. Giant kelp is output in $kg$ and must be multiplied by 1,000 to convert to $g$. The following table (`r Ben_LW_Summary_table`) has these conversions baked in. `r Ben_LW_full_table` shows the original coefficients, equations, and provides the source.
+
+`r Ben_LW_Summary_table` Benthic length ($mm$) to weight ($g$) summary equations
+```{r Benthic Biomass Summary Equations, results="asis"}
+Benthic_Biomass_Coversions_Latex %>% 
+  dplyr::select(ScientificName, CommonName, LW_Equation) %>% 
+  dplyr::filter(CommonName %in% Benthic_Biomass_Species) %>% 
+  knitr::kable()
+```
+
+`r Ben_LW_full_table` Benthic length to weight coefficients, conversions, and sources
+```{r Benthic Biomass Full, results="asis"}
+Benthic_Biomass_Coversions_Latex %>% 
+  dplyr::filter(CommonName %in% Benthic_Biomass_Species) %>% 
+  dplyr::select(ScientificName, CommonName, Independent_variable,
+                a, b, LW_Equation, r2, p, Source) %>% 
+  knitr::kable()
+```
+
+The following table includes the statistics for our linear models which predict a sites mean biomass for a given species of benthic invertebrates and *M. pyrifera* grouped by reserve status. We used these values to back-fill missing biomass data where count data were available. This includes any values which had a positive count, yet no size data. We chose reserve groupings rather than site level groupings due to the lack of sufficient data for certain species at certain sites. Reserve groupings allowed us to get more complete results. There are not many missing values so bias from such groupings are minimal.
+
+`r Benthic_Regressiom_table`
+```{r Benthic regression table, results="asis"}
+knitr::kable(Benthic_Regression_Table)
+```
+
+The following table includes the statistics for our linear models which predict a sites mean biomass for the three species of gorgonians (that KFMP monitors) grouped by island. We used these values to back-fill missing biomass data where count data were available. This includes any values which had a positive count, yet no size data. We chose island groupings rather than site level groupings due to the lack of sufficient data for certain species at certain sites. Island groupings allowed us to get more complete results. There are not many missing values so bias from such groupings are minimal.
+
+`r Gorgonian_Regressiom_table`
+```{r Gorgonian regression table, results="asis"}
+knitr::kable(Gorgonian_Regression_Table)
+```

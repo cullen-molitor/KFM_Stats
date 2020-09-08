@@ -1,0 +1,35 @@
+---
+output: word_document
+---
+
+```{r Variable Importance Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# Appendix B. Variable Importance Tables
+
+The following table lists the species in descending order based on Mean Decrease in % Accuracy from the Random Forest model.
+
+`r RF_VI_table` Random Forest Variable Importance table.
+```{r RF VI Table, results="asis", fig.width=5}
+RF_VI <- RF_Importance %>% 
+  dplyr::select(ScientificName, CommonName, Data_Type, 
+                Targeted_Broad, MeanDecreaseAccuracy, MeanDecreaseGini) 
+knitr::kable(RF_VI)
+```
+
+`r ISA_table` Summary cross reference table for Indicator Species Analysis.
+```{r Heat Map Summary and Cross Reference Tables}
+heat_table_summary <- heat_map %>% 
+  tidyr::drop_na() %>% 
+  dplyr::group_by(ScientificName, Year) %>%
+  dplyr::mutate(Distribution = n(),
+                Years = "Years") %>%
+  dplyr::ungroup() %>%
+  dplyr::filter(Distribution > 1) %>%
+  dplyr::distinct(ScientificName, Year, Years) %>%
+  dplyr::select(ScientificName, Year, Years) %>%
+  dplyr::arrange(ScientificName, Year, Years)  %>%
+  tidyr::pivot_wider(names_from = Years, values_from = Year, values_fn = list)
+
+knitr::kable(heat_table_summary)
+```

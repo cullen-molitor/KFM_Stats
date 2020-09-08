@@ -12,8 +12,9 @@ $Balanophyllia\text{ }elegans$,orange cup coral,disc diameter,$6 to 13$,$0.006$,
 $Corynactis\text{ }californicus$,club-tipped anemone,percent cover,$5 to 100$,$NA$,$0.284$,$W_{g}=C*0.284$,$0.8$,$<.001$,$24$,$NA$,$NA$,Reed 2016
 $Epiactis\text{ }prolifera$,NA,percent cover,$5 to 75$,$NA$,$0.349$,$W_{g}=C*0.349$,$0.99$,$<.001$,$15$,$NA$,$NA$,Reed 2016
 $Hydractinia\text{ }milleri$,NA,percent cover,$5 to 100$,$NA$,$0.03$,$W_{g}=C*0.03$,$0.93$,$<.001$,$19$,$NA$,$NA$,Reed 2016
-$Lophogorgia\text{ }chilensis$,red gorgonian,colony width,$70 to 410$,$0.018$,$1.529$,$W_{g}=0.018*L^1.529$,$0.71$,$<.001$,$25$,$0.4641$,$1.12$,Reed 2016
-$Muricea\text{ }californica$,California golden gorgonian,colony width,$8 to 327$,$0.002$,$2.001$,$W_{g}=0.002*L^2.001$,$0.68$,$0.003$,$10$,$0.4755$,$1.11$,Reed 2016
+$Lophogorgia\text{ }chilensis$,red gorgonian,colony width,$70 to 410$,$0.018$,$1.529$,$W_{g}=(0.018*10^1.529)*L^1.529$,$0.71$,$<.001$,$25$,$0.4641$,$1.12$,Reed 2016
+$Muricea\text{ }californica$,California golden gorgonian,colony width,$8 to 327$,$0.002$,$2.001$,$W_{g}=(0.002*10^2.001)*L^2.001$,$0.68$,$0.003$,$10$,$0.4755$,$1.11$,Reed 2016
+$Muricea\text{ }fruticosa$,brown gorgonian,colony width,$8 to 327$,$0.002$,$2.001$,$W_{g}=(0.002*10^2.001)*L^2.001$,$0.68$,$0.003$,$10$,$0.4755$,$1.11$,See M. californica
 $Pachycerianthus\text{ }fimbriatus$,NA,disc diameter,$14 to 37$,$0.11$,$1.597$,$W_{g}=0.11*L^1.597$,$0.9$,$<.001$,$15$,$0.132$,$1.01$,Reed 2016
 $Paracyathus\text{ }stearnsii$,NA,percent cover,$5 to 100$,$NA$,$0.545$,$W_{g}=C*0.545$,$0.99$,$<.001$,$28$,$NA$,$NA$,Reed 2016
 $Phyllactis\text{ }spp.$,NA,disc diameter,$6 to 15$,$0.006$,$1.799$,$W_{g}=0.006*L^1.799$,$0.46$,$<.001$,$25$,$0.4115$,$1.1$,Reed 2016

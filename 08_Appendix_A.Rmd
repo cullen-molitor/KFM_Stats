@@ -1,0 +1,415 @@
+---
+output: word_document
+---
+```{r App A Setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Appendix A. Biomass Ratios and additional Species-Specific Biomass plots of Interest
+
+See bootstrapping description in methods. I'm sorry that we didn't make it this far with the state of our draft, but this is something fundamental that will need to be discussed compared to how these have been presented previously. Specifically, standard error allow for eyeball comparison of error bars between groups (ie are two means + ranges significantly different from each other), but NOT whether a mean/range is significantly different from a given number, which requires 95% CIs, and by grouping across multiple years the parametric assumption of independent samples is violated even when converted to log ratios, which artificially inflates the sample size since SE is SD/sqrt(sample size)). Further, since calculating ratios within a year only allows an n=4 (one ratio per island, based off the average biomass inside and outside from each pair of three sites) these result in error bars massively overestimating the range, but bootstrapping the data allows us to non-parametrically estimate the underlying distribution based on resampling individual site biomasses, not averaging averages for each level of reserve status. 
+
+```{r Fish Biomass Ratio 1, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+Booted_Fish_Ratios <- tibble(
+  CommonName = character(), SurveyYear = integer(),
+  Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
+
+Fish_Biomass_Boot <- Fish_Biomass_Long %>%
+  dplyr::group_by(SiteName, IslandName, CommonName, SurveyYear, ReserveStatus) %>% 
+  dplyr::summarise(Mean_Biomass = sum(Mean_Biomass),
+                   ScientificName = ScientificName) %>% 
+  dplyr::mutate(Mean_Biomass = Mean_Biomass + mean(runif(1000, min = .99, max = 1 + 10^-100))) %>%
+  dplyr::ungroup() 
+
+for(y in unique(Fish_Biomass_Boot$SurveyYear)){
+  for(s in unique(Fish_Biomass_Boot$CommonName)){
+    d <- Fish_Biomass_Boot %>%
+      filter(CommonName %in% s, SurveyYear %in% y) 
+    output <- boot::boot(data = d, statistic = boot_ratio, R = 1000)
+    ci_boot <- boot::boot.ci(boot.out = output, conf = 0.95, type = "perc")
+    Booted_Fish_Ratios <- add_row(Booted_Fish_Ratios, CommonName = s, SurveyYear = y, Mean_Ratio = ci_boot$t0, CI_minus = ci_boot$percent[4], CI_plus = ci_boot$percent[5])
+  }
+}
+Fish_Trophic_Levels_Short <- Fish_Trophic_Levels %>%
+  dplyr::filter(CommonName %in% unique(Fish_Biomass_Long$CommonName)) %>% 
+  dplyr::select(ScientificName, CommonName, Broad_Trophic_Level, Targeted) 
+
+Booted_Fish_Ratios <- Booted_Fish_Ratios %>%
+  dplyr::left_join(Fish_Trophic_Levels_Short) %>% 
+  dplyr::arrange(desc(Targeted), Broad_Trophic_Level, CommonName) %>% 
+  dplyr::mutate(Targeted = factor(Targeted),
+                CommonName = factor(CommonName),
+                SurveyYear = factor(SurveyYear))
+i <- 1
+for (name in unique(Booted_Fish_Ratios$CommonName)) {
+  Fish_Ratios <- Booted_Fish_Ratios %>% 
+    dplyr::filter(CommonName == name) 
+  
+  p1  <- ggplot2::ggplot(data = Fish_Ratios,
+                         aes(x = SurveyYear, y = Mean_Ratio, color = Targeted)) +
+    geom_hline(aes(yintercept = 1)) +
+    geom_point(size = 3, stroke = 2, aes(shape = Targeted), fill = "blue") +
+    geom_errorbar(aes(x = SurveyYear, width = .5,
+                      ymin = Mean_Ratio - CI_minus,
+                      ymax = Mean_Ratio + CI_plus)) +
+    scale_color_manual(values = c("Targeted" = "firebrick", "Non-targeted" = "deepskyblue4")) +
+    scale_shape_manual(values = c("Targeted" = 5, "Non-targeted" = 5)) +
+    facet_grid(rows = vars(Targeted), space = "free", scales = "free") +
+    labs(title = paste(name, " (", Fish_Ratios$Broad_Trophic_Level, ")", sep = ""),
+         color = NULL, shape = NULL,
+         x = NULL, y = NULL) +
+    scale_y_continuous(trans = 'log10') +
+    coord_cartesian(ylim = c(NA, max(Fish_Ratios$Mean_Ratio) * 1.2)) +
+    Ratio_theme()
+  
+  unique_plotname <- paste("Fish.Ratio.", i, sep = "")
+  assign(unique_plotname, p1)
+  i <- i + 1
+}
+FR_Plot1 <- ggpubr::ggarrange(
+  Fish.Ratio.1, Fish.Ratio.2, Fish.Ratio.3, Fish.Ratio.4, Fish.Ratio.5, Fish.Ratio.6,
+  ncol = 1, align = "hv")
+FR_Plot2 <- ggpubr::ggarrange(
+  Fish.Ratio.7, Fish.Ratio.8, Fish.Ratio.9, Fish.Ratio.10, Fish.Ratio.11, Fish.Ratio.12,
+  ncol = 1, align = "hv")
+FR_Plot3 <- ggpubr::ggarrange(
+  Fish.Ratio.13, Fish.Ratio.14, Fish.Ratio.15, Fish.Ratio.16, Fish.Ratio.17,
+  ncol = 1, align = "hv")
+FR_Plot4 <- ggpubr::ggarrange(
+  Fish.Ratio.18, Fish.Ratio.19, Fish.Ratio.20, Fish.Ratio.21, Fish.Ratio.22, 
+  ncol = 1, align = "hv")
+
+FR_annotated1 <- ggpubr::annotate_figure(
+  FR_Plot1, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+FR_annotated2 <- ggpubr::annotate_figure(
+  FR_Plot2, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+FR_annotated3 <- ggpubr::annotate_figure(
+  FR_Plot3, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+FR_annotated4 <- ggpubr::annotate_figure(
+  FR_Plot4, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+
+print(FR_annotated1)
+```
+`r FishRatio_fig1` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+```{r Fish Biomass Ratio 2, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+print(FR_annotated2)
+```
+`r FishRatio_fig2` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+```{r Fish Biomass Ratio 3, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+print(FR_annotated3)
+```
+`r FishRatio_fig3` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+```{r Fish Biomass Ratio 4, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+print(FR_annotated4)
+```
+`r FishRatio_fig4` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+
+```{r Benthic Biomass Ratio 1, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+Benthic_Booted_Ratios <- tibble(
+  ScientificName = character(), SurveyYear = integer(), 
+  Mean_Ratio = double(), CI_plus = double(), CI_minus = double())
+
+Benthic_Biomass_Boot <- Benthic_Biomass_Long %>%
+  dplyr::group_by(SiteName, IslandName, ScientificName, ReserveStatus) %>%
+  dplyr::mutate(Mean_Biomass = Mean_Biomass + mean(runif(1000, min = .99, max = 1 + 10^-100)),
+                ScientificName = factor(ScientificName)) %>%
+  dplyr::ungroup()
+
+for(y in 2005:2019){
+  d <- Benthic_Biomass_Boot %>%
+    dplyr::filter(SurveyYear == y) %>%
+    droplevels()
+  for(s in levels(d$ScientificName)){
+    d2 <- d  %>%
+      dplyr::filter(ScientificName == s)
+    output <- boot::boot(data = d2, statistic = boot_ratio, R = 1000)
+    ci_boot <- boot::boot.ci(boot.out = output, conf = 0.95, type = "perc")
+    Benthic_Booted_Ratios <- Benthic_Booted_Ratios %>%
+      add_row(ScientificName = s, SurveyYear = y,
+              Mean_Ratio = ci_boot$t0,
+              CI_minus = ci_boot$percent[4],
+              CI_plus = ci_boot$percent[5])
+  }
+}
+Benthic_Targets <- Species_Info %>% 
+  dplyr::select(ScientificName, Targeted_Broad, Trophic_Broad) %>% 
+  dplyr::filter(ScientificName %in% unique(Benthic_Biomass_Boot$ScientificName)) %>% 
+  dplyr::distinct(ScientificName, .keep_all = TRUE)
+
+Benthic_Booted_Ratios <- Benthic_Booted_Ratios %>%
+  dplyr::left_join(Benthic_Targets) %>% 
+  dplyr::arrange(desc(Targeted_Broad), Trophic_Broad) %>% 
+  dplyr::mutate(Targeted_Broad = factor(Targeted_Broad),
+                SurveyYear = factor(SurveyYear))
+
+i <- 1
+for (name in unique(Benthic_Booted_Ratios$ScientificName)) {
+  Benthic_Ratios <- Benthic_Booted_Ratios %>% 
+    dplyr::filter(ScientificName == name) 
+  
+  p1  <- ggplot2::ggplot(data = Benthic_Ratios,
+                         aes(x = SurveyYear, y = Mean_Ratio, color = Targeted_Broad)) +
+    geom_hline(aes(yintercept = 1)) +
+    geom_point(size = 3, stroke = 2, aes(shape = Targeted_Broad), fill = "blue") +
+    geom_errorbar(aes(x = SurveyYear, width = .5,
+                      ymin = Mean_Ratio - CI_minus,
+                      ymax = Mean_Ratio + CI_plus)) +
+    scale_color_manual(values = c("Targeted" = "firebrick", "Non-targeted" = "deepskyblue4")) +
+    scale_shape_manual(values = c("Targeted" = 5, "Non-targeted" = 5)) +
+    facet_grid(rows = vars(Targeted_Broad), space = "free", scales = "free") +
+    labs(title = paste(name, " (", Benthic_Ratios$Trophic_Broad, ")", sep = ""),
+         color = NULL, shape = NULL,
+         x = NULL, y = NULL) +
+    scale_y_continuous(trans = 'log10') +
+    coord_cartesian(ylim = c(min(Benthic_Ratios$Mean_Ratio) * .5, 
+                             max(Benthic_Ratios$Mean_Ratio) * 1.5)) +
+    Ratio_theme()
+  
+  unique_plotname <- paste("Benthic.Ratio.", i, sep = "")
+  assign(unique_plotname, p1)
+  i <- i + 1
+}
+BR_Plot1 <- ggpubr::ggarrange(
+  Benthic.Ratio.1, Benthic.Ratio.2, Benthic.Ratio.3, Benthic.Ratio.4, Benthic.Ratio.5,
+  ncol = 1, align = "hv")
+BR_Plot2 <- ggpubr::ggarrange(
+  Benthic.Ratio.6, Benthic.Ratio.7, Benthic.Ratio.8, Benthic.Ratio.9, Benthic.Ratio.10,
+  ncol = 1, align = "hv")
+BR_Plot3 <- ggpubr::ggarrange(
+  Benthic.Ratio.11, Benthic.Ratio.12, Benthic.Ratio.13, Benthic.Ratio.14, Benthic.Ratio.15, 
+  ncol = 1, align = "hv")
+
+BR_annotated1 <- ggpubr::annotate_figure(
+  BR_Plot1, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+BR_annotated2 <- ggpubr::annotate_figure(
+  BR_Plot2, 
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+BR_annotated3 <- ggpubr::annotate_figure(
+  BR_Plot3,
+  left = ggpubr::text_grob(
+    "Biomass Ratio",
+    color = "black", size = 18, vjust = 1, hjust = .5, x = 0, rot = 90))
+
+print(BR_annotated1)
+```
+`r BenRatio_fig1` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
+```{r Benthic Biomass Ratio 2, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+print(BR_annotated2)
+```
+`r BenRatio_fig2` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
+```{r Benthic Biomass Ratio 3, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
+print(BR_annotated3)
+```
+`r BenRatio_fig3` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
+
+While Pisaster giganteus was not one of the major species identified by ISA, the trends shown for this species are certainly relevant for researchers documenting the effects of Sea Star Wasting Disease (SSWD), and are included below.
+### *Pisaster giganteus* Biomass
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=`r pisgig_MPA_p_val`), Island (P=`r pychel_Isl_p_val`), their interaction (P=`r pisgig_MPA_Isl_p_val`), and ONI (P=`r pisgig_ONI_p_val`; `r Pis_table`). Similar to other sea star species, Pisaster giganteus populations, which were previously largest outside MPAs (`r Pis_fig` top) and at Santa Cruz Island (`r Pis_fig` middle), crashed to minimal or absent populations during the 2013-2015 El Niño event.
+
+`r Pis_table` GLMM Results
+```{r Pisaster giganteus Biomass Summary Tables (GLMM), results = 'asis'}
+knitr::kable(pisgig, caption= "Model Formula: Red Urchin Biomass = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Pisaster giganteus Biomass Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
+p16 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Pisaster_giganteus, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p17 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Pisaster_giganteus, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', 
+                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p18 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Pisaster_giganteus, color = IslandName, 
+                           linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Niño Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+Pisgig_Biomass_Plot <- ggarrange(p16, p17, p18, ncol = 1, align = "v")
+Pisgig_Biomass_annotated <- ggpubr::annotate_figure(
+  Pisgig_Biomass_Plot,
+  left = text_grob(paste("Pisaster giganteus Biomass (g/m²)"),
+                   color = "black", rot = 90, size = 12))
+print(Pisgig_Biomass_annotated)
+``` 
+`r Pis_fig` Pisaster giganteus (giant-spined star) biomass by reserve status across all reference sites (Top), biomass by island across all reference sites (Middle), and biomass by island and reserve status across all reference sites (Bottom); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+
+### *Centrostephanus coronatus* Density
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=`r cencor_MPA_p_val`), Island (P=`r cencor_Isl_p_val`), their interaction (P=`r cencor_MPA_Isl_p_val`), and with ONI (P=`r cencor_ONI_p_val`; `r Centro_table`). ... trends over time (`r Centro_fig`). More text will go here
+
+`r Centro_table` GLMM Results
+```{r Centrostephanus_coronatus Densities Summary Tables (GLMM), results = 'asis'}
+knitr::kable(cencor, caption= "Model Formula: Coronado urchin density = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Centrostephanus_coronatus Density Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
+p28 <- ggplot2::ggplot(Benthic_Densities_Wide, 
+                       aes(x = Date, y = Centrostephanus_coronatus, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p29 <- ggplot2::ggplot(Benthic_Densities_Wide,
+                       aes(x = Date, y = Centrostephanus_coronatus, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', 
+                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p30 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Densities_Wide, 
+                       aes(x = Date, y = Centrostephanus_coronatus, color = IslandName, 
+                           linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Niño Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+cencor_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+cencor_Density_annotated <- ggpubr::annotate_figure(
+  cencor_Density_Plot,
+  left = text_grob(paste("Centrostephanus coronatus density (#/m²)"), 
+                   color = "black", rot = 90, size = 12))
+print(cencor_Density_annotated)
+``` 
+`r Centro_fig` *Centrostephanus coronatus* (Coronado urchin) density by reserve status across all reference sites (A), by island across all reference sites (B), and by island and reserve status across all reference sites (C); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+
+
+### *Haliotis rufescens* Biomass
+
+Our generalized linear mixed model indicated significant effects of MPA status (P=`r halruf_MPA_p_val`), Island (P=`r halruf_Isl_p_val`), and their interaction (P=`r halruf_MPA_Isl_p_val`), but not ONI (`r Abs_table`). In the MPA reference dataset, Haliotis rufescens only occurred at Santa Rosa Island (however, they are also present at San Miguel Island), and populations were larger inside MPAs (`r Abs_fig` bottom). Concurrent with the 2013-15 El Niño event, Haliotis rufescens populations have declined, and a population is maintained inside MPAs at Santa Rosa Island.
+
+`r Abs_table` GLMM Results
+```{r Haliotis rufescens Biomass Summary Tables (GLMM), results = 'asis'}
+knitr::kable(halruf, caption= "Model Formula: Red abalone Biomass = Reserve Status * Island + ONI + (1 | Survey Year)")
+```
+
+```{r Haliotis rufescens Biomass Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
+p25 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Haliotis_rufescens, linetype= ReserveStatus)) +
+  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
+  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                linetype = "Reserve Status",
+                color = "Reserve Status") +
+  timeseries_top_theme()
+
+p26 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Haliotis_rufescens, color = IslandName)) +
+  ggplot2::stat_smooth(geom='ribbon', 
+                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
+  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::labs(x = NULL, y = NULL,
+                color = "Island") +
+  timeseries_top_theme()
+
+p27 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = Benthic_Biomass_Wide, 
+                       aes(x = Date, y = Haliotis_rufescens, color = IslandName, 
+                           linetype = ReserveStatus), se=FALSE) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  geom_hline(aes(yintercept=0)) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  ggplot2::labs(x = "Survey Year", y = NULL,
+                color = "Island",
+                fill = "Oceanic Niño Index",
+                linetype = "Reserve Status") +
+  timeseries_bottom_theme()
+Halruf_Biomass_Plot <- ggarrange(p25, p26, p27, ncol = 1, align = "v")
+Halruf_Biomass_annotated <- ggpubr::annotate_figure(
+  Halruf_Biomass_Plot,
+  left = text_grob(paste("Haliotis rufescens Biomass (g/m²)"),
+                   color = "black", rot = 90, size = 12))
+print(Halruf_Biomass_annotated)
+``` 
+`r Abs_fig` Haliotis rufescens (red abalone) biomass by reserve status across all reference sites (A), biomass by island across all reference sites (B), and FSC by island and reserve status across all reference sites (C); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+
