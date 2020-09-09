@@ -241,7 +241,7 @@ source("global_markdown.R")
 }
 
 { # VFT Data for Original 16 Fish  -----
-  Original_16_Fish_Data <- data.table::fread(
+  Original_16_VFT_Data <- data.table::fread(
     glue("Raw_DB_Files_SAVE_HERE/KFM_VisualFishTransect_RawData_1985-{Export_END_Year}.txt")) %>% 
     dplyr::mutate(CommonName = gsub('ñ', 'n', CommonName)) %>%
     dplyr::left_join(siteInfo1) %>%
@@ -259,13 +259,31 @@ source("global_markdown.R")
     tidyr::pivot_longer(cols = c(T1, T2), values_to = "Count", names_to = "Transect_Number") %>%
     dplyr::ungroup() %>% 
     dplyr::filter(SiteNumber %in% 1:16) %>%
-    dplyr::group_by(IslandCode, IslandName, SiteCode, SiteName, ScientificName,
+    dplyr::mutate(
+      CommonName = factor(CommonName),
+      CommonName = forcats::fct_collapse(
+        CommonName, 
+        "blacksmith" = c("blacksmith, adult", "blacksmith, juvenile"),
+        "senorita" = c("senorita, adult", "senorita, juvenile"),
+        "blue rockfish" = c("blue rockfish, adult", "blue rockfish, juvenile"),
+        "olive rockfish" = c("olive rockfish, adult", "olive rockfish, juvenile"),
+        "kelp rockfish" = c("kelp rockfish, adult", "kelp rockfish, juvenile"),
+        "kelp bass" = c("kelp bass, adult", "kelp bass, juvenile"),
+        "California sheephead, female" = c("California sheephead, female", "California sheephead, juvenile"),
+        "black surfperch" = c("black surfperch, adult", "black surfperch, juvenile"),
+        "striped surfperch" = c("striped surfperch, adult", "striped surfperch, juvenile"),
+        "pile perch" = c("pile perch, adult", "pile perch, juvenile"),
+        "garibaldi" = c("garibaldi, adult", "garibaldi, subadult", "garibaldi, juvenile"),
+        "opaleye" = c("opaleye, adult", "opaleye, juvenile"))) %>% 
+    dplyr::group_by(IslandCode, IslandName, SiteCode, SiteName, CommonName,
                     SurveyYear, ReserveStatus, Reference, ReserveYear) %>%
     dplyr::summarise(Mean_Density = round(sum(Count, na.rm = TRUE) / 600, 4)) %>% 
     dplyr::ungroup() %>%  
-    dplyr::distinct(IslandCode, IslandName, SiteCode, SiteName, ScientificName,
+    dplyr::distinct(IslandCode, IslandName, SiteCode, SiteName, CommonName,
                     SurveyYear, Mean_Density, ReserveStatus, ReserveYear) %>%
     readr::write_csv("Tidy_Data_Dont_Touch/Original_16_Fish_Counts.csv") 
+    
+    levels(Original_16_VFT_Data$CommonName)
 }
 
 { # RPC % Cover Table for Diversity  ----
@@ -328,6 +346,47 @@ source("global_markdown.R")
   
   # dplyr::filter(ScientificName %in% c("Rock", "Cobble", "Sand") %>% 
   # readr::write_csv("Meta_Data/RPC_Substrate.csv")
+}
+
+{ # RPC % Cover Table for Diversity  ----
+  Original_16_rpcs_Data <- readr::read_csv(
+    glue("Raw_DB_Files_SAVE_HERE/KFM_RandomPointContact_RawData_1982-{Export_END_Year}.txt"), 
+    col_types = cols(CountA = col_number(), CountB = col_number(), CountC = col_number(), CountD = col_number())) %>%
+    dplyr::filter(SiteNumber %in% 1:16,
+                  ScientificName != "Macrocystis, Pterygophora, and Eisenia combined",
+                  ScientificName != "Leucetta losangelensis",
+                  ScientificName != "Hydrozoa",
+                  ScientificName != "Balanus",
+                  ScientificName != "Sargassum muticum",
+                  ScientificName != "Polymastia pachymastia",
+                  ScientificName != "Spirobranchus spinosus") %>%
+    dplyr::mutate(
+      ScientificName = dplyr::case_when(
+        CommonName == "encrusting coralline algae" ~ "encrusting coralline algae",
+        CommonName == "articulated coralline algae" ~ "articulated coralline algae",
+        TRUE ~ ScientificName)) %>% 
+    dplyr::left_join(siteInfo1) %>%
+    tidyr::pivot_longer(cols = c(CountA, CountB, CountC, CountD), values_to = "Count") %>% 
+    dplyr::filter(!is.na(Count), !is.na(CommonName)) %>% 
+    dplyr::group_by(SiteNumber, IslandCode, IslandName, SiteCode, SiteName, Species, ScientificName,
+                    CommonName, SurveyYear, ReserveStatus, ReserveYear) %>%
+    dplyr::summarise(
+      Area_Surveyed = 
+        ifelse(SurveyYear == 1982, 5, 
+               ifelse(SurveyYear == 1983, 4,
+                      ifelse(SurveyYear == 1984, 5,
+                             ifelse(SurveyYear > 1984 & SurveyYear <= 1995, 10, 6)))),
+      Total_Count = sum(Count),
+      Percent_Cover = 
+        ifelse(SurveyYear == 1982, round((Total_Count / Area_Surveyed), 4), 
+               ifelse(SurveyYear == 1983, round((Total_Count / Area_Surveyed), 4),
+                      ifelse(SurveyYear == 1984, round((Total_Count / Area_Surveyed), 4),
+                             ifelse(SurveyYear > 1984 & SurveyYear <= 1995, round((Total_Count / Area_Surveyed), 4), 
+                                    round((Total_Count / Area_Surveyed), 4)))))) %>% 
+    dplyr::ungroup() %>%  
+    dplyr::distinct(SiteCode, ScientificName, CommonName, SurveyYear, Percent_Cover, .keep_all = TRUE)  %>%
+    readr::write_csv("Tidy_Data_Dont_Touch/Original_16_Percent_Cover.csv")
+  
 }
 
 { # Benthic Biomass Tables (Wide for models, Long for plots)   ----

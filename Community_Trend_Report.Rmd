@@ -9,9 +9,11 @@ knit: (function(inputFile, encoding) { rmarkdown::render(inputFile, encoding = e
   output_dir = "Output_Documents") })
 ---
 
-```{r Data and Setup, include=FALSE}
+```{r Setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-source("01_global.R")
+```
+
+```{r Global, child="01_global.Rmd", eval=TRUE}
 ```
 
 ```{r Executive Summary, child="02_Executive_Summary.Rmd", eval=TRUE}
@@ -50,6 +52,6 @@ source("01_global.R")
 ```{r Appendix F, child="13_Appendix_F.Rmd", eval=TRUE}
 ```
 
-```{r Appendix g, child="14_Appendix_G.Rmd", eval=TRUE}
+```{r Appendix G, child="14_Appendix_G.Rmd", eval=TRUE}
 ```
 

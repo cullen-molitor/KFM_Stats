@@ -102,18 +102,25 @@ FR_annotated4 <- ggpubr::annotate_figure(
 
 print(FR_annotated1)
 ```
+
 `r FishRatio_fig1` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+
 ```{r Fish Biomass Ratio 2, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
 print(FR_annotated2)
 ```
+
 `r FishRatio_fig2` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+
 ```{r Fish Biomass Ratio 3, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
 print(FR_annotated3)
 ```
+
 `r FishRatio_fig3` Fish biomass ratios (inside/outside) across all MPA refrence sites.
+
 ```{r Fish Biomass Ratio 4, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
 print(FR_annotated4)
 ```
+
 `r FishRatio_fig4` Fish biomass ratios (inside/outside) across all MPA refrence sites.
 
 ```{r Benthic Biomass Ratio 1, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
@@ -209,33 +216,37 @@ BR_annotated3 <- ggpubr::annotate_figure(
 
 print(BR_annotated1)
 ```
+
 `r BenRatio_fig1` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
+
 ```{r Benthic Biomass Ratio 2, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
 print(BR_annotated2)
 ```
+
 `r BenRatio_fig2` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
+
 ```{r Benthic Biomass Ratio 3, warning=FALSE, message=FALSE, fig.height=11, fig.width=8.5}
 print(BR_annotated3)
 ```
-`r BenRatio_fig3` Benthic biomass ratios (inside/outside) across all MPA refrence sites.
 
-While Pisaster giganteus was not one of the major species identified by ISA, the trends shown for this species are certainly relevant for researchers documenting the effects of Sea Star Wasting Disease (SSWD), and are included below.
+`r BenRatio_fig3` Benthic biomass ratios (inside/outside) across all MPA reference sites.
+
+While *Pisaster giganteus* was not one of the major species identified by ISA, the trends shown for this species are certainly relevant for researchers documenting the effects of Sea Star Wasting Disease (SSWD), and are included below.
 ### *Pisaster giganteus* Biomass
 
 Our generalized linear mixed model indicated significant effects of MPA status (P=`r pisgig_MPA_p_val`), Island (P=`r pychel_Isl_p_val`), their interaction (P=`r pisgig_MPA_Isl_p_val`), and ONI (P=`r pisgig_ONI_p_val`; `r Pis_table`). Similar to other sea star species, Pisaster giganteus populations, which were previously largest outside MPAs (`r Pis_fig` top) and at Santa Cruz Island (`r Pis_fig` middle), crashed to minimal or absent populations during the 2013-2015 El Niño event.
 
 `r Pis_table` GLMM Results
 ```{r Pisaster giganteus Biomass Summary Tables (GLMM), results = 'asis'}
-knitr::kable(pisgig, caption= "Model Formula: Red Urchin Biomass = Reserve Status * Island + ONI + (1 | Survey Year)")
+knitr::kable(pisgig, caption= "*Pisaster giganteus* GLMM results.")
 ```
 
 ```{r Pisaster giganteus Biomass Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
 p16 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
                        aes(x = Date, y = Pisaster_giganteus, linetype= ReserveStatus)) +
-  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
-  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::geom_smooth(size = 1, aes(color = ReserveStatus)) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 linetype = "Reserve Status",
@@ -244,11 +255,9 @@ p16 <- ggplot2::ggplot(Benthic_Biomass_Wide,
 
 p17 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
                        aes(x = Date, y = Pisaster_giganteus, color = IslandName)) +
-  ggplot2::stat_smooth(geom='ribbon', 
-                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
-  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::geom_smooth(size = 1) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 color = "Island") +
@@ -264,7 +273,8 @@ p18 <- ggplot2::ggplot() +
                        aes(x = Date, y = Pisaster_giganteus, color = IslandName, 
                            linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), 
@@ -281,8 +291,61 @@ Pisgig_Biomass_annotated <- ggpubr::annotate_figure(
                    color = "black", rot = 90, size = 12))
 print(Pisgig_Biomass_annotated)
 ``` 
-`r Pis_fig` Pisaster giganteus (giant-spined star) biomass by reserve status across all reference sites (Top), biomass by island across all reference sites (Middle), and biomass by island and reserve status across all reference sites (Bottom); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
 
+`r Pis_fig` *Pisaster giganteus* (giant-spined star) biomass by reserve status across all reference sites (Top), biomass by island across all reference sites (Middle), and biomass by island and reserve status across all reference sites (Bottom); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+```{r Pisaster giganteus original 16 sites, warning=FALSE, message=FALSE, fig.height=6, fig.width=10}
+pisaster <- Original_16_Biomass_Data %>% 
+  dplyr::filter(ScientificName == "Pisaster giganteus") %>%
+  dplyr::mutate(IslandName = gsub(" Island", "", IslandName)) %>%
+  dplyr::mutate(IslandName = factor(IslandName, levels= IslandLevels)) %>%
+  dplyr::mutate(Date = base::as.Date(base::ISOdate(SurveyYear, 1, 1)))
+
+p1 <- ggplot(pisaster, aes(x = Date, y = Mean_Biomass, color = ReserveYear, linetype = ReserveYear)) + 
+  geom_smooth(size = 1) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_label(aes(x = as.Date("2003-01-01"), y = Inf, vjust = 1,
+                 hjust = 1, label = "New MPAs Created"), color = "black") +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1)),
+                              limits = c(0, NA), oob = squish) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Reserve Year", linetype = "Reserve Year",
+       x = NULL, y = NULL) +
+  Original_16_top_theme()
+
+p2 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Orig16_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = pisaster, size = 1,
+              aes(x = Date, y = Mean_Biomass, color = IslandName)) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_hline(aes(yintercept = 0)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0),
+                        limits = c(base::as.Date("1983-01-01"), NA)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Island",
+       x = "Survey Year", y = NULL,
+       fill = "Oceanic Niño Index") +
+  Original_16_bottom_theme()
+
+pisaster_Orig16_Plot <- ggarrange(p1, p2, ncol = 1, align = "v", heights = c(.8, 1))
+pisaster_Orig16_annotated <- ggpubr::annotate_figure(
+  pisaster_Orig16_Plot,
+  left = text_grob("Pisaster giganteus biomass (g/m²)", 
+                   color = "black", rot = 90, size = 12))
+print(pisaster_Orig16_annotated)
+```
+
+`r Pis_fig2`
 
 ### *Centrostephanus coronatus* Density
 
@@ -294,31 +357,28 @@ knitr::kable(cencor, caption= "Model Formula: Coronado urchin density = Reserve 
 ```
 
 ```{r Centrostephanus_coronatus Density Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
-p28 <- ggplot2::ggplot(Benthic_Densities_Wide, 
+p1 <- ggplot2::ggplot(Benthic_Densities_Wide, 
                        aes(x = Date, y = Centrostephanus_coronatus, linetype= ReserveStatus)) +
-  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
-  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::geom_smooth(size = 1, aes(color = ReserveStatus)) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 linetype = "Reserve Status",
                 color = "Reserve Status") +
   timeseries_top_theme()
 
-p29 <- ggplot2::ggplot(Benthic_Densities_Wide,
+p2 <- ggplot2::ggplot(Benthic_Densities_Wide,
                        aes(x = Date, y = Centrostephanus_coronatus, color = IslandName)) +
-  ggplot2::stat_smooth(geom='ribbon', 
-                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
-  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::geom_smooth(size = 1) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 color = "Island") +
   timeseries_top_theme()
 
-p30 <- ggplot2::ggplot() +
+p3 <- ggplot2::ggplot() +
   geom_rect(data = SST_Anomaly_Index, 
             aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
   scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
@@ -328,7 +388,8 @@ p30 <- ggplot2::ggplot() +
                        aes(x = Date, y = Centrostephanus_coronatus, color = IslandName, 
                            linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), 
@@ -338,16 +399,66 @@ p30 <- ggplot2::ggplot() +
                 fill = "Oceanic Niño Index",
                 linetype = "Reserve Status") +
   timeseries_bottom_theme()
-cencor_Density_Plot <- ggarrange(p28, p29, p30, ncol = 1, align = "v")
+cencor_Density_Plot <- ggarrange(p1, p2, p3, ncol = 1, align = "v")
 cencor_Density_annotated <- ggpubr::annotate_figure(
   cencor_Density_Plot,
   left = text_grob(paste("Centrostephanus coronatus density (#/m²)"), 
                    color = "black", rot = 90, size = 12))
 print(cencor_Density_annotated)
 ``` 
+
 `r Centro_fig` *Centrostephanus coronatus* (Coronado urchin) density by reserve status across all reference sites (A), by island across all reference sites (B), and by island and reserve status across all reference sites (C); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
 
+```{r Centrostephanus coronatus original 16 sites, warning=FALSE, message=FALSE, fig.height=6, fig.width=10}
+coronado <- Original_16_Density_Data %>% 
+  dplyr::filter(ScientificName == "Centrostephanus coronatus") %>%
+  dplyr::mutate(IslandName = gsub(" Island", "", IslandName)) %>%
+  dplyr::mutate(IslandName = factor(IslandName, levels= IslandLevels)) %>%
+  dplyr::mutate(Date = base::as.Date(base::ISOdate(SurveyYear, 1, 1)))
 
+p1 <- ggplot(coronado, aes(x = Date, y = Mean_Density, color = ReserveYear, linetype = ReserveYear)) + 
+  geom_smooth(size = 1) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_label(aes(x = as.Date("2003-01-01"), y = Inf, vjust = 1,
+                 hjust = 1, label = "New MPAs Created"), color = "black") +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1)),
+                              limits = c(0, NA), oob = squish) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Reserve Year", linetype = "Reserve Year",
+       x = NULL, y = NULL) +
+  Original_16_top_theme()
+
+p2 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Orig16_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = coronado, size = 1,
+              aes(x = Date, y = Mean_Density, color = IslandName)) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_hline(aes(yintercept = 0)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0),
+                        limits = c(base::as.Date("1996-01-01"), NA)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Island",
+       x = "Survey Year", y = NULL,
+       fill = "Oceanic Niño Index") +
+  Original_16_bottom_theme()
+
+coronado_Orig16_Plot <- ggarrange(p1, p2, ncol = 1, align = "v", heights = c(.8, 1))
+coronado_Orig16_annotated <- ggpubr::annotate_figure(
+  coronado_Orig16_Plot,
+  left = text_grob("Centrostephanus coronatus Density (#/m²)", 
+                   color = "black", rot = 90, size = 12))
+print(coronado_Orig16_annotated)
+```
 
 ### *Haliotis rufescens* Biomass
 
@@ -361,10 +472,9 @@ knitr::kable(halruf, caption= "Model Formula: Red abalone Biomass = Reserve Stat
 ```{r Haliotis rufescens Biomass Plots, warning=FALSE, message=FALSE, fig.height=8.5, fig.width=7.5}
 p25 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
                        aes(x = Date, y = Haliotis_rufescens, linetype= ReserveStatus)) +
-  ggplot2::stat_smooth(geom='ribbon', aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2) +
-  ggplot2::geom_smooth(se = FALSE, aes(color = ReserveStatus)) +
+  ggplot2::geom_smooth(size = 1, aes(color = ReserveStatus)) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 linetype = "Reserve Status",
@@ -373,11 +483,9 @@ p25 <- ggplot2::ggplot(Benthic_Biomass_Wide,
 
 p26 <- ggplot2::ggplot(Benthic_Biomass_Wide, 
                        aes(x = Date, y = Haliotis_rufescens, color = IslandName)) +
-  ggplot2::stat_smooth(geom='ribbon', 
-                       aes(ymin = ifelse(..ymin.. <0, 0, ..ymin..)), alpha = .2, linetype=0) +
-  ggplot2::geom_smooth(se = FALSE) +
+  ggplot2::geom_smooth(size = 1) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0)) +
+  ggplot2::scale_y_continuous(limits= c(0,NA), expand= c(0,0), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   ggplot2::labs(x = NULL, y = NULL,
                 color = "Island") +
@@ -393,7 +501,8 @@ p27 <- ggplot2::ggplot() +
                        aes(x = Date, y = Haliotis_rufescens, color = IslandName, 
                            linetype = ReserveStatus), se=FALSE) +
   ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0,0)) +
-  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0))) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
   ggplot2::scale_colour_manual(values = Island_Colors) +
   geom_hline(aes(yintercept=0)) +
   ggplot2::guides(color = guide_legend(order = 1), 
@@ -410,6 +519,58 @@ Halruf_Biomass_annotated <- ggpubr::annotate_figure(
                    color = "black", rot = 90, size = 12))
 print(Halruf_Biomass_annotated)
 ``` 
-`r Abs_fig` Haliotis rufescens (red abalone) biomass by reserve status across all reference sites (A), biomass by island across all reference sites (B), and FSC by island and reserve status across all reference sites (C); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+`r Abs_fig` *Haliotis rufescens* (red abalone) biomass by reserve status across all reference sites (A), biomass by island across all reference sites (B), and FSC by island and reserve status across all reference sites (C); gray intervals indicate 95% confidence ranges with LOESS smoothing. Oceanic Niño Index (ONI) is a measure of ENSO strength, in units of °C.
+
+```{r Haliotis rufescens original 16 sites, warning=FALSE, message=FALSE, fig.height=6, fig.width=10}
+redabs <- Original_16_Biomass_Data %>% 
+  dplyr::filter(ScientificName == "Haliotis rufescens") %>%
+  dplyr::mutate(IslandName = gsub(" Island", "", IslandName)) %>%
+  dplyr::mutate(IslandName = factor(IslandName, levels= IslandLevels)) %>%
+  dplyr::mutate(Date = base::as.Date(base::ISOdate(SurveyYear, 1, 1)))
+
+p1 <- ggplot(redabs, aes(x = Date, y = Mean_Biomass, color = ReserveYear, linetype = ReserveYear)) + 
+  geom_smooth(size = 1) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_label(aes(x = as.Date("2003-01-01"), y = Inf, vjust = 1,
+                 hjust = 1, label = "New MPAs Created"), color = "black") +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .1)),
+                              limits = c(0, NA), oob = squish) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Reserve Year", linetype = "Reserve Year",
+       x = NULL, y = NULL) +
+  Original_16_top_theme()
+
+p2 <- ggplot2::ggplot() +
+  geom_rect(data = SST_Anomaly_Orig16_Index, 
+            aes(xmin = DateStart, xmax = DateEnd, ymin = -Inf, ymax = 0, fill = ONI_ANOM)) +
+  scale_fill_gradient2(high = "darkred", mid = "white", low = "navyblue", midpoint = 0,
+                       guide = guide_colorbar(direction = "horizontal", title.position = "top",
+                                              order = 3, barheight = unit(.2, "cm"))) +
+  ggplot2::geom_smooth(data = redabs, size = 1,
+              aes(x = Date, y = Mean_Biomass, color = IslandName)) +
+  geom_vline(aes(xintercept = as.Date("2003-01-01")), size = 1) +
+  geom_hline(aes(yintercept = 0)) +
+  ggplot2::scale_x_date(date_labels = "%Y", date_breaks = "year", expand = c(0, 0),
+                        limits = c(base::as.Date("1983-01-01"), NA)) +
+  ggplot2::scale_y_continuous(expand = expansion(mult = c(.1, 0)),
+                              limits = c(0, NA), oob = squish) +
+  ggplot2::scale_colour_manual(values = Island_Colors) +
+  ggplot2::guides(color = guide_legend(order = 1), 
+                  linetype = guide_legend(order = 2, override.aes = list(col = 'black'))) +
+  labs(title = NULL, subtitle = NULL,
+       color = "Island",
+       x = "Survey Year", y = NULL,
+       fill = "Oceanic Niño Index") +
+  Original_16_bottom_theme()
+
+redabs_Orig16_Plot <- ggarrange(p1, p2, ncol = 1, align = "v", heights = c(.8, 1))
+redabs_Orig16_annotated <- ggpubr::annotate_figure(
+  redabs_Orig16_Plot,
+  left = text_grob("Haliotis rufescens biomass (g/m²)", 
+                   color = "black", rot = 90, size = 12))
+print(redabs_Orig16_annotated)
+```
 
 
